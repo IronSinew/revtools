@@ -1,0 +1,3 @@
+.p-overlay-mask {
+    @apply !bg-gray-primary/20 dark:!bg-black/50;
+}

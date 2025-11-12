@@ -1,0 +1,30 @@
+.p-textarea {
+    @apply appearance-none rounded-md
+        border border-border-secondary
+        enabled:hover:border-border-secondary/80
+        enabled:focus:border-border-secondary
+        bg-surface-0 dark:bg-surface-950
+        text-surface-700 dark:text-surface-0
+        disabled:bg-surface-200 disabled:text-surface-500 dark:disabled:bg-surface-700 dark:disabled:text-surface-400
+        placeholder:text-surface-500 dark:placeholder:text-surface-400
+        px-3 py-2
+        transition-colors duration-200
+        /* shadow-[0_1px_2px_0_rgba(18,18,23,0.05)] */
+        outline-none;
+}
+
+.p-textarea.p-invalid {
+    @apply border-red-400 dark:border-red-300;
+}
+
+.p-textarea.p-variant-filled {
+    @apply bg-surface-50 dark:bg-surface-800;
+}
+
+.p-textarea-fluid {
+    @apply w-full;
+}
+
+.p-textarea-resizable {
+    @apply overflow-hidden resize-none;
+}

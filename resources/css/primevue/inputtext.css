@@ -1,0 +1,39 @@
+.p-inputtext {
+    @apply appearance-none rounded-md
+        border border-border-secondary
+        enabled:hover:border-border-secondary/80
+        enabled:focus:border-border-secondary
+        bg-surface-0 dark:bg-surface-950
+        text-surface-700 dark:text-surface-0
+        disabled:bg-surface-200/50 disabled:text-surface-500 dark:disabled:bg-surface-700/20 dark:disabled:text-surface-400 disabled:opacity-100
+        placeholder:text-surface-500 dark:placeholder:text-surface-400
+        px-3 py-2
+        transition-colors duration-200
+        outline-none;
+}
+
+.p-inputtext.p-invalid {
+    @apply border-red-400 dark:border-red-300;
+}
+
+.p-inputtext.p-variant-filled {
+    @apply bg-surface-50 dark:bg-surface-800;
+}
+
+.p-inputtext-sm {
+    @apply text-sm px-[0.625rem] py-[0.375rem];
+}
+
+.p-inputtext-lg {
+    @apply text-lg px-[0.875rem] py-[0.625rem];
+}
+
+.p-inputtext-fluid {
+    @apply w-full;
+}
+
+.field-control {
+    label {
+        @apply text-color;
+    }
+}

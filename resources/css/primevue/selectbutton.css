@@ -1,0 +1,29 @@
+@import "./togglebutton";
+
+.p-selectbutton {
+    @apply inline-flex select-none rounded-md;
+}
+
+.p-selectbutton .p-togglebutton {
+    @apply rounded-none border-y border-r border-l-0;
+}
+
+.p-selectbutton .p-togglebutton:focus-visible {
+    @apply relative z-10;
+}
+
+.p-selectbutton .p-togglebutton:first-child {
+    @apply border-l rounded-l-md;
+}
+
+.p-selectbutton .p-togglebutton:last-child {
+    @apply rounded-r-md;
+}
+
+.p-selectbutton.p-invalid {
+    @apply outline outline-offset-0 outline-red-400 dark:outline-red-300;
+}
+
+.p-togglebutton.p-togglebutton-checked::before {
+    @apply !bg-surface-500/15 dark:!bg-surface-400/10;
+}

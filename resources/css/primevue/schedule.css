@@ -1,0 +1,262 @@
+/* Schedule-specific styles */
+
+/* =============================================================================
+   BIG ROW HEIGHTS FOR BETTER VISIBILITY
+   ============================================================================= */
+
+/* Make schedule rows much taller */
+.mbsc-schedule-row,
+.mbsc-timeline-row {
+    height: auto !important;
+}
+
+/* Make calendar day cells taller */
+.mbsc-calendar-week-day-cell,
+.mbsc-schedule-day-cell {
+    min-height: 120px !important;
+    height: auto !important;
+}
+
+/* Increase timeline header height to match */
+.mbsc-timeline-header-row,
+.mbsc-schedule-header-row {
+    height: auto !important;
+    min-height: 60px !important;
+}
+
+/* Make sure events have enough space within the bigger rows */
+.mbsc-schedule-event,
+.mbsc-timeline-event {
+    min-height: 40px !important;
+    margin: 2px !important;
+}
+
+/* Ensure text content is properly spaced in bigger rows */
+.mbsc-schedule-event-inner,
+.mbsc-timeline-event-inner {
+    padding: 8px !important;
+    line-height: 1.4 !important;
+}
+
+/* Make timeline labels larger to match the bigger rows */
+.mbsc-timeline-label,
+.mbsc-schedule-label {
+    min-height: 120px !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 10px !important;
+}
+
+/* Resource column width classes for vertical layout */
+
+/* Default resource column width */
+.mbsc-schedule-resource-col {
+    min-width: 420px;
+}
+
+/* Narrow resource columns (for resources with short names or minimal content) */
+.resource-col-narrow {
+    min-width: 400px;
+    width: 400px;
+}
+
+/* Standard resource columns (default size) */
+.resource-col-standard {
+    min-width: 450px;
+    width: 450px;
+}
+
+/* Wide resource columns (for resources with longer names or more content) */
+.resource-col-wide {
+    min-width: 500px;
+    width: 500px;
+}
+
+/* Extra wide resource columns (for complex resources with multiple lines of information) */
+.resource-col-extra-wide {
+    min-width: 550px;
+    width: 550px;
+}
+
+/* Resource column widths for vertical layout */
+.mbsc-schedule-resource-column.resource-col-narrow {
+    min-width: 400px !important;
+    max-width: 400px !important;
+}
+
+.mbsc-schedule-resource-column.resource-col-standard {
+    min-width: 450px !important;
+    max-width: 450px !important;
+}
+
+.mbsc-schedule-resource-column.resource-col-wide {
+    min-width: 500px !important;
+    max-width: 500px !important;
+}
+
+.mbsc-schedule-resource-column.resource-col-extra-wide {
+    min-width: 550px !important;
+    max-width: 550px !important;
+}
+
+.mbsc-schedule-resource-title {
+    @apply w-full;
+}
+
+/* Horizontal layout resource width constraints */
+.mbsc-timeline-resource .resource-col-narrow,
+.mbsc-timeline-resource .resource-col-standard,
+.mbsc-timeline-resource .resource-col-wide,
+.mbsc-timeline-resource .resource-col-extra-wide {
+    max-width: 160px !important;
+    min-width: auto !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Parent container class for horizontal scrolling in vertical layout */
+.vertical-layout-with-scroll {
+    overflow-x: auto !important;
+}
+
+/* Horizontal scrolling for resources as columns */
+.vertical-layout-with-scroll .mbsc-schedule-wrapper {
+    overflow-x: auto;
+    scrollbar-width: thin;
+}
+
+.vertical-layout-with-scroll .mbsc-schedule-container {
+    min-width: max-content;
+}
+
+/* Style horizontal scrollbar */
+.vertical-layout-with-scroll .mbsc-schedule-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+
+.vertical-layout-with-scroll .mbsc-schedule-wrapper::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+}
+
+.vertical-layout-with-scroll .mbsc-schedule-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.vertical-layout-with-scroll .mbsc-schedule-wrapper::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* Main container styling */
+.schedule-component {
+    height: calc(100vh - 70px);
+    overflow: hidden;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+/* Card body styling */
+.calendar-card-body {
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Calendar container that will have the vertical scroll */
+.schedule-component .docs-appointment-calendar {
+    /* More precise height calculation */
+    height: calc(100vh - 184px);
+    max-height: 100%;
+    overflow: hidden;
+}
+
+/* The actual scrollable content areas */
+.schedule-component .mbsc-schedule-content,
+.schedule-component .mbsc-timeline-content {
+    overflow-y: auto !important;
+}
+
+/* Style vertical scrollbar */
+.schedule-component .mbsc-schedule-content::-webkit-scrollbar,
+.schedule-component .mbsc-timeline-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.schedule-component .mbsc-schedule-content::-webkit-scrollbar-track,
+.schedule-component .mbsc-timeline-content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+}
+
+.schedule-component .mbsc-schedule-content::-webkit-scrollbar-thumb,
+.schedule-component .mbsc-timeline-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.schedule-component .mbsc-schedule-content::-webkit-scrollbar-thumb:hover,
+.schedule-component .mbsc-timeline-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* Fix for the calendar header to stay at the top */
+.schedule-component .mbsc-calendar-header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: inherit;
+}
+
+/* Ensure grid container doesn't cause scrolling issues */
+.schedule-component .mbsc-grid.mbsc-no-padding {
+    height: 100%;
+    overflow: hidden;
+}
+
+.schedule-component .mbsc-row {
+    height: 100%;
+    overflow: hidden;
+}
+
+.p-inputtext:focus:enabled,
+.p-textarea:focus:enabled {
+    @apply ring-0;
+}
+
+/* Event hover and focus effects */
+.event-highlighted {
+    /* transform: scale(1.01); */
+    border: 2px solid var(--event-border-color, #4caf50) !important;
+    border-left: 8px solid var(--event-border-color, #4caf50) !important;
+    z-index: 10;
+    position: relative;
+}
+
+.event-faded {
+    opacity: 0.4;
+    filter: blur(1px);
+}
+
+/* Smooth transitions for all events */
+.mbsc-schedule-event,
+.mbsc-timeline-event {
+    transition: all 0.2s ease-in-out;
+}
+
+.mbsc-material.mbsc-schedule-time-indicator {
+    @apply border-red-500 border-dashed;
+}
+
+.mbsc-material.mbsc-schedule-cursor-time,
+.mbsc-material.mbsc-schedule-time-indicator-time {
+    @apply text-red-500;
+}
+
+.mbsc-material.mbsc-schedule-time-indicator-x:after {
+    @apply border-none w-2 h-2  !-top-0.75 rounded-full bg-red-500;
+}
+
+.mbsc-timeline-column-s {
+    @apply !w-64;
+}

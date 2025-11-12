@@ -2,7 +2,7 @@
 # Revtools
 
 ## Overview
-Recipebox is a [Laravel Jetstream](https://jetstream.laravel.com)-based site using Vue and InertiaJS. It's also built with:
+Revtools is a [Laravel Jetstream](https://jetstream.laravel.com)-based site using Vue and InertiaJS. It's also built with:
 - Docker
 - Caddy
 - PostgreSQL

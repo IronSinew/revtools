@@ -38,9 +38,9 @@ const page = usePage();
 const loading = ref(false);
 const defaultFilters = {
     class: { value: null },
-    type: { value: null },
-    sub_type: { value: null },
-    slot: { value: null },
+    type: { value: [] },
+    sub_type: { value: [] },
+    slot: { value: [] },
     effective_required_level: { value: [0, 150] },
 };
 
@@ -49,11 +49,11 @@ const lazyParams = ref({
     last: parseInt(page.props.params?.last || 0),
     rows: parseInt(page.props.params?.rows || 25),
     sort: page.props.params?.sort || [],
-    filters: page.props.params?.filters || defaultFilters,
+    filters: page.props.params?.filters || JSON.parse(JSON.stringify(defaultFilters)),
 });
 
 const clearFilters = () => {
-    lazyParams.value.filters = defaultFilters;
+    lazyParams.value.filters = JSON.parse(JSON.stringify(defaultFilters));
 };
 
 const applyDataLazyLoad = (event) => {
@@ -277,7 +277,7 @@ const filterDrawer = ref(true);
                         </template>
                     </Column>
                     <Column field="type_value" header="Armor/Damage" sortable />
-                    <Column field="level" header="Speed" sortable />
+                    <Column field="speed" header="Speed" sortable />
                     <Column
                         field="effective_required_level"
                         header="Req. Level"

@@ -129,7 +129,7 @@ const tooltipHtml = computed(() => {
                         v-if="
                             ![
                                 'aa_level',
-                                'level',
+                                'speed',
                                 'classes',
                                 'skill',
                                 'skill_level',

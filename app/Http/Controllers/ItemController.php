@@ -27,9 +27,15 @@ class ItemController extends Controller
                 ->when($request->input('filters.slot.value'), fn ($query, $filters) => $query
                     ->whereIn('slot', $request->input('filters.slot.value'))
                 )
-                ->when($request->input('filters.class.value'), fn ($query, $filters) => $query
-                    ->whereIn('sub_type', ClassType::tryFrom($request->input('filters.class.value'))->usableSubTypes())
-                )
+                ->when($request->input('filters.class.value'), function ($query, $filters) use ($request) {
+                    $class = ClassType::tryFrom($request->input('filters.class.value'));
+                    $query
+                        ->whereIn('sub_type', $class->usableSubTypes())
+                        ->where(function($query) use ($class, $request) {
+                            $query->whereJsonContains('requirements->classes', $class)
+                                ->orWhereNull('requirements->classes');
+                        });
+                })
                 ->when($request->input('filters.effective_required_level.value'), fn ($query, $filters) => $query
                     ->whereBetween('effective_required_level', $request->input('filters.effective_required_level.value'))
                 )

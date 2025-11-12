@@ -128,6 +128,7 @@ const tooltipHtml = computed(() => {
                     <div
                         v-if="
                             ![
+                                'level',
                                 'aa_level',
                                 'speed',
                                 'classes',
@@ -144,8 +145,8 @@ const tooltipHtml = computed(() => {
                 </div>
             </Fieldset>
 
-            <Fieldset v-if="data.effects" legend="Effects" class="mt-4">
-                <div v-if="data.effects?.length">
+            <Fieldset v-if="data.effects?.length" legend="Effects" class="mt-4">
+                <div>
                     <template v-for="effect in data.effects">
                         <div
                             v-for="(desc, idx) in effect.descriptions"

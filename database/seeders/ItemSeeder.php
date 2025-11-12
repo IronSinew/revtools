@@ -44,7 +44,7 @@ class ItemSeeder extends Seeder
                     name: falseyToNull($rawItem['UsableSpell']),
                     level: falseyToNull($rawItem['UsableSpellLevel']),
                     recharge_time: falseyToNull($rawItem['UsableSpellRechargeTime']),
-                    descriptions: ! empty($rawItem['ItemEffects']) ? $rawItem['ItemEffects'] : null,
+                    descriptions: ! empty($rawItem['ItemEffects']) && empty($effects) ? $rawItem['ItemEffects'] : null,
                 );
             }
 
@@ -60,7 +60,7 @@ class ItemSeeder extends Seeder
                     name: falseyToNull($rawItem['ProcSpellName']),
                     level: falseyToNull($rawItem['ProcLevel']),
                     value: falseyToNull($rawItem['ProcChance']),
-                    descriptions: ! empty($rawItem['ItemEffects']) ? $rawItem['ItemEffects'] : null,
+                    descriptions: ! empty($rawItem['ItemEffects']) && empty($effects) ? $rawItem['ItemEffects'] : null,
                     trigger: falseyToNull($rawItem['ProcTrigger']),
                 );
             }
@@ -74,7 +74,7 @@ class ItemSeeder extends Seeder
                     type: ItemEffectType::Potion,
                     name: falseyToNull($rawItem['PotionEffect']),
                     value: falseyToNull($rawItem['PotionEffectValue']),
-                    descriptions: ! empty($rawItem['ItemEffects']) ? $rawItem['ItemEffects'] : null,
+                    descriptions: ! empty($rawItem['ItemEffects']) && empty($effects) ? $rawItem['ItemEffects'] : null,
                 );
             }
 
@@ -83,7 +83,7 @@ class ItemSeeder extends Seeder
                 $effects[] = new ItemEffect(
                     type: ItemEffectType::Poison,
                     name: falseyToNull($rawItem['PoisonEffect']),
-                    descriptions: ! empty($rawItem['ItemEffects']) ? $rawItem['ItemEffects'] : null,
+                    descriptions: ! empty($rawItem['ItemEffects']) && empty($effects) ? $rawItem['ItemEffects'] : null,
                 );
             }
 
@@ -92,7 +92,7 @@ class ItemSeeder extends Seeder
                 $effects[] = new ItemEffect(
                     type: ItemEffectType::Scroll,
                     name: falseyToNull($rawItem['ScrollEffect']),
-                    descriptions: ! empty($rawItem['ItemEffects']) ? $rawItem['ItemEffects'] : null,
+                    descriptions: ! empty($rawItem['ItemEffects']) && empty($effects) ? $rawItem['ItemEffects'] : null,
                 );
             }
 
@@ -100,7 +100,7 @@ class ItemSeeder extends Seeder
             elseif (falseyToNull($rawItem['ItemEffects'])) {
                 $effects[] = new ItemEffect(
                     type: ItemEffectType::Generic,
-                    descriptions: ! empty($rawItem['ItemEffects']) ? $rawItem['ItemEffects'] : null,
+                    descriptions: ! empty($rawItem['ItemEffects']) && empty($effects) ? $rawItem['ItemEffects'] : null,
                 );
             }
 

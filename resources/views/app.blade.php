@@ -13,7 +13,7 @@
         <!-- Scripts -->
         @routes
         @if (! app()->environment("testing"))
-            @vite(['resources/js/app.js', 'resources/css/app.css'])
+            @vite(['resources/js/app.js'])
         @endif
         @inertiaHead
     </head>

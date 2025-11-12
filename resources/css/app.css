@@ -1,0 +1,236 @@
+@import url("https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&display=swap");
+@import "tailwindcss";
+@import "tailwindcss-primeui";
+
+@import "./primevue/tailwind.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Primary and Surface Palettes */
+:root {
+    @theme {
+        --color-text-primary: #101828;
+        --color-text-secondary: #667085;
+        --color-text-tertiary: #d0d5dd;
+        --color-text-highlight: #fcfcfd;
+        --color-text-placeholder: #98a2b3;
+
+        /* Mostly used for main background colors */
+        --color-bg-primary: #fff;
+        --color-bg-secondary: #f8fafc;
+
+        --color-border-primary: #e2e8f0;
+        --color-border-secondary: #d0d5dd;
+
+        --color-blue-primary: #1570ef;
+        --color-blue-secondary: #d1e9ff;
+        --color-blue-tertiary: #eff8ff;
+
+        --color-magenta-primary: #d70073;
+        --color-magenta-secondary: #fce7f6;
+        --color-magenta-tertiary: #fdf2fa;
+
+        --color-gray-primary: #101828;
+        --color-gray-secondary: #667085;
+        --color-gray-tertiary: #d0d5dd;
+        --color-gray-highlight: #fcfcfd;
+
+        /* severity colors */
+        --color-info-primary: #008ecf;
+        --color-info-secondary: #c5edff;
+
+        --color-contrast-primary: #d70073;
+        --color-contrast-secondary: #ffc8e5;
+
+        --color-warn-primary: #ee7326;
+        --color-warn-secondary: #ffe3d2;
+
+        --color-danger-primary: #e22727;
+        --color-danger-secondary: #ffd7d7;
+
+        --color-help-primary: #9f358b;
+        --color-help-secondary: #ffd0f6;
+
+        --color-notice-primary: #fbba00;
+        --color-notice-secondary: #fff5d8;
+
+        --color-success-primary: #64b445;
+        --color-success-secondary: #dcfce7;
+
+        --text-base: 0.95rem;
+    }
+
+    /* primevue colors */
+    --p-primary-50: #eff8ff;
+    --p-primary-100: #d1e9ff;
+    --p-primary-200: #b2ddff;
+    --p-primary-300: #84caff;
+    --p-primary-400: #53b1fd;
+    --p-primary-500: #1570ef;
+    --p-primary-600: #1570ef;
+    --p-primary-700: #175cd3;
+    --p-primary-800: #1849a9;
+    --p-primary-900: #194185;
+    --p-primary-950: #072c6b§;
+    --p-surface-0: #ffffff;
+    --p-surface-50: #f9fafb;
+    --p-surface-100: #f2f4f7;
+    --p-surface-200: #eaecf0;
+    --p-surface-300: #d0d5dd;
+    --p-surface-400: #98a2b3;
+    --p-surface-500: #667085;
+    --p-surface-600: #475467;
+    --p-surface-700: #27272a;
+    --p-surface-800: #272727;
+    --p-surface-900: #0e0e10;
+    --p-surface-950: #0e0e10;
+    --p-content-radius: 6px;
+
+    /* button primary colors */
+    --p-button-primary: var(--p-primary-500);
+    --p-button-primary-hover: var(--p-primary-600);
+
+    --blue-primary: var(--p-primary-500);
+    --blue-secondary: var(--p-primary-100);
+    --blue-tertiary: var(--p-primary-50);
+
+    --magenta-primary: var(--p-primary-500);
+    --magenta-secondary: var(--p-primary-100);
+    --magenta-tertiary: var(--p-primary-50);
+
+    /* gray colors */
+    --gray-primary: var(--p-surface-900);
+    --gray-secondary: var(--p-surface-800);
+    --gray-tertiary: var(--p-surface-700);
+    --gray-highlight: var(--p-surface-50);
+
+    /* primevue variables */
+    --p-primary-color: var(--p-primary-500);
+    --p-primary-contrast-color: var(--p-surface-0);
+    --p-primary-hover-color: var(--p-primary-600);
+    --p-primary-active-color: var(--p-primary-700);
+    --p-content-border-color: var(--p-surface-200);
+    --p-content-hover-background: var(--p-surface-100);
+    --p-content-hover-color: var(--p-surface-800);
+    --p-highlight-background: var(--p-primary-50);
+    --p-highlight-color: var(--p-primary-700);
+    --p-highlight-focus-background: var(--p-primary-100);
+    --p-highlight-focus-color: var(--p-primary-800);
+    --p-text-color-primary: var(--p-surface-700);
+    --p-text-hover-color: var(--p-surface-800);
+    --p-text-muted-color: var(--p-surface-500);
+    --p-text-hover-muted-color: var(--p-surface-600);
+
+    --color-primary: 192 192 192;
+    --color-main-dark: 45 53 71;
+    --color-main-orange: 228 109 37;
+}
+
+@layer base {
+    .dark {
+        --color-text-primary: #fff;
+        --color-text-secondary: #787878;
+        --color-text-tertiary: #4b4b4b;
+        --color-text-highlight: #fcfcfd;
+        --color-text-placeholder: #454548;
+
+        /* Mostly used for main background colors */
+        --color-bg-primary: #09090b;
+        --color-bg-secondary: #0e0e10;
+
+        --color-border-primary: #27272a;
+        --color-border-secondary: #27272a;
+        --color-main-dark: 255 255 255;
+        --primary: 31 29 43;
+    }
+}
+
+html,
+body,
+#app {
+    @apply bg-bg-primary h-full text-text-primary text-base font-normal;
+    font-family: "Inter", sans-serif;
+}
+
+/* `bar Width */
+::-webkit-scrollbar {
+    @apply h-2.5 w-2.5;
+}
+
+/* Scrollbar Track */
+::-webkit-scrollbar-track {
+    @apply bg-transparent dark:bg-black/[0.85];
+}
+
+/* Scrollbar Handle */
+::-webkit-scrollbar-thumb {
+    @apply visible rounded-full bg-gray-400 dark:bg-black;
+    transition: 0.3s all linear;
+}
+
+.dark {
+    ::-webkit-scrollbar-thumb {
+        @apply bg-white/[0.4];
+    }
+}
+
+div:hover > ::-webkit-scrollbar-thumb {
+    @apply visible;
+}
+
+.mask {
+    --mask: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 0,
+        rgba(0, 0, 0, 1) 40%,
+        rgba(0, 0, 0, 0) 95%,
+        rgba(0, 0, 0, 0) 0
+    )
+    100% 50% / 100% 100% repeat-x;
+    mask: var(--mask);
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.app-height {
+    @apply h-full 2xl:h-[calc(100vh-300px)] rounded-xl;
+}
+
+::placeholder,
+.p-inputtext::placeholder,
+.p-placeholder {
+    @apply !text-text-placeholder;
+}
+
+
+.q {
+    color: #ffd100 !important;
+    --color: #ffd100;
+}
+
+.q1 {
+    color: #fff !important;
+    --color: #fff;
+}
+
+.q2 {
+    color: #1eff00 !important;
+    --color: #1eff00;
+}
+
+.q3 {
+    color: #0070dd !important;
+    --color: #0070dd;
+}
+
+.q4 {
+    color: #ff6600 !important;
+    --color: #ff6600;
+}

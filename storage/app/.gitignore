@@ -1,0 +1,10 @@
+*
+!public/
+!.gitignore
+!.gitkeep
+!data/
+!Items.json
+!EnabledZones.json
+!Mobs.json
+!Quests.json
+!WorldData.json

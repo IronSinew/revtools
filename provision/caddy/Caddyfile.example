@@ -1,0 +1,18 @@
+(cors) {
+	@origin header Origin {args.0}
+	header @origin Access-Control-Allow-Origin "{args.0}"
+	header @origin Access-Control-Request-Method GET
+}
+
+revtools.localhost:80, :80 {
+    route /api/* {
+        import cors *
+    }
+
+    log
+    root * /var/www/app/public
+    encode gzip
+
+    php_fastcgi php:9000
+    file_server
+}

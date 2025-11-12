@@ -1,0 +1,16 @@
+#includes:
+#    - phar://phpstan.phar/conf/bleedingEdge.neon
+parameters:
+    paths:
+        - app
+    level: 5
+    ignoreErrors:
+#        -
+#            identifier: match.alwaysTrue
+#        - '#Method [a-zA-Z0-9\\_]+::withBanner\(\) invoked with 2 parameters, 1 required#'
+    excludePaths:
+        - app\Actions\Fortify
+        - app\Actions\Jetstream
+    scanFiles:
+        - _ide_helper_models.php
+    treatPhpDocTypesAsCertain: false

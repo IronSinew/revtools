@@ -1,0 +1,43 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('items', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('external_id')->unique();
+            $table->string('name');
+            $table->string('slug')->unique();
+            $table->string('type')->index();
+            $table->unsignedInteger('type_value')->nullable();
+            $table->string('sub_type')->index()->nullable();
+            $table->string('slot')->index()->nullable();
+            $table->unsignedInteger('gold_value');
+            $table->unsignedInteger('speed')->nullable();
+            $table->unsignedInteger('effective_required_level')->default(0);
+            $table->json('deprecated_data')->nullable();
+            $table->json('requirements')->nullable();
+            $table->json('effects')->nullable();
+            $table->text('description')->nullable();
+            $table->dateTime('discovered_at')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('items');
+    }
+};

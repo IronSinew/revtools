@@ -49,7 +49,9 @@ const lazyParams = ref({
     last: parseInt(page.props.params?.last || 0),
     rows: parseInt(page.props.params?.rows || 25),
     sort: page.props.params?.sort || [],
-    filters: page.props.params?.filters || JSON.parse(JSON.stringify(defaultFilters)),
+    filters:
+        page.props.params?.filters ||
+        JSON.parse(JSON.stringify(defaultFilters)),
 });
 
 const clearFilters = () => {

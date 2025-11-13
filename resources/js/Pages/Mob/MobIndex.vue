@@ -87,7 +87,7 @@ const togglePopover = (event, index) => {
 </script>
 
 <template>
-    <Head :title="`Items`" />
+    <Head :title="`Mobs`" />
 
     <div class="px-6 lg:px-0 py-12">
         <Drawer

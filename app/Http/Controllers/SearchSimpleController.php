@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\SearchableType;
 use App\Models\Item;
+use App\Models\Mob;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -15,13 +17,19 @@ class SearchSimpleController extends Controller
             ->toArray();
 
         $groupedIds = collect($rawTypesesense)
-            ->pluck('id')
             ->groupBy('type');
 
         return response()->json([
             'typesense' => $rawTypesesense,
             'data' => [
-                'items' => Item::findMany($groupedIds)->keyBy('id'),
+                'items' => Item::findMany(
+                    $groupedIds->get(SearchableType::Item->value)?->pluck('id')
+                )
+                    ->keyBy('id'),
+                'mobs' => Mob::findMany(
+                    $groupedIds->get(SearchableType::Mob->value)?->pluck('id')
+                )
+                    ->keyBy('id'),
             ],
         ]);
     }

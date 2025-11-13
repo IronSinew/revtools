@@ -3,14 +3,13 @@ import '../css/app.css'
 import 'primeicons/primeicons.css'
 
 import {createInertiaApp, Head, Link} from '@inertiajs/vue3'
-import Aura from '@primeuix/themes/aura';
 import BadgeDirective from 'primevue/badgedirective'
 import PrimeVue from 'primevue/config'
 import ConfirmationService from 'primevue/confirmationservice'
 import Ripple from 'primevue/ripple'
 import ToastService from 'primevue/toastservice';
 import Tooltip from 'primevue/tooltip'
-import { createApp, h } from 'vue'
+import {createApp, h } from 'vue'
 import VueTippy from 'vue-tippy'
 import { ZiggyVue } from 'ziggy-js'
 
@@ -37,7 +36,6 @@ const jsonObjectGetLabelByValue = (jsonObject, jsonKey, defaultIfNotFound) => {
     const missingResponse = defaultIfNotFound || "Unknown";
     return _.find(jsonObject, { value: jsonKey }).label || missingResponse;
 };
-
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 

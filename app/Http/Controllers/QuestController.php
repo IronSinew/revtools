@@ -41,4 +41,11 @@ class QuestController extends Controller
                 ))
         ]);
     }
+
+    public function show(Request $request, Quest $quest): Response
+    {
+        return inertia('Quest/Show', [
+            'quest' => fn () => $quest->load('items')
+        ]);
+    }
 }

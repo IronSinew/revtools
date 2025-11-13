@@ -73,7 +73,7 @@ class QuestSeeder extends Seeder
 
             $arrayData['created_at'] = $now;
             $arrayData['updated_at'] = $now;
-            $arrayData['slug'] = \Str::slug($arrayData['name'] . ' ' . $arrayData['level']);
+            $arrayData['slug'] = \Str::slug(implode('-', [$arrayData['name'], $arrayData['external_id']]));
 
             $toInsert[] = $arrayData;
 

@@ -17,6 +17,11 @@ class Quest extends BaseModel
 {
     use HasSlug;
 
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     public function previousQuests(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -44,7 +49,7 @@ class Quest extends BaseModel
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom(['name', 'level'])
+            ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
 }

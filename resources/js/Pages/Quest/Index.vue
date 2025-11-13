@@ -205,7 +205,19 @@ const togglePopover = (event, index) => {
                         header="Name"
                         class="tight-column"
                         sortable
-                    />
+                    >
+                        <template #body="prop">
+                            <Link
+                                :href="
+                                    route('quests.show', {
+                                        quest: prop.data.slug,
+                                    })
+                                "
+                            >
+                                {{ prop.data.name }}
+                            </Link>
+                        </template>
+                    </Column>
                     <Column
                         field="level"
                         header="Level"
@@ -243,77 +255,70 @@ const togglePopover = (event, index) => {
                                     icon="pi pi-eye"
                                     @click="togglePopover($event, prop.index)"
                                 />
-                                <Popover
-                                    :ref="(el) => (popovers[prop.index] = el)"
-                                >
-                                    <Fieldset
-                                        v-if="prop.data.raw_rewards?.length"
-                                        legend="Quest Rewards"
-                                    >
-                                        <template
-                                            v-for="item in prop.data.items"
-                                            :key="item.id"
-                                        >
-                                            <Link
-                                                :href="
-                                                    route('item.show', {
-                                                        item: item.slug,
-                                                    })
-                                                "
-                                            >
-                                                <Tipper :data="item"></Tipper>
-                                            </Link>
-                                        </template>
-                                        <template
-                                            v-for="reward in prop.data
-                                                .raw_rewards"
-                                            :key="`item-${prop.data.slug}-reward-${reward.name}`"
-                                        >
-                                            <div
-                                                class="mt-2"
-                                                :class="{
-                                                    'text-green-500':
-                                                        reward.type ===
-                                                            QuestRewardType
-                                                                .Faction
-                                                                .value ||
-                                                        reward.type ===
-                                                            QuestRewardType
-                                                                .SkillPoint
-                                                                .value ||
-                                                        reward.type ===
-                                                            QuestRewardType
-                                                                .SpellPoint
-                                                                .value,
-                                                    'text-amber-500':
-                                                        reward.type ===
-                                                        QuestRewardType.Title
-                                                            .value,
-                                                }"
-                                            >
-                                                <span
-                                                    >{{
-                                                        reward.name.replaceAll(
-                                                            "_",
-                                                            " ",
-                                                        )
-                                                    }}
-                                                </span>
-                                                <span
-                                                    v-if="
-                                                        reward.amount > 1 &&
-                                                        reward.type !==
-                                                            QuestRewardType
-                                                                .Title.value
-                                                    "
-                                                    class="ml-2"
-                                                    >{{ reward.amount }}</span
-                                                >
-                                            </div>
-                                        </template>
-                                    </Fieldset>
-                                </Popover>
                             </div>
+                            <Popover :ref="(el) => (popovers[prop.index] = el)">
+                                <Fieldset
+                                    v-if="prop.data.raw_rewards?.length"
+                                    legend="Quest Rewards"
+                                >
+                                    <template
+                                        v-for="item in prop.data.items"
+                                        :key="item.id"
+                                    >
+                                        <Link
+                                            :href="
+                                                route('item.show', {
+                                                    item: item.slug,
+                                                })
+                                            "
+                                        >
+                                            <Tipper :data="item"></Tipper>
+                                        </Link>
+                                    </template>
+                                    <template
+                                        v-for="reward in prop.data.raw_rewards"
+                                        :key="`item-${prop.data.slug}-reward-${reward.name}`"
+                                    >
+                                        <div
+                                            class="mt-2"
+                                            :class="{
+                                                'text-green-500':
+                                                    reward.type ===
+                                                        QuestRewardType.Faction
+                                                            .value ||
+                                                    reward.type ===
+                                                        QuestRewardType
+                                                            .SkillPoint.value ||
+                                                    reward.type ===
+                                                        QuestRewardType
+                                                            .SpellPoint.value,
+                                                'text-amber-500':
+                                                    reward.type ===
+                                                    QuestRewardType.Title.value,
+                                            }"
+                                        >
+                                            <span
+                                                >{{
+                                                    reward.name.replaceAll(
+                                                        "_",
+                                                        " ",
+                                                    )
+                                                }}
+                                            </span>
+                                            <span
+                                                v-if="
+                                                    reward.amount > 1 &&
+                                                    reward.type !==
+                                                        QuestRewardType.Title
+                                                            .value
+                                                "
+                                                class="ml-2"
+                                                >{{ reward.amount }}</span
+                                            >
+                                        </div>
+                                    </template>
+                                </Fieldset>
+                            </Popover>
                         </template>
                     </Column>
                 </DataTable>

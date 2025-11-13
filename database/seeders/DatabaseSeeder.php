@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             ItemSeeder::class,
+            QuestSeeder::class,
         ]);
 
         User::factory()->create([

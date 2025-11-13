@@ -71,6 +71,11 @@ const menuItems = ref([
         route: "item.index",
         routeGroup: "item.*",
     },
+    {
+        label: "Quests",
+        route: "quests.index",
+        routeGroup: "quest.*",
+    },
 ]);
 
 onMounted(() => {});

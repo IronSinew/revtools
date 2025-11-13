@@ -2,24 +2,20 @@
 
 namespace App\Models;
 
-use App\Enums\Items\ItemSlot;
-use App\Enums\Items\ItemSubType;
-use App\Enums\Items\ItemType;
+use App\Enums\Mobs\MobTier;
+use App\Enums\Mobs\MobType;
 use App\Enums\SearchableType;
 use App\Models\Pivots\ItemMob;
-use App\ValueObjects\Items\ItemDeprecatedData;
-use App\ValueObjects\Items\ItemEffect;
-use App\ValueObjects\Items\ItemRequirements;
+use App\ValueObjects\Mobs\MobDeprecatedData;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Laravel\Scout\Searchable;
-use Spatie\LaravelData\DataCollection;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
 /**
- * @mixin IdeHelperItem
+ * @mixin IdeHelperMob
  */
-class Item extends BaseModel
+class Mob extends BaseModel
 {
     use HasSlug;
     use Searchable;
@@ -50,19 +46,12 @@ class Item extends BaseModel
      */
     public function toSearchableArray(): array
     {
-        $effectDescriptions = null;
-        if ($this->effects) {
-            $effects = $this->effects->first()->toArray();
-            $effectDescriptions = implode(' ', $effects['descriptions']);
-        }
-
         return [
             'id' => (string) $this->id,
             'created_at' => $this->created_at->timestamp,
-            'type' => SearchableType::Item->value,
+            'type' => SearchableType::Mob->value,
             'slug' => $this->slug,
             'name' => $this->name,
-            'item_effects' => $this->effects ? $effectDescriptions : '',
         ];
     }
 
@@ -73,21 +62,18 @@ class Item extends BaseModel
     {
         return [
             'external_id' => 'integer',
-            'type' => ItemType::class,
-            'type_value' => 'integer',
-            'sub_type' => ItemSubType::class,
-            'slot' => ItemSlot::class,
-            'gold_value' => 'integer',
+            'type' => MobType::class,
+            'tier' => MobTier::class,
+            'level' => 'integer',
             'speed' => 'integer',
-            'effects' => DataCollection::class.':'.ItemEffect::class,
-            'deprecated_data' => ItemDeprecatedData::class,
-            'requirements' => ItemRequirements::class,
+            'drops' => 'array',
+            'deprecated_data' => MobDeprecatedData::class,
         ];
     }
 
-    public function mobs(): BelongsToMany
+    public function items(): BelongsToMany
     {
-        return $this->belongsToMany(Mob::class)
+        return $this->belongsToMany(Item::class)
             ->using(ItemMob::class);
     }
 }

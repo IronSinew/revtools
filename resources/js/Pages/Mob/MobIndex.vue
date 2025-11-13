@@ -8,15 +8,12 @@ import DataTable from "primevue/datatable";
 import Fieldset from "primevue/fieldset";
 import Message from "primevue/message";
 import MultiSelect from "primevue/multiselect";
-import Select from "primevue/select";
 import Slider from "primevue/slider";
 import { ref } from "vue";
 
 import Tipper from "@/Components/Tipper.vue";
-import ClassType from "@/Composables/GeneratedEnumObjects/ClassType.json";
-import ItemSlot from "@/Composables/GeneratedEnumObjects/Items-ItemSlot.json";
-import ItemSubTypeEnum from "@/Composables/GeneratedEnumObjects/Items-ItemSubType.json";
-import ItemTypeEnum from "@/Composables/GeneratedEnumObjects/Items-ItemType.json";
+import MobTier from "@/Composables/GeneratedEnumObjects/Mobs-MobTier.json";
+import MobType from "@/Composables/GeneratedEnumObjects/Mobs-MobType.json";
 
 defineProps({
     table: {
@@ -28,22 +25,13 @@ defineProps({
     },
 });
 
-const asAALevel = (inputVal) => {
-    if (inputVal <= 100) {
-        return inputVal;
-    }
-
-    return `AA${inputVal % 100}`;
-};
-
 const page = usePage();
 const loading = ref(false);
 const defaultFilters = {
-    class: { value: null },
     type: { value: [] },
-    sub_type: { value: [] },
-    slot: { value: [] },
-    effective_required_level: { value: [0, 150] },
+    tier: { value: [] },
+    location: { value: [] },
+    level: { value: [0, 200] },
 };
 
 const lazyParams = ref({
@@ -77,7 +65,7 @@ const applyDataLazyLoad = (event) => {
 const loadLazyData = () => {
     loading.value = true;
 
-    router.get(route("item.index"), lazyParams.value, {
+    router.get(route("mob.index"), lazyParams.value, {
         only: ["table"],
         onFinish: (visit) => {
             loading.value = false;
@@ -114,7 +102,7 @@ const togglePopover = (event, index) => {
                         Type:
                         <MultiSelect
                             v-model="lazyParams.filters.type.value"
-                            :options="jsonObjectToSelectOptions(ItemTypeEnum)"
+                            :options="jsonObjectToSelectOptions(MobType)"
                             option-value="value"
                             option-label="name"
                             placeholder="Select Type"
@@ -125,16 +113,14 @@ const togglePopover = (event, index) => {
                 </div>
                 <div>
                     <label>
-                        Sub type:
+                        Tier:
                         <MultiSelect
-                            v-model="lazyParams.filters.sub_type.value"
-                            :options="
-                                jsonObjectToSelectOptions(ItemSubTypeEnum)
-                            "
+                            v-model="lazyParams.filters.tier.value"
+                            :options="jsonObjectToSelectOptions(MobTier)"
                             filter
                             option-value="value"
                             option-label="name"
-                            placeholder="Select Sub Type"
+                            placeholder="Select Tier"
                             class="w-full"
                             :show-clear="true"
                         />
@@ -142,28 +128,14 @@ const togglePopover = (event, index) => {
                 </div>
                 <div>
                     <label>
-                        Item Slot:
+                        Location:
                         <MultiSelect
-                            v-model="lazyParams.filters.slot.value"
-                            :options="jsonObjectToSelectOptions(ItemSlot)"
+                            v-model="lazyParams.filters.location.value"
+                            :options="[]"
                             filter
                             option-value="value"
                             option-label="name"
-                            placeholder="Select Item Slot"
-                            class="w-full"
-                            :show-clear="true"
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Class Filter:
-                        <Select
-                            v-model="lazyParams.filters.class.value"
-                            :options="jsonObjectToSelectOptions(ClassType)"
-                            option-value="value"
-                            option-label="name"
-                            placeholder="Limit to Class"
+                            placeholder="Select Location"
                             class="w-full"
                             :show-clear="true"
                         />
@@ -172,26 +144,14 @@ const togglePopover = (event, index) => {
                 <div>
                     <div class="mb-5 text-center">
                         Level range:
-                        {{
-                            asAALevel(
-                                lazyParams.filters.effective_required_level
-                                    .value[0],
-                            )
-                        }}
+                        {{ lazyParams.filters.level.value[0] }}
                         -
-                        {{
-                            asAALevel(
-                                lazyParams.filters.effective_required_level
-                                    .value[1],
-                            )
-                        }}
+                        {{ lazyParams.filters.level.value[1] }}
                     </div>
                     <Slider
-                        v-model="
-                            lazyParams.filters.effective_required_level.value
-                        "
+                        v-model="lazyParams.filters.level.value"
                         :min="0"
-                        :max="175"
+                        :max="200"
                         :step="5"
                         range
                     />
@@ -252,101 +212,91 @@ const togglePopover = (event, index) => {
                     @filter="applyDataLazyLoad($event)"
                 >
                     <template #empty> No Items</template>
-                    <Column field="id" header="ID" class="tight-column" />
-                    <Column field="type" header="Type" class="tight-column">
+                    <Column field="id" header="ID" />
+                    <Column field="name" header="Name">
                         <template #body="prop">
-                            <span class="capitalize">{{
-                                prop.data.type.replace("_", " ")
-                            }}</span>
+                            <Link
+                                :href="
+                                    route('mob.show', { mob: prop.data.slug })
+                                "
+                            >
+                                <div class="flex">
+                                    <div class="mr-1">
+                                        <img
+                                            v-if="
+                                                prop.data.type ===
+                                                MobType.Boss.value
+                                            "
+                                            src="https://cdn-icons-png.flaticon.com/128/2545/2545603.png"
+                                            class="w-4 img"
+                                            title="boss"
+                                        />
+                                    </div>
+                                    <div
+                                        :class="{
+                                            'p-message-error':
+                                                prop.data.type ===
+                                                MobType.Boss.value,
+                                        }"
+                                    >
+                                        {{ prop.data.name }}
+                                    </div>
+                                    <div class="flex-1"></div>
+                                </div>
+                            </Link>
                         </template>
                     </Column>
-                    <Column
-                        field="sub_type"
-                        header="Sub Type"
-                        class="tight-column"
-                    >
+                    <Column field="drops" header="Drops">
                         <template #body="prop">
-                            <span class="capitalize">{{
-                                prop.data.sub_type.replace("_", " ")
-                            }}</span>
-                        </template>
-                    </Column>
-                    <Column field="slot" header="Slot" class="tight-column">
-                        <template #body="prop">
-                            <span class="capitalize">{{
-                                (prop.data.slot || "").replace("_", " ")
-                            }}</span>
-                        </template>
-                    </Column>
-                    <Column field="drops" header="Dropped By">
-                        <template #body="prop">
-                            <div class="text-center">
-                                <Button
-                                    v-if="prop.data.mobs?.length"
-                                    icon="pi pi-eye"
-                                    @click="togglePopover($event, prop.index)"
-                                />
-                            </div>
+                            <Button
+                                v-if="prop.data.items?.length"
+                                icon="pi pi-eye"
+                                @click="togglePopover($event, prop.index)"
+                            />
                             <Popover :ref="(el) => (popovers[prop.index] = el)">
                                 <Fieldset
-                                    v-if="prop.data.mobs?.length"
-                                    legend="Dropped By"
+                                    v-if="prop.data.items?.length"
+                                    legend="Drops"
                                 >
                                     <template
-                                        v-for="mob in prop.data.mobs"
-                                        :key="`item-${prop.data.id}-mobs-${mob.id}`"
+                                        v-for="item in prop.data.items"
+                                        :key="`mob-${prop.data.id}-items-${item.id}`"
                                     >
                                         <div class="mt-2">
-                                            <span class="q">{{
-                                                mob.name
-                                            }}</span>
-                                            <br />
-                                            <span class="ml-2">{{
-                                                (
-                                                    JSON.parse(mob.location) ||
-                                                    []
-                                                ).join(", ")
-                                            }}</span>
+                                            <Link
+                                                :href="
+                                                    route('item.show', {
+                                                        item: item.slug,
+                                                    })
+                                                "
+                                            >
+                                                <Tipper :data="item"></Tipper>
+                                            </Link>
                                         </div>
                                     </template>
                                 </Fieldset>
                             </Popover>
                         </template>
                     </Column>
-                    <Column field="name" header="Name" sortable>
+                    <Column field="type" header="Type">
                         <template #body="prop">
-                            <Link
-                                :href="
-                                    route('item.show', { item: prop.data.slug })
-                                "
-                            >
-                                <Tipper :data="prop.data"></Tipper>
-                            </Link>
-                        </template>
-                    </Column>
-                    <Column field="type_value" header="Armor/Damage" sortable />
-                    <Column field="speed" header="Speed" sortable />
-                    <Column
-                        field="effective_required_level"
-                        header="Req. Level"
-                        sortable
-                    >
-                        <template #body="prop">
-                            <span
-                                v-if="prop.data.requirements?.aa_level"
-                                class="q4"
-                                >AA{{ prop.data.requirements?.aa_level }}</span
-                            >
-                            <span v-else>{{
-                                prop.data.requirements?.level
+                            <span class="capitalize">{{
+                                prop.data.type.replace("_", " ")
                             }}</span>
                         </template>
                     </Column>
-                    <Column field="gold_value" header="Gold" sortable>
+                    <Column field="tier" header="Tier">
                         <template #body="prop">
-                            <span class="q">{{
-                                prop.data.gold_value.toLocaleString()
+                            <span class="capitalize">{{
+                                prop.data.tier.replace("_", " ")
                             }}</span>
+                        </template>
+                    </Column>
+                    <Column field="level" header="Level" class="tight-column">
+                        <template #body="prop">
+                            <span class="capitalize q">
+                                {{ prop.data.level }}
+                            </span>
                         </template>
                     </Column>
                 </DataTable>

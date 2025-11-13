@@ -1,6 +1,7 @@
 <script setup>
+import { Link } from "@inertiajs/vue3";
 import Fieldset from "primevue/fieldset";
-import { computed, onMounted, ref } from "vue";
+import { computed, ref } from "vue";
 
 import ItemType from "@/Composables/GeneratedEnumObjects/Items-ItemType.json";
 
@@ -159,6 +160,22 @@ const tooltipHtml = computed(() => {
                                     .replace("Item Casts ", "")
                                     .replaceAll("*", " ")
                             }}
+                        </div>
+                    </template>
+                </div>
+            </Fieldset>
+
+            <Fieldset v-if="data.mobs?.length" legend="Dropped By" class="mt-4">
+                <div>
+                    <template v-for="mob in data.mobs" :key="`mobs-${mob.id}`">
+                        <div class="mt-2">
+                            <Link :href="route('mob.show', { mob: mob.slug })">
+                                <span class="q">{{ mob.name }}</span>
+                            </Link>
+                            <br />
+                            <span class="ml-2">{{
+                                (JSON.parse(mob.location) || []).join(", ")
+                            }}</span>
                         </div>
                     </template>
                 </div>

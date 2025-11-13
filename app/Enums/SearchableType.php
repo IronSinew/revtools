@@ -10,4 +10,5 @@ enum SearchableType: string implements HasLabel
     use DefaultLabelsFromEnum;
 
     case Item = 'item';
+    case Mob = 'mob';
 }

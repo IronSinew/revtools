@@ -15,4 +15,5 @@ enum QuestRewardType: string implements HasLabel
     case StatPoint = 'stat_point';
     case Item = 'item';
     case Title = 'title';
+    case Gold = 'gold';
 }

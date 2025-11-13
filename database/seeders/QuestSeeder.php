@@ -34,13 +34,19 @@ class QuestSeeder extends Seeder
 
             // quest rewards
             $rewards = [];
+            $rewardTypes = [];
             foreach ($rawItem['Rewards'] as $rawReward) {
                 $reward = new QuestReward(
                     type: QuestRewardType::from(\Str::snake($rawReward['Type'])),
                     name: $rawReward['Name'],
                     amount: $rawReward['Quantity'],
                 );
-                $rewards[] = $reward;
+
+                if ($reward->type !== QuestRewardType::Item) {
+                    $rewards[] = $reward;
+                }
+
+                $rewardTypes[] = $reward->type;
             }
 
             $quest = new QuestObject(
@@ -51,7 +57,8 @@ class QuestSeeder extends Seeder
                 objectives: $rawItem['Objectives'],
                 steps: $rawItem['Steps'],
                 required_class: $classes ?? null,
-                rewards: $rewards,
+                raw_rewards: $rewards,
+                reward_types: collect($rewardTypes)->unique()->values()->toArray(),
             );
 
             $arrayData = collect($quest->toArray())

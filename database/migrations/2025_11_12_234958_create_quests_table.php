@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('quest_giver');
             $table->json('objectives');
             $table->json('steps');
-            $table->json('rewards')->nullable();
+            $table->json('raw_rewards')->nullable();
+            $table->json('reward_types')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

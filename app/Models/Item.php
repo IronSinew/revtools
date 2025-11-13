@@ -6,9 +6,11 @@ use App\Enums\Items\ItemSlot;
 use App\Enums\Items\ItemSubType;
 use App\Enums\Items\ItemType;
 use App\Enums\SearchableType;
+use App\Models\Pivots\ItemQuest;
 use App\ValueObjects\Items\ItemDeprecatedData;
 use App\ValueObjects\Items\ItemEffect;
 use App\ValueObjects\Items\ItemRequirements;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Laravel\Scout\Searchable;
 use Spatie\LaravelData\DataCollection;
 use Spatie\Sluggable\HasSlug;
@@ -81,5 +83,10 @@ class Item extends BaseModel
             'deprecated_data' => ItemDeprecatedData::class,
             'requirements' => ItemRequirements::class,
         ];
+    }
+
+    public function quests(): BelongsToMany
+    {
+        return $this->belongsToMany(Quest::class)->using(ItemQuest::class);
     }
 }

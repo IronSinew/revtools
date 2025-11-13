@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Enums\ClassType;
+use App\Enums\Quests\QuestRewardType;
+use App\Models\Pivots\ItemQuest;
 use App\ValueObjects\Quests\QuestReward;
 use Illuminate\Database\Eloquent\Casts\AsEnumCollection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -25,11 +27,17 @@ class Quest extends BaseModel
         );
     }
 
+    public function items(): BelongsToMany
+    {
+        return $this->belongsToMany(Item::class)->using(ItemQuest::class);
+    }
+
     protected function casts(): array
     {
         return [
             'required_class' => AsEnumCollection::of(ClassType::class),
-            'rewards' => DataCollection::class.':'.QuestReward::class,
+            'raw_rewards' => DataCollection::class.':'.QuestReward::class,
+            'reward_types' => AsEnumCollection::of(QuestRewardType::class),
         ];
     }
 

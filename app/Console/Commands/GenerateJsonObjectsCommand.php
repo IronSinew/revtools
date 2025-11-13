@@ -30,6 +30,7 @@ class GenerateJsonObjectsCommand extends Command
             $enumList = ClassFinder::getClassesInNamespace($namespace, ClassFinder::RECURSIVE_MODE);
 
             foreach ($enumList as $enumClass) {
+                $this->info("Generating JSON object for {$enumClass}");
                 try {
                     $path = \Str::chopStart(\Str::remove($namespace, $enumClass), '\\');
                     $baseClass = \Str::reverse(explode('\\', \Str::reverse($path), -1)[0] ?? '');

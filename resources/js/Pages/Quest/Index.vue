@@ -1,14 +1,20 @@
 <script setup>
-import {Deferred, Link, router, usePage} from "@inertiajs/vue3";
+import { Deferred, Link, router, usePage } from "@inertiajs/vue3";
 import Drawer from "@volt/Drawer.vue";
 import Button from "primevue/button";
 import Column from "primevue/column";
 import DataTable from "primevue/datatable";
+import Fieldset from "primevue/fieldset";
 import Message from "primevue/message";
 import MultiSelect from "primevue/multiselect";
+import Popover from "primevue/popover";
 import Select from "primevue/select";
 import Slider from "primevue/slider";
-import {ref} from "vue";
+import { ref } from "vue";
+
+import Tipper from "@/Components/Tipper.vue";
+import ClassType from "@/Composables/GeneratedEnumObjects/ClassType.json";
+import QuestRewardType from "@/Composables/GeneratedEnumObjects/Quests-QuestRewardType.json";
 
 const props = defineProps({
     table: {
@@ -25,10 +31,8 @@ const loading = ref(false);
 
 const defaultFilters = {
     class: { value: null },
-    type: { value: [] },
-    sub_type: { value: [] },
-    slot: { value: [] },
-    effective_required_level: { value: [0, 150] },
+    reward_type: { value: [] },
+    level: { value: [0, 100] },
 };
 
 const lazyParams = ref({
@@ -72,9 +76,19 @@ const loadLazyData = () => {
 };
 
 const filterDrawer = ref(true);
+
+const popovers = ref([]);
+const togglePopover = (event, index) => {
+    const popover = popovers.value[index];
+    if (popover) {
+        popover.toggle(event);
+    }
+};
 </script>
 
 <template>
+    <Head :title="`Quests`" />
+
     <div class="px-6 lg:px-0 py-12">
         <Drawer
             v-model:visible="filterDrawer"
@@ -83,6 +97,52 @@ const filterDrawer = ref(true);
             :modal="false"
         >
             <div class="grid grid-cols-1 grid-rows-5 gap-8">
+                <div>
+                    <label>
+                        Reward Type:
+                        <MultiSelect
+                            v-model="lazyParams.filters.reward_type.value"
+                            :options="
+                                jsonObjectToSelectOptions(QuestRewardType)
+                            "
+                            filter
+                            option-value="value"
+                            option-label="name"
+                            placeholder="Select Reward Type"
+                            class="w-full"
+                            :show-clear="true"
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Class Filter:
+                        <Select
+                            v-model="lazyParams.filters.class.value"
+                            :options="jsonObjectToSelectOptions(ClassType)"
+                            option-value="value"
+                            option-label="name"
+                            placeholder="Limit to Class"
+                            class="w-full"
+                            :show-clear="true"
+                        />
+                    </label>
+                </div>
+                <div>
+                    <div class="mb-5 text-center">
+                        Level range:
+                        {{ lazyParams.filters.level.value[0] }}
+                        -
+                        {{ lazyParams.filters.level.value[1] }}
+                    </div>
+                    <Slider
+                        v-model="lazyParams.filters.level.value"
+                        :min="0"
+                        :max="100"
+                        :step="5"
+                        range
+                    />
+                </div>
                 <div class="grid grid-cols-2 grid-rows-1 gap-2 mt-2">
                     <div>
                         <Button
@@ -140,17 +200,120 @@ const filterDrawer = ref(true);
                 >
                     <template #empty> No Items</template>
                     <Column field="id" header="ID" class="tight-column" />
-                    <Column field="name" header="Name" class="tight-column" />
-                    <Column field="level" header="Level" class="tight-column" />
+                    <Column
+                        field="name"
+                        header="Name"
+                        class="tight-column"
+                        sortable
+                    />
+                    <Column
+                        field="level"
+                        header="Level"
+                        class="tight-column"
+                        sortable
+                    />
                     <Column
                         field="required_class"
                         header="Required Class"
                         class="tight-column"
                     >
                         <template #body="prop">
-                            <span class="capitalize">{{
-                                prop.data.required_class
-                            }}</span>
+                            <span
+                                v-for="required_class in new Set(
+                                    prop.data.required_class,
+                                )"
+                                :key="required_class"
+                                class="capitalize"
+                            >
+                                {{ required_class + " " }}
+                            </span>
+                        </template>
+                    </Column>
+                    <Column
+                        field="quest_giver"
+                        header="Quest Giver"
+                        class="tight-column"
+                        sortable
+                    />
+                    <Column field="raw_rewards" header="Rewards">
+                        <template #body="prop">
+                            <div class="text-center">
+                                <Button
+                                    v-if="prop.data.raw_rewards?.length"
+                                    icon="pi pi-eye"
+                                    @click="togglePopover($event, prop.index)"
+                                />
+                                <Popover
+                                    :ref="(el) => (popovers[prop.index] = el)"
+                                >
+                                    <Fieldset
+                                        v-if="prop.data.raw_rewards?.length"
+                                        legend="Quest Rewards"
+                                    >
+                                        <template
+                                            v-for="item in prop.data.items"
+                                            :key="item.id"
+                                        >
+                                            <Link
+                                                :href="
+                                                    route('item.show', {
+                                                        item: item.slug,
+                                                    })
+                                                "
+                                            >
+                                                <Tipper :data="item"></Tipper>
+                                            </Link>
+                                        </template>
+                                        <template
+                                            v-for="reward in prop.data
+                                                .raw_rewards"
+                                            :key="`item-${prop.data.slug}-reward-${reward.name}`"
+                                        >
+                                            <div
+                                                class="mt-2"
+                                                :class="{
+                                                    'text-green-500':
+                                                        reward.type ===
+                                                            QuestRewardType
+                                                                .Faction
+                                                                .value ||
+                                                        reward.type ===
+                                                            QuestRewardType
+                                                                .SkillPoint
+                                                                .value ||
+                                                        reward.type ===
+                                                            QuestRewardType
+                                                                .SpellPoint
+                                                                .value,
+                                                    'text-amber-500':
+                                                        reward.type ===
+                                                        QuestRewardType.Title
+                                                            .value,
+                                                }"
+                                            >
+                                                <span
+                                                    >{{
+                                                        reward.name.replaceAll(
+                                                            "_",
+                                                            " ",
+                                                        )
+                                                    }}
+                                                </span>
+                                                <span
+                                                    v-if="
+                                                        reward.amount > 1 &&
+                                                        reward.type !==
+                                                            QuestRewardType
+                                                                .Title.value
+                                                    "
+                                                    class="ml-2"
+                                                    >{{ reward.amount }}</span
+                                                >
+                                            </div>
+                                        </template>
+                                    </Fieldset>
+                                </Popover>
+                            </div>
                         </template>
                     </Column>
                 </DataTable>

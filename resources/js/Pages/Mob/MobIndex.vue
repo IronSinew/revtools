@@ -10,6 +10,7 @@ import Message from "primevue/message";
 import MultiSelect from "primevue/multiselect";
 import Slider from "primevue/slider";
 import { ref } from "vue";
+import dataTablesSortFromProps from "@/Composables/sort-props-for-datatables.js";
 
 import Tipper from "@/Components/Tipper.vue";
 import MobTier from "@/Composables/GeneratedEnumObjects/Mobs-MobTier.json";
@@ -38,7 +39,7 @@ const lazyParams = ref({
     page: parseInt(page.props.params?.page || 0),
     last: parseInt(page.props.params?.last || 0),
     rows: parseInt(page.props.params?.rows || 25),
-    sort: page.props.params?.sort || [],
+    sort: [...dataTablesSortFromProps(page.props.params?.sort)],
     filters: {
         ...JSON.parse(JSON.stringify(defaultFilters)),
         ...(page.props.params?.filters || {}),
@@ -46,6 +47,7 @@ const lazyParams = ref({
 });
 
 const clearFilters = () => {
+    lazyParams.value.sort = [];
     lazyParams.value.filters = JSON.parse(JSON.stringify(defaultFilters));
 };
 
@@ -193,6 +195,7 @@ const togglePopover = (event, index) => {
             <Deferred data="table">
                 <DataTable
                     v-model:filters="lazyParams.filters"
+                    v-model:multiSortMeta="lazyParams.sort"
                     filter-display="menu"
                     data-key="id"
                     class="p-datatable list-view"
@@ -213,7 +216,7 @@ const togglePopover = (event, index) => {
                 >
                     <template #empty> No Items</template>
                     <Column field="id" header="ID" />
-                    <Column field="name" header="Name">
+                    <Column field="name" header="Name" sortable>
                         <template #body="prop">
                             <Link
                                 :href="
@@ -278,19 +281,19 @@ const togglePopover = (event, index) => {
                             </Popover>
                         </template>
                     </Column>
-                    <Column field="type" header="Type">
+                    <Column field="type" header="Type" sortable>
                         <template #body="prop">
                             {{ jsonObjectGetLabelByValue(MobType, prop.data.type) }}
                         </template>
                     </Column>
-                    <Column field="tier" header="Tier">
+                    <Column field="tier" header="Tier" sortable>
                         <template #body="prop">
                             <span class="capitalize">{{
                                 prop.data.tier.replace("_", " ")
                             }}</span>
                         </template>
                     </Column>
-                    <Column field="level" header="Level" class="tight-column">
+                    <Column field="level" header="Level" class="tight-column" sortable>
                         <template #body="prop">
                             <span class="capitalize q">
                                 {{ prop.data.level }}

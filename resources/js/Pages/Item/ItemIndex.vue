@@ -13,6 +13,7 @@ import Slider from "primevue/slider";
 import { ref } from "vue";
 
 import Tipper from "@/Components/Tipper.vue";
+import dataTablesSortFromProps from "@/Composables/sort-props-for-datatables.js";
 import ClassType from "@/Composables/GeneratedEnumObjects/ClassType.json";
 import ItemSlot from "@/Composables/GeneratedEnumObjects/Items-ItemSlot.json";
 import ItemSubTypeEnum from "@/Composables/GeneratedEnumObjects/Items-ItemSubType.json";
@@ -50,7 +51,7 @@ const lazyParams = ref({
     page: parseInt(page.props.params?.page || 0),
     last: parseInt(page.props.params?.last || 0),
     rows: parseInt(page.props.params?.rows || 25),
-    sort: page.props.params?.sort || [],
+    sort: [...dataTablesSortFromProps(page.props.params?.sort)],
     filters: {
         ...JSON.parse(JSON.stringify(defaultFilters)),
         ...(page.props.params?.filters || {}),
@@ -58,6 +59,7 @@ const lazyParams = ref({
 });
 
 const clearFilters = () => {
+    lazyParams.value.sort = [];
     lazyParams.value.filters = JSON.parse(JSON.stringify(defaultFilters));
 };
 
@@ -233,6 +235,7 @@ const togglePopover = (event, index) => {
             <Deferred data="table">
                 <DataTable
                     v-model:filters="lazyParams.filters"
+                    v-model:multiSortMeta="lazyParams.sort"
                     filter-display="menu"
                     data-key="id"
                     class="p-datatable list-view"

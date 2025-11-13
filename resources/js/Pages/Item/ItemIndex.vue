@@ -315,9 +315,9 @@ const togglePopover = (event, index) => {
                                         :key="`item-${prop.data.id}-mobs-${mob.id}`"
                                     >
                                         <div class="mt-2">
-                                            <span class="q">{{
-                                                mob.name
-                                            }}</span>
+                                            <Link :href="route('mob.show', { mob: mob.slug })">
+                                                <span class="q">{{ mob.name }}</span>
+                                            </Link>
                                             <br />
                                             <span class="ml-2">{{
                                                 (

@@ -280,9 +280,7 @@ const togglePopover = (event, index) => {
                     </Column>
                     <Column field="type" header="Type">
                         <template #body="prop">
-                            <span class="capitalize">{{
-                                prop.data.type.replace("_", " ")
-                            }}</span>
+                            {{ jsonObjectGetLabelByValue(MobType, prop.data.type) }}
                         </template>
                     </Column>
                     <Column field="tier" header="Tier">

@@ -133,7 +133,7 @@ const togglePopover = (event, index) => {
                             "
                             filter
                             option-value="value"
-                            option-label="name"
+                            option-label="label"
                             placeholder="Select Sub Type"
                             class="w-full"
                             :show-clear="true"
@@ -253,29 +253,25 @@ const togglePopover = (event, index) => {
                 >
                     <template #empty> No Items</template>
                     <Column field="id" header="ID" class="tight-column" />
-                    <Column field="type" header="Type" class="tight-column">
+                    <Column field="type" header="Type" class="tight-column whitespace-nowrap">
                         <template #body="prop">
-                            <span class="capitalize">{{
-                                prop.data.type.replace("_", " ")
-                            }}</span>
+                            {{ jsonObjectGetLabelByValue(ItemTypeEnum, prop.data.type) }}
                         </template>
                     </Column>
                     <Column
                         field="sub_type"
                         header="Sub Type"
-                        class="tight-column"
+                        class="tight-column whitespace-nowrap"
                     >
                         <template #body="prop">
-                            <span class="capitalize">{{
-                                prop.data.sub_type.replace("_", " ")
-                            }}</span>
+                            {{ jsonObjectGetLabelByValue(ItemSubTypeEnum, prop.data.sub_type) }}
                         </template>
                     </Column>
                     <Column field="slot" header="Slot" class="tight-column">
                         <template #body="prop">
-                            <span class="capitalize">{{
-                                (prop.data.slot || "").replace("_", " ")
-                            }}</span>
+                            <span v-if="prop.data.slot">
+                                {{ jsonObjectGetLabelByValue(ItemSlot, prop.data.slot) }}
+                            </span>
                         </template>
                     </Column>
                     <Column field="drops" header="Dropped By">

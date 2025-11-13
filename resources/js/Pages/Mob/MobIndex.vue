@@ -10,11 +10,11 @@ import Message from "primevue/message";
 import MultiSelect from "primevue/multiselect";
 import Slider from "primevue/slider";
 import { ref } from "vue";
-import dataTablesSortFromProps from "@/Composables/sort-props-for-datatables.js";
 
 import Tipper from "@/Components/Tipper.vue";
 import MobTier from "@/Composables/GeneratedEnumObjects/Mobs-MobTier.json";
 import MobType from "@/Composables/GeneratedEnumObjects/Mobs-MobType.json";
+import dataTablesSortFromProps from "@/Composables/sort-props-for-datatables.js";
 
 defineProps({
     table: {
@@ -195,7 +195,7 @@ const togglePopover = (event, index) => {
             <Deferred data="table">
                 <DataTable
                     v-model:filters="lazyParams.filters"
-                    v-model:multiSortMeta="lazyParams.sort"
+                    v-model:multi-sort-meta="lazyParams.sort"
                     filter-display="menu"
                     data-key="id"
                     class="p-datatable list-view"
@@ -283,7 +283,12 @@ const togglePopover = (event, index) => {
                     </Column>
                     <Column field="type" header="Type" sortable>
                         <template #body="prop">
-                            {{ jsonObjectGetLabelByValue(MobType, prop.data.type) }}
+                            {{
+                                jsonObjectGetLabelByValue(
+                                    MobType,
+                                    prop.data.type,
+                                )
+                            }}
                         </template>
                     </Column>
                     <Column field="tier" header="Tier" sortable>
@@ -293,7 +298,12 @@ const togglePopover = (event, index) => {
                             }}</span>
                         </template>
                     </Column>
-                    <Column field="level" header="Level" class="tight-column" sortable>
+                    <Column
+                        field="level"
+                        header="Level"
+                        class="tight-column"
+                        sortable
+                    >
                         <template #body="prop">
                             <span class="capitalize q">
                                 {{ prop.data.level }}

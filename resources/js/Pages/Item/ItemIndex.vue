@@ -13,11 +13,11 @@ import Slider from "primevue/slider";
 import { ref } from "vue";
 
 import Tipper from "@/Components/Tipper.vue";
-import dataTablesSortFromProps from "@/Composables/sort-props-for-datatables.js";
 import ClassType from "@/Composables/GeneratedEnumObjects/ClassType.json";
 import ItemSlot from "@/Composables/GeneratedEnumObjects/Items-ItemSlot.json";
 import ItemSubTypeEnum from "@/Composables/GeneratedEnumObjects/Items-ItemSubType.json";
 import ItemTypeEnum from "@/Composables/GeneratedEnumObjects/Items-ItemType.json";
+import dataTablesSortFromProps from "@/Composables/sort-props-for-datatables.js";
 
 defineProps({
     table: {
@@ -235,7 +235,7 @@ const togglePopover = (event, index) => {
             <Deferred data="table">
                 <DataTable
                     v-model:filters="lazyParams.filters"
-                    v-model:multiSortMeta="lazyParams.sort"
+                    v-model:multi-sort-meta="lazyParams.sort"
                     filter-display="menu"
                     data-key="id"
                     class="p-datatable list-view"
@@ -256,9 +256,18 @@ const togglePopover = (event, index) => {
                 >
                     <template #empty> No Items</template>
                     <Column field="id" header="ID" class="tight-column" />
-                    <Column field="type" header="Type" class="tight-column whitespace-nowrap">
+                    <Column
+                        field="type"
+                        header="Type"
+                        class="tight-column whitespace-nowrap"
+                    >
                         <template #body="prop">
-                            {{ jsonObjectGetLabelByValue(ItemTypeEnum, prop.data.type) }}
+                            {{
+                                jsonObjectGetLabelByValue(
+                                    ItemTypeEnum,
+                                    prop.data.type,
+                                )
+                            }}
                         </template>
                     </Column>
                     <Column
@@ -267,13 +276,23 @@ const togglePopover = (event, index) => {
                         class="tight-column whitespace-nowrap"
                     >
                         <template #body="prop">
-                            {{ jsonObjectGetLabelByValue(ItemSubTypeEnum, prop.data.sub_type) }}
+                            {{
+                                jsonObjectGetLabelByValue(
+                                    ItemSubTypeEnum,
+                                    prop.data.sub_type,
+                                )
+                            }}
                         </template>
                     </Column>
                     <Column field="slot" header="Slot" class="tight-column">
                         <template #body="prop">
                             <span v-if="prop.data.slot">
-                                {{ jsonObjectGetLabelByValue(ItemSlot, prop.data.slot) }}
+                                {{
+                                    jsonObjectGetLabelByValue(
+                                        ItemSlot,
+                                        prop.data.slot,
+                                    )
+                                }}
                             </span>
                         </template>
                     </Column>

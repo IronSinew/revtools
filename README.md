@@ -91,7 +91,9 @@ docker compose up -d php
 ### Mobs
 - [ ] TODO
 ### Quests
-- [ ] TODO
+- [ ] Objectives List
+- [ ] Filtering
+- [ ] Flagging Completed Quests
 ### Map
 - [ ] TODO
 ### Guides

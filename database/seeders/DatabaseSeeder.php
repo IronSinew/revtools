@@ -15,9 +15,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
+            MobSeeder::class,
             ItemSeeder::class,
             QuestSeeder::class,
             ItemQuestSeeder::class,
+            MobToItemSeeder::class,
         ]);
 
         User::factory()->create([

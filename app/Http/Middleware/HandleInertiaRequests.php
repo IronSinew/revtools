@@ -37,6 +37,7 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'current_route_salted' => implode('|', [\Route::currentRouteName().\Str::random(10)]),
+            'params' => $request->query(),
         ]);
     }
 }

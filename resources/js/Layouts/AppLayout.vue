@@ -22,6 +22,7 @@ import DarkModeButton from "@/Components/DarkModeButton.vue";
 import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
 import Tipper from "@/Components/Tipper.vue";
+import SearchableType from "@/Composables/GeneratedEnumObjects/SearchableType.json";
 
 defineProps({
     title: String,
@@ -54,6 +55,16 @@ const search = async (event) => {
         });
 };
 
+const getLinkObject = (data) => {
+    if (data.type === SearchableType.Item.value) {
+        return { item: `${data.slug}` };
+    }
+
+    if (data.type === SearchableType.Mob.value) {
+        return { mob: `${data.slug}` };
+    }
+};
+
 const menuItems = ref([
     // {
     //     label: "Categories",
@@ -75,6 +86,11 @@ const menuItems = ref([
         label: "Quests",
         route: "quests.index",
         routeGroup: "quest.*",
+    },
+    {
+        label: "Mobs",
+        route: "mob.index",
+        routeGroup: "mob.*",
     },
 ]);
 
@@ -183,17 +199,24 @@ const current = computed(() => {
                 >
                     <template #option="slotProps">
                         <div v-if="slotProps.option.slug" class="ml-2 w-full">
-                            <div v-if="slotProps.option.type === 'item'">
+                            <div>
                                 <Link
                                     :href="
-                                        route(`${slotProps.option.type}.show`, {
-                                            item: `${slotProps.option.slug}`,
-                                        })
+                                        route(
+                                            `${slotProps.option.type}.show`,
+                                            getLinkObject(slotProps.option),
+                                        )
                                     "
                                     class="whitespace-nowrap"
                                     @click="searchModal.visible = false"
                                 >
-                                    <div class="flex">
+                                    <div
+                                        v-if="
+                                            slotProps.option.type ===
+                                            SearchableType.Item.value
+                                        "
+                                        class="flex"
+                                    >
                                         <div class="mr-2">
                                             <i
                                                 class="pi pi-book"
@@ -211,16 +234,35 @@ const current = computed(() => {
                                             ></Tipper>
                                         </div>
                                     </div>
+                                    <div
+                                        v-else-if="
+                                            slotProps.option.type ===
+                                            SearchableType.Mob.value
+                                        "
+                                        class="flex"
+                                    >
+                                        <div class="mr-2">
+                                            <i
+                                                class="pi pi-key"
+                                                :title="slotProps.option.type"
+                                            />
+                                        </div>
+                                        <div>
+                                            {{
+                                                searchModal.data.mobs[
+                                                    slotProps.option.id
+                                                ].name
+                                            }}
+                                        </div>
+                                    </div>
                                 </Link>
-                            </div>
-                            <div v-else>
-                                {{ slotProps.option.name }}
                             </div>
                             <Link
                                 :href="
-                                    route(`${slotProps.option.type}.show`, {
-                                        item: `${slotProps.option.slug}`,
-                                    })
+                                    route(
+                                        `${slotProps.option.type}.show`,
+                                        getLinkObject(slotProps.option),
+                                    )
                                 "
                                 class="absolute inset-0 pointer-events-none"
                                 @click="searchModal.visible = false"

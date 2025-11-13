@@ -43,6 +43,9 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
+ * @property-read \App\Models\Pivots\ItemMob|null $pivot
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Mob> $mobs
+ * @property-read int|null $mobs_count
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Item newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Item newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Item query()
@@ -69,6 +72,61 @@ namespace App\Models{
  */
 	#[\AllowDynamicProperties]
 	class IdeHelperItem {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property int $external_id
+ * @property string $name
+ * @property string $slug
+ * @property \App\Enums\Mobs\MobType $type
+ * @property int $level
+ * @property \App\Enums\Mobs\MobTier $tier
+ * @property string|null $location
+ * @property \Spatie\LaravelData\Contracts\BaseData|\Spatie\LaravelData\Contracts\TransformableData|null $deprecated_data
+ * @property array<array-key, mixed>|null $drops
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Pivots\ItemMob|null $pivot
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Item> $items
+ * @property-read int|null $items_count
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mob newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mob newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mob query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mob whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mob whereDeprecatedData($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mob whereDrops($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mob whereExternalId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mob whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mob whereLevel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mob whereLocation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mob whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mob whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mob whereTier($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mob whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Mob whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperMob {}
+}
+
+namespace App\Models\Pivots{
+/**
+ * @property int $id
+ * @property int $item_id
+ * @property int $mob_id
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ItemMob newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ItemMob newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ItemMob query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ItemMob whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ItemMob whereItemId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ItemMob whereMobId($value)
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperItemMob {}
 }
 
 namespace App\Models{

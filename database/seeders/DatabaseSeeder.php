@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             QuestSeeder::class,
             ItemQuestSeeder::class,
             MobToItemSeeder::class,
+            QuestChainSeeder::class,
         ]);
 
         User::factory()->create([

@@ -15,6 +15,7 @@ import { ref } from "vue";
 import Tipper from "@/Components/Tipper.vue";
 import ClassType from "@/Composables/GeneratedEnumObjects/ClassType.json";
 import QuestRewardType from "@/Composables/GeneratedEnumObjects/Quests-QuestRewardType.json";
+import dataTablesSortFromProps from "@/Composables/sort-props-for-datatables.js";
 
 const props = defineProps({
     table: {
@@ -39,7 +40,7 @@ const lazyParams = ref({
     page: parseInt(page.props.params?.page || 0),
     last: parseInt(page.props.params?.last || 0),
     rows: parseInt(page.props.params?.rows || 25),
-    sort: page.props.params?.sort || [],
+    sort: [...dataTablesSortFromProps(page.props.params?.sort)],
     filters:
         page.props.params?.filters ||
         JSON.parse(JSON.stringify(defaultFilters)),
@@ -65,7 +66,7 @@ const applyDataLazyLoad = (event) => {
 const loadLazyData = () => {
     loading.value = true;
 
-    router.get(route("quests.index"), lazyParams.value, {
+    router.get(route("quest.index"), lazyParams.value, {
         only: ["table"],
         onFinish: (visit) => {
             loading.value = false;
@@ -209,7 +210,7 @@ const togglePopover = (event, index) => {
                         <template #body="prop">
                             <Link
                                 :href="
-                                    route('quests.show', {
+                                    route('quest.show', {
                                         quest: prop.data.slug,
                                     })
                                 "
@@ -242,23 +243,77 @@ const togglePopover = (event, index) => {
                         </template>
                     </Column>
                     <Column
-                        field="quest_giver"
+                        field="mob"
                         header="Quest Giver"
                         class="tight-column"
                         sortable
-                    />
+                    >
+                        <template #body="prop">
+                            <Link
+                                :href="
+                                    route('mob.show', {
+                                        mob: prop.data.mob.slug,
+                                    })
+                                "
+                            >
+                                {{ prop.data.mob.name }}
+                            </Link>
+                        </template>
+                    </Column>
+                    <Column field="reward_types" header="Reward Types">
+                        <template #body="prop">
+                            <div
+                                v-for="type in prop.data.reward_types"
+                                :key="type"
+                                class=""
+                            >
+                                <span
+                                    :class="{
+                                        'text-green-500':
+                                            type ===
+                                                QuestRewardType.Faction.value ||
+                                            type ===
+                                                QuestRewardType.SkillPoint
+                                                    .value ||
+                                            type ===
+                                                QuestRewardType.SpellPoint
+                                                    .value ||
+                                            type ===
+                                                QuestRewardType.StatPoint.value,
+                                        'text-amber-500':
+                                            type ===
+                                            QuestRewardType.Title.value,
+                                        'text-blue-500':
+                                            type === QuestRewardType.Item.value,
+                                    }"
+                                    >{{
+                                        jsonObjectGetLabelByValue(
+                                            QuestRewardType,
+                                            type,
+                                        )
+                                    }}</span
+                                >
+                            </div>
+                        </template>
+                    </Column>
                     <Column field="raw_rewards" header="Rewards">
                         <template #body="prop">
                             <div class="text-center">
                                 <Button
-                                    v-if="prop.data.raw_rewards?.length"
+                                    v-if="
+                                        prop.data.raw_rewards?.length ||
+                                        prop.data.items?.length
+                                    "
                                     icon="pi pi-eye"
                                     @click="togglePopover($event, prop.index)"
                                 />
                             </div>
                             <Popover :ref="(el) => (popovers[prop.index] = el)">
                                 <Fieldset
-                                    v-if="prop.data.raw_rewards?.length"
+                                    v-if="
+                                        prop.data.raw_rewards?.length ||
+                                        prop.data.items?.length
+                                    "
                                     legend="Quest Rewards"
                                 >
                                     <template

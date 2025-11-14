@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Enums\ClassType;
 use App\Enums\Quests\QuestRewardType;
+use App\Models\Mob;
 use App\Models\Quest;
 use App\ValueObjects\Quests\QuestObject;
 use App\ValueObjects\Quests\QuestReward;
@@ -48,14 +49,15 @@ class QuestSeeder extends Seeder
 
                 $rewardTypes[] = $reward->type;
             }
+            $mob = Mob::where('name', $rawItem['NpcQuestGiver'])->first();
 
             $quest = new QuestObject(
                 name: $rawItem['Name'],
                 external_id: $rawItem['Id'],
                 level: $rawItem['Level'],
-                quest_giver: $rawItem['NpcQuestGiver'],
                 objectives: $rawItem['Objectives'],
                 steps: $rawItem['Steps'],
+                mob_id: $mob->id ?? null,
                 required_class: $classes ?? null,
                 raw_rewards: $rewards,
                 reward_types: collect($rewardTypes)->unique()->values()->toArray(),
@@ -91,11 +93,16 @@ class QuestSeeder extends Seeder
         // one more pass to set up required quests
         foreach (JsonParser::parse($file) as $key => $rawItem) {
             if (!empty($rawItem['RequiredQuest'])) {
-                $requiredQuestNames = explode(', ', $rawItem['RequiredQuest']);
                 $quest = Quest::where('external_id', $rawItem['Id'])->first();
 
-                $requiredQuests = Quest::whereIn('name', $requiredQuestNames)->get();
-                $quest->previousQuests()->sync($requiredQuests->pluck('id'));
+                $requiredQuest = Quest::where('name', $rawItem['RequiredQuest'])->first();
+                if ($requiredQuest === null) {
+                    continue;
+                }
+
+                $quest->update([
+                    'previous_quest_id' => $requiredQuest->id,
+                ]);
             }
         }
     }

@@ -11,4 +11,5 @@ enum SearchableType: string implements HasLabel
 
     case Item = 'item';
     case Mob = 'mob';
+    case Quest = 'quest';
 }

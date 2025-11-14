@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\SearchableType;
 use App\Models\Item;
 use App\Models\Mob;
+use App\Models\Quest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -30,6 +31,11 @@ class SearchSimpleController extends Controller
                     $groupedIds->get(SearchableType::Mob->value)?->pluck('id')
                 )
                     ->keyBy('id'),
+                'quests' => Quest::findMany(
+                    $groupedIds->get(SearchableType::Quest->value)?->pluck('id')
+
+                )
+                    ->keyBy('id')
             ],
         ]);
     }

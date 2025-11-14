@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->unsignedInteger('level')->default(0);
             $table->json('required_class')->nullable();
-            $table->string('quest_giver');
+            $table->foreignId('mob_id')->nullable()->constrained('mobs')->cascadeOnDelete();
+            $table->foreignId('previous_quest_id')->nullable()->constrained('quests');
+            $table->json('quest_chain')->nullable();
             $table->json('objectives');
             $table->json('steps');
             $table->json('raw_rewards')->nullable();

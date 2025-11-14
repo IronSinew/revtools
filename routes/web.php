@@ -13,7 +13,7 @@ Route::prefix('/items')->name('item.')->group(function () {
     Route::get('/', [ItemController::class, 'index'])->name('index');
     Route::get('/{item}', [ItemController::class, 'show'])->name('show');
 });
-Route::resource('quests', QuestController::class)->only(['index', 'show']);
+Route::resource('quest', QuestController::class)->only(['index', 'show']);
 
 Route::post('/search-simple', SearchSimpleController::class)->name('search.simple');
 

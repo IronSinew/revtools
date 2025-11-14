@@ -63,6 +63,10 @@ const getLinkObject = (data) => {
     if (data.type === SearchableType.Mob.value) {
         return { mob: `${data.slug}` };
     }
+
+    if (data.type === SearchableType.Quest.value) {
+        return { quest: `${data.slug}` };
+    }
 };
 
 const menuItems = ref([
@@ -84,7 +88,7 @@ const menuItems = ref([
     },
     {
         label: "Quests",
-        route: "quests.index",
+        route: "quest.index",
         routeGroup: "quest.*",
     },
     {
@@ -250,6 +254,27 @@ const current = computed(() => {
                                         <div>
                                             {{
                                                 searchModal.data.mobs[
+                                                    slotProps.option.id
+                                                ].name
+                                            }}
+                                        </div>
+                                    </div>
+                                    <div
+                                        v-else-if="
+                                            slotProps.option.type ===
+                                            SearchableType.Quest.value
+                                        "
+                                        class="flex"
+                                    >
+                                        <div class="mr-2">
+                                            <i
+                                                class="pi pi-database"
+                                                :title="slotProps.option.type"
+                                            />
+                                        </div>
+                                        <div>
+                                            {{
+                                                searchModal.data.quests[
                                                     slotProps.option.id
                                                 ].name
                                             }}

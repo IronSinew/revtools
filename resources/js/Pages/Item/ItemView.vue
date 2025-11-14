@@ -1,6 +1,6 @@
 <script setup>
 import html2canvas from "html2canvas";
-import { onMounted, ref } from "vue";
+import {onMounted, ref} from "vue";
 
 import SimpleBreadcrumb from "@/Components/SimpleBreadcrumb.vue";
 import Tipper from "@/Components/Tipper.vue";
@@ -18,8 +18,8 @@ const props = defineProps({
 });
 
 const breadcrumbs = ref([
-    { label: "Items", url: route("item.index") },
-    { label: props.item.name },
+    {label: "Items", url: route("item.index")},
+    {label: props.item.name},
 ]);
 
 const tooltipContainer = ref(null);
@@ -28,7 +28,7 @@ onMounted(() => {
     invisibleDiv.innerHTML = tooltipContainer.value.innerHTML;
     document.body.appendChild(invisibleDiv);
 
-    html2canvas(invisibleDiv).then((canvas) => {
+    html2canvas(invisibleDiv, {width: 400, backgroundColor: null}).then((canvas) => {
         ogBase64.value = canvas.toDataURL("image/png");
 
         document.body.removeChild(invisibleDiv);
@@ -39,9 +39,9 @@ onMounted(() => {
 <template>
     <Head>
         <title>{{ item.name }}</title>
-        <meta property="og:image" :content="ogBase64" />
+        <meta property="og:image" :content="route('decode.img', { q: JSON.stringify(ogBase64) })"/>
     </Head>
-    <SimpleBreadcrumb :data="breadcrumbs" />
+    <SimpleBreadcrumb :data="breadcrumbs"/>
 
     <div class="px-6 lg:px-0 py-12">
         <div ref="tooltipContainer" class="flex items-center justify-center">

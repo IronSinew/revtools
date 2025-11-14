@@ -201,12 +201,7 @@ const togglePopover = (event, index) => {
                 >
                     <template #empty> No Items</template>
                     <Column field="id" header="ID" class="tight-column" />
-                    <Column
-                        field="name"
-                        header="Name"
-                        class="tight-column"
-                        sortable
-                    >
+                    <Column field="name" header="Name" sortable>
                         <template #body="prop">
                             <Link
                                 :href="
@@ -228,7 +223,6 @@ const togglePopover = (event, index) => {
                     <Column
                         field="required_class"
                         header="Required Class"
-                        class="tight-column"
                     >
                         <template #body="prop">
                             <span
@@ -260,7 +254,11 @@ const togglePopover = (event, index) => {
                             </Link>
                         </template>
                     </Column>
-                    <Column field="reward_types" header="Reward Types">
+                    <Column
+                        field="reward_types"
+                        header="Reward Types"
+                        class="tight-column"
+                    >
                         <template #body="prop">
                             <div
                                 v-for="type in prop.data.reward_types"

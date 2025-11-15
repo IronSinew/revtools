@@ -24,14 +24,15 @@ class QuestSeeder extends Seeder
         foreach (JsonParser::parse($file) as $key => $rawItem) {
 
             $classStrings = explode(' ', $rawItem['RequiredClass']);
-            $classes = [];
+            $classes = collect([]);
             foreach ($classStrings as $str) {
                 $type = ClassType::tryFrom(\Str::lower(trim($str)));
 
                 if ($type !== null) {
-                    $classes[] = $type;
+                    $classes->push($type->value);
                 }
             }
+            $classes = $classes->unique();
 
             // quest rewards
             $rewards = [];
@@ -63,7 +64,7 @@ class QuestSeeder extends Seeder
                 steps: $rawItem['Steps'],
                 gold: $rawItem['Gold'],
                 mob_id: $mob->id ?? null,
-                required_class: $classes ?? null,
+                required_class: $classes->toArray() ?? null,
                 raw_rewards: $rewards,
                 reward_types: collect($rewardTypes)->unique()->values()->toArray(),
             );

@@ -45,8 +45,8 @@ const breadcrumbs = ref([
     <SimpleBreadcrumb :data="breadcrumbs" />
 
     <div class="px-6 lg:px-0 py-12">
-        <div class="flex items-center justify-center">
-            <div class="w-full space-y-10">
+        <div class="grid grid-cols-8 grid-rows-1 gap-4">
+            <div class="col-span-3">
                 <Card class="w-full border-1">
                     <template #content>
                         <div class="text-xl mb-4 text-center">
@@ -74,7 +74,7 @@ const breadcrumbs = ref([
                         </div>
                     </template>
                 </Card>
-                <Card class="w-full border-1">
+                <Card class="w-full border-1 mt-4">
                     <template #header>
                         <div class="text-center text-3xl text-red-500">
                             Requirements
@@ -92,52 +92,7 @@ const breadcrumbs = ref([
                         </div>
                     </template>
                 </Card>
-                <Card v-if="quest_chain.length" class="w-full border-1">
-                    <template #header>
-                        <div class="text-center text-3xl text-orange-500">
-                            Quest Chain
-                        </div>
-                    </template>
-                    <template #content>
-                        <div class="text-xl capitalize pb-4">
-                            <Button
-                                v-for="(chain, index) in quest_chain"
-                                :key="chain.id"
-                                class="w-full mb-2"
-                                :disabled="props.quest.id === chain.id"
-                                severity="secondary"
-                                @click="handleQuestChainClick(chain)"
-                            >
-                                <div
-                                    class="grid grid-cols-2 w-full justify-between text-left"
-                                >
-                                    <div>{{ index + 1 }}. {{ chain.name }}</div>
-                                    <div class="q text-right">
-                                        Lv. {{ chain.level }}
-                                    </div>
-                                    <div>{{ chain.mob.name }}</div>
-                                </div>
-                            </Button>
-                        </div>
-                    </template>
-                </Card>
-                <Card class="w-full border-1">
-                    <template #header>
-                        <div class="text-center text-3xl text-blue-500">
-                            Objectives
-                        </div>
-                    </template>
-                    <template #content>
-                        <div
-                            v-for="(item, index) in quest.objectives"
-                            :key="index"
-                            class="text-xl capitalize pb-2"
-                        >
-                            {{ index + 1 }}. {{ item }}
-                        </div>
-                    </template>
-                </Card>
-                <Card class="w-full border-1">
+                <Card class="w-full border-1 mt-4">
                     <template #header>
                         <div class="text-center text-3xl text-amber-600">
                             Steps
@@ -153,6 +108,8 @@ const breadcrumbs = ref([
                         </div>
                     </template>
                 </Card>
+            </div>
+            <div class="col-span-3">
                 <Card class="w-full border-1">
                     <template #header>
                         <div class="text-center text-3xl text-pink-700">
@@ -160,11 +117,13 @@ const breadcrumbs = ref([
                         </div>
                     </template>
                     <template #content>
-                        <div class="flex flex-wrap justify-center gap-30">
+                        <div
+                            class="grid grid-cols-2 text-center justify-center"
+                        >
                             <div
                                 v-for="item in quest.items"
                                 :key="item.id"
-                                class="text-xl capitalize pb-2"
+                                class="capitalize pb-2"
                             >
                                 <Link
                                     :href="
@@ -179,10 +138,10 @@ const breadcrumbs = ref([
                             <div
                                 v-for="reward in quest.raw_rewards"
                                 :key="reward"
-                                class="text-xl capitalize pb-2"
+                                class="capitalize pb-2"
                             >
-                                <span
-                                    >{{ reward.name.replaceAll("_", " ") }}
+                                <span>
+                                    {{ reward.name.replaceAll("_", " ") }}
                                 </span>
                                 <span
                                     v-if="
@@ -190,10 +149,62 @@ const breadcrumbs = ref([
                                         reward.type !==
                                             QuestRewardType.Title.value
                                     "
-                                    class="ml-2"
-                                    >{{ reward.amount }}</span
+                                    class="ml-1"
                                 >
+                                    {{ reward.amount }}
+                                </span>
                             </div>
+                        </div>
+                    </template>
+                </Card>
+                <Card class="w-full border-1 mt-4">
+                    <template #header>
+                        <div class="text-center text-3xl text-blue-500">
+                            Objectives
+                        </div>
+                    </template>
+                    <template #content>
+                        <div
+                            v-for="(item, index) in quest.objectives"
+                            :key="index"
+                            class="text-xl capitalize pb-2"
+                        >
+                            {{ index + 1 }}. {{ item }}
+                        </div>
+                    </template>
+                </Card>
+            </div>
+            <div class="col-span-2 col-start-7">
+                <Card v-if="quest_chain.length" class="w-full border-1">
+                    <template #header>
+                        <div class="text-center text-3xl text-orange-500">
+                            Quest Chain
+                        </div>
+                    </template>
+                    <template #content>
+                        <div class="text-xl capitalize pb-4">
+                            <Button
+                                v-for="(chain, index) in quest_chain"
+                                :key="chain.id"
+                                class="w-full mb-2"
+                                :disabled="props.quest.id === chain.id"
+                                :severity="[
+                                    props.quest.id === chain.id
+                                        ? 'info'
+                                        : 'secondary',
+                                ]"
+                                @click="handleQuestChainClick(chain)"
+                            >
+                                <div
+                                    class="grid grid-cols-2 w-full justify-between text-left"
+                                >
+                                    <div>{{ index + 1 }}. {{ chain.name }}</div>
+                                    <div class="q text-right">
+                                        Lv. {{ chain.level }}
+                                    </div>
+                                    <div>{{ chain.mob.name }}</div>
+                                </div>
+                            </Button>
                         </div>
                     </template>
                 </Card>

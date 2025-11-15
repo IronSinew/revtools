@@ -1,17 +1,19 @@
 <script setup>
 import { Deferred, Link, router, usePage } from "@inertiajs/vue3";
 import Drawer from "@volt/Drawer.vue";
+import VoltInputText from "@volt/InputText.vue";
+import VoltButton from "@volt/SecondaryButton.vue";
 import Button from "primevue/button";
 import Checkbox from "primevue/checkbox";
 import Column from "primevue/column";
 import DataTable from "primevue/datatable";
 import Fieldset from "primevue/fieldset";
-import InputText from "primevue/inputtext";
 import Message from "primevue/message";
 import MultiSelect from "primevue/multiselect";
 import Popover from "primevue/popover";
 import Select from "primevue/select";
 import Slider from "primevue/slider";
+import { useToast } from "primevue/usetoast";
 import { computed, onMounted, ref } from "vue";
 
 import Tipper from "@/Components/Tipper.vue";
@@ -35,6 +37,8 @@ onMounted(() => {
         characters.value = JSON.parse(storedCharacters);
     }
 });
+
+const toast = useToast();
 
 const page = usePage();
 const loading = ref(false);
@@ -108,6 +112,8 @@ const togglePopover = (event, index) => {
 };
 
 const characterNameInput = ref("");
+const characterInputIsInvalid = ref(false);
+
 const character = ref({
     name: "",
     quests: [],
@@ -131,6 +137,17 @@ const loadCharacterQuests = (character) => {
 };
 
 const handleCreateCharacter = () => {
+    characterInputIsInvalid.value = false;
+
+    if (!characterNameInput.value) {
+        toast.add({
+            detail: "Name is required",
+        });
+        characterInputIsInvalid.value = true;
+
+        return;
+    }
+
     characters.value.push({ name: characterNameInput.value, quests: [] });
     localStorage.setItem(
         localStorageCharacterKey,
@@ -195,7 +212,7 @@ const rowClass = (data) => {
                             "
                             filter
                             option-value="value"
-                            option-label="name"
+                            option-label="label"
                             placeholder="Select Reward Type"
                             class="w-full"
                             :show-clear="true"
@@ -209,7 +226,7 @@ const rowClass = (data) => {
                             v-model="lazyParams.filters.class.value"
                             :options="jsonObjectToSelectOptions(ClassType)"
                             option-value="value"
-                            option-label="name"
+                            option-label="label"
                             placeholder="Limit to Class"
                             class="w-full"
                             :show-clear="true"
@@ -267,7 +284,7 @@ const rowClass = (data) => {
                         @click="filterDrawer = true"
                     />
                     <div>
-                        <label>Character</label>
+                        <label>Track Completion by Character</label>
                         <Select
                             v-model="character.name"
                             :options="characters"
@@ -279,19 +296,21 @@ const rowClass = (data) => {
                             @change="loadCharacterQuests(character)"
                         >
                             <template #header>
-                                <div class="flex mb-4 mt-2">
-                                    <InputText
-                                        v-model="characterNameInput"
-                                        class=""
-                                        placeholder="Character Name"
-                                    ></InputText>
-                                    <Button
-                                        class="w-full pi pi-plus"
-                                        severity="secondary"
-                                        @click="handleCreateCharacter"
-                                    >
-                                        New
-                                    </Button>
+                                <div>
+                                    <div class="flex items-stretch flex-auto">
+                                        <VoltInputText
+                                            v-model="characterNameInput"
+                                            placeholder="Character Name"
+                                            pt:root="flex-1 rounded-e-none rounded-s-md"
+                                            :invalid="characterInputIsInvalid"
+                                        />
+                                        <VoltButton
+                                            label="Add"
+                                            icon="pi pi-plus"
+                                            pt:root="rounded-s-none"
+                                            @click="handleCreateCharacter"
+                                        />
+                                    </div>
                                 </div>
                             </template>
                             <template #option="slotProps">
@@ -300,12 +319,10 @@ const rowClass = (data) => {
                                 >
                                     <div>{{ slotProps.option.name }}</div>
                                     <Button
-                                        icon="pi pi-times"
-                                        severity="secondary"
+                                        icon="pi pi-trash"
+                                        severity="danger"
                                         size="small"
                                         raised
-                                        rounded
-                                        outlined
                                         @mousedown.stop="
                                             handleDeleteCharacter(
                                                 slotProps.option.name,

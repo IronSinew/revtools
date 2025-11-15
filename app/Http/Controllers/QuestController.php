@@ -16,10 +16,18 @@ class QuestController extends Controller
             'table' => Inertia::defer(fn () => Quest::query()
                 ->with(['items', 'mob'])
                 ->when($request->input('filters.reward_type.value'), fn ($query, $filters) => $query
-                    ->whereJsonContains('reward_types', $request->input('filters.reward_type.value'))
+                    ->where(function ($query) use ($filters) {
+                        foreach ($filters as $filter) {
+                            $query->orWhereJsonContains('reward_types', $filter);
+                        }
+                    })
                 )
                 ->when($request->input('filters.class.value'), fn ($query, $filters) => $query
-                    ->whereJsonContains('quests.required_class', $request->input('filters.class.value'))
+                    ->where(function ($query) use ($request) {
+                        $query
+                            ->whereJsonContains('quests.required_class', $request->input('filters.class.value'))
+                            ->orWhereNull('quests.required_class');
+                    })
                 )
                 ->when($request->input('filters.level.value'), fn ($query, $filters) => $query
                     ->whereBetween('level', $request->input('filters.level.value'))

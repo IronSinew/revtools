@@ -7,6 +7,7 @@ import Chip from "primevue/chip";
 import Dialog from "primevue/dialog";
 import Menubar from "primevue/menubar";
 import Message from "primevue/message";
+import Toast from "primevue/toast";
 import {
     computed,
     nextTick,
@@ -164,6 +165,8 @@ const current = computed(() => {
 </script>
 
 <template>
+    <Toast />
+
     <!-- Search -->
     <Dialog
         v-model:visible="searchModal.visible"

@@ -60,7 +60,7 @@ const tooltipHtml = computed(() => {
         </span>
     </div>
     <div ref="tooltipRef" :class="{ hidden: !forceDisplay }">
-        <div class="item-tooltip p-3 border rounded-md">
+        <div class="item-tooltip p-3 border rounded-md !text-left">
             <b
                 :class="{
                     q4: data.type === ItemType.Weapon.value,

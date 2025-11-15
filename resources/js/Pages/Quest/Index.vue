@@ -409,7 +409,6 @@ const rowClass = (data) => {
                         field="mob_id"
                         header="Quest Giver"
                         class="tight-column"
-                        sortable
                     >
                         <template #body="prop">
                             <Link

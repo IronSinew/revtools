@@ -2,10 +2,12 @@
 
 use App\Models\Item;
 use App\Models\Mob;
+use App\Models\Quest;
 use App\Models\User;
 use Database\Seeders\ItemSeeder;
 use Database\Seeders\MobSeeder;
 use Database\Seeders\MobToItemSeeder;
+use Database\Seeders\QuestSeeder;
 
 test('that a user is creatable and exists', function () {
     $userFactory = User::factory()->create();
@@ -38,4 +40,12 @@ test('that items to mobs relationships are parsable', function () {
     $mobsWithItemRelationships = Mob::whereHas('items')->count();
 
     expect($mobsWithItemRelationships)->toBeGreaterThan(0);
+});
+
+test('that quests are parsable', function () {
+    $this->seed(MobSeeder::class)->seed(QuestSeeder::class);
+
+    $quest = Quest::whereNotNull('mob_id')->first();
+
+    expect($quest)->toBeInstanceOf(Quest::class)->and($quest->mob)->toBeInstanceOf(Mob::class);
 });

@@ -38,7 +38,7 @@ class QuestController extends Controller
                 ->paginate(
                     perPage: $request->get('rows') ?? \Config::get('database.paginate.per_page'),
                     page: $request->get('page') + 1
-                ))
+                )),
         ]);
     }
 
@@ -46,7 +46,7 @@ class QuestController extends Controller
     {
         return inertia('Quest/Show', [
             'quest' => fn () => $quest->load(['items', 'mob']),
-            'quest_chain' =>  fn () => Quest::with('mob')->orderBy('id')->findMany($quest->quest_chain),
+            'quest_chain' => fn () => Quest::with('mob')->orderBy('id')->findMany($quest->quest_chain),
         ]);
     }
 }

@@ -15,6 +15,9 @@ use Spatie\LaravelData\DataCollection;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
+/**
+ * @mixin IdeHelperQuest
+ */
 class Quest extends BaseModel
 {
     use HasSlug;

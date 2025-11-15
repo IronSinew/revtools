@@ -2,11 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Enums\ClassType;
 use App\Enums\Quests\QuestRewardType;
 use App\Models\Item;
 use App\Models\Quest;
-use App\ValueObjects\Quests\QuestObject;
 use App\ValueObjects\Quests\QuestReward;
 use Cerbero\JsonParser\JsonParser;
 use Illuminate\Database\Seeder;

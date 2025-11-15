@@ -6,8 +6,8 @@ use App\Enums\Items\ItemSlot;
 use App\Enums\Items\ItemSubType;
 use App\Enums\Items\ItemType;
 use App\Enums\SearchableType;
-use App\Models\Pivots\ItemQuest;
 use App\Models\Pivots\ItemMob;
+use App\Models\Pivots\ItemQuest;
 use App\ValueObjects\Items\ItemDeprecatedData;
 use App\ValueObjects\Items\ItemEffect;
 use App\ValueObjects\Items\ItemRequirements;
@@ -90,7 +90,7 @@ class Item extends BaseModel
     {
         return $this->belongsToMany(Quest::class)->using(ItemQuest::class);
     }
-  
+
     public function mobs(): BelongsToMany
     {
         return $this->belongsToMany(Mob::class)

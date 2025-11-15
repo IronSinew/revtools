@@ -35,7 +35,7 @@ class SearchSimpleController extends Controller
                     $groupedIds->get(SearchableType::Quest->value)?->pluck('id')
 
                 )
-                    ->keyBy('id')
+                    ->keyBy('id'),
             ],
         ]);
     }

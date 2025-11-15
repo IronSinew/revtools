@@ -71,7 +71,7 @@ class QuestSeeder extends Seeder
             $arrayData = collect($quest->toArray())
                 ->transform(function (mixed $value) {
                     if (is_array($value)) {
-                        return !empty($value) ? json_encode($value) : null;
+                        return ! empty($value) ? json_encode($value) : null;
                     }
 
                     return $value;
@@ -91,13 +91,13 @@ class QuestSeeder extends Seeder
             }
         }
 
-        if (!empty($toInsert)) {
+        if (! empty($toInsert)) {
             Quest::insert($toInsert);
         }
 
         // one more pass to set up required quests
         foreach (JsonParser::parse($file) as $key => $rawItem) {
-            if (!empty($rawItem['RequiredQuest'])) {
+            if (! empty($rawItem['RequiredQuest'])) {
                 $quest = Quest::where('external_id', $rawItem['Id'])->first();
 
                 $requiredQuest = Quest::where('name', $rawItem['RequiredQuest'])->first();

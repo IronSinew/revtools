@@ -19,6 +19,7 @@ final class QuestObject extends Data
         public array   $objectives,
         /** @var string[] */
         public array   $steps,
+        public int $gold = 0,
         public ?int  $mob_id = null,
         /** @var ClassType[] */
         public ?array  $required_class = null,

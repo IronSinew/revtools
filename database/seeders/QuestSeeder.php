@@ -49,6 +49,10 @@ class QuestSeeder extends Seeder
 
                 $rewardTypes[] = $reward->type;
             }
+            if ($rawItem['Gold'] > 0) {
+                $rewardTypes[] = QuestRewardType::Gold;
+            }
+
             $mob = Mob::where('name', $rawItem['NpcQuestGiver'])->first();
 
             $quest = new QuestObject(
@@ -57,6 +61,7 @@ class QuestSeeder extends Seeder
                 level: $rawItem['Level'],
                 objectives: $rawItem['Objectives'],
                 steps: $rawItem['Steps'],
+                gold: $rawItem['Gold'],
                 mob_id: $mob->id ?? null,
                 required_class: $classes ?? null,
                 raw_rewards: $rewards,

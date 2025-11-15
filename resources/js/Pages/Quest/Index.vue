@@ -443,11 +443,12 @@ const rowClass = (data) => {
                                                     .value ||
                                             type ===
                                                 QuestRewardType.StatPoint.value,
-                                        'text-amber-500':
-                                            type ===
-                                            QuestRewardType.Title.value,
+                                        'text-yellow-500':
+                                            type === QuestRewardType.Gold.value,
                                         'text-blue-500':
                                             type === QuestRewardType.Item.value,
+                                        'text-red-500':
+                                            type === QuestRewardType.Title.value,
                                     }"
                                     >{{
                                         jsonObjectGetLabelByValue(

@@ -181,6 +181,7 @@ const current = computed(() => {
         @show="
             nextTick(() => {
                 autocompleteInput.$el.children[0].focus();
+                searchModal.selected = null;
             })
         "
     >

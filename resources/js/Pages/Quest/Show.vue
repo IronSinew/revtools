@@ -56,6 +56,9 @@ const breadcrumbs = ref([
                             <div class="text-xl text-center q capitalize pb-4">
                                 Lv. {{ quest.level }}
                             </div>
+                            <div class="text-xl text-center q capitalize pb-4">
+                                Gold: {{ quest.gold }}
+                            </div>
                             <div class="text-xl text-center capitalize">
                                 Quest Giver:
                                 <Link

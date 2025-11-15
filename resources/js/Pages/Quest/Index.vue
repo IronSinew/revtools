@@ -42,7 +42,7 @@ const localStorageCharacterKey = "characters";
 
 const showCompleted = ref(true);
 const filteredQuests = computed(() => {
-    if (showCompleted.value) {
+    if (showCompleted.value || character.value.name === null) {
         return props.table.data;
     } else {
         return props.table.data.filter(

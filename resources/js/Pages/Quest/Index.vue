@@ -2,15 +2,17 @@
 import { Deferred, Link, router, usePage } from "@inertiajs/vue3";
 import Drawer from "@volt/Drawer.vue";
 import Button from "primevue/button";
+import Checkbox from "primevue/checkbox";
 import Column from "primevue/column";
 import DataTable from "primevue/datatable";
 import Fieldset from "primevue/fieldset";
+import InputText from "primevue/inputtext";
 import Message from "primevue/message";
 import MultiSelect from "primevue/multiselect";
 import Popover from "primevue/popover";
 import Select from "primevue/select";
 import Slider from "primevue/slider";
-import { ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 
 import Tipper from "@/Components/Tipper.vue";
 import ClassType from "@/Composables/GeneratedEnumObjects/ClassType.json";
@@ -27,8 +29,27 @@ const props = defineProps({
     },
 });
 
+onMounted(() => {
+    const storedCharacters = localStorage.getItem(localStorageCharacterKey);
+    if (storedCharacters) {
+        characters.value = JSON.parse(storedCharacters);
+    }
+});
+
 const page = usePage();
 const loading = ref(false);
+const localStorageCharacterKey = "characters";
+
+const showCompleted = ref(true);
+const filteredQuests = computed(() => {
+    if (showCompleted.value) {
+        return props.table.data;
+    } else {
+        return props.table.data.filter(
+            (quest) => !character.value.quests.includes(quest.id),
+        );
+    }
+});
 
 const defaultFilters = {
     class: { value: null },
@@ -85,6 +106,68 @@ const togglePopover = (event, index) => {
         popover.toggle(event);
     }
 };
+
+const characterName = ref("");
+const character = ref({
+    name: "",
+    quests: [],
+});
+
+const characters = ref([]);
+
+const loadCharacterQuests = (character) => {
+    const storedQuests = _.find(characters.value, {
+        name: character.name,
+    }).quests;
+
+    if (storedQuests) {
+        character.quests = storedQuests;
+    }
+};
+
+const handleCreateCharacter = () => {
+    characters.value.push({ name: characterName.value, quests: [] });
+    localStorage.setItem(
+        localStorageCharacterKey,
+        JSON.stringify(characters.value),
+    );
+    characterName.value = "";
+};
+
+const handleCompleteQuest = (event, quest) => {
+    if (event) {
+        character.value.quests.push(quest.id);
+    } else {
+        character.value.quests = _.without(character.value.quests, quest.id);
+    }
+
+    _.find(characters.value, { name: character.value.name }).quests =
+        character.value.quests;
+
+    localStorage.setItem(
+        localStorageCharacterKey,
+        JSON.stringify(characters.value),
+    );
+};
+
+const handleDeleteCharacter = (name) => {
+    characters.value = _.reject(characters.value, { name: name });
+    localStorage.setItem(
+        localStorageCharacterKey,
+        JSON.stringify(characters.value),
+    );
+
+    if (characters.value.length === 0) {
+        character.value = { name: "", quests: [] };
+    }
+};
+
+const rowClass = (data) => {
+    console.log(data);
+    return {
+        "line-through opacity-20": character.value.quests.includes(data.id),
+    };
+};
 </script>
 
 <template>
@@ -129,6 +212,18 @@ const togglePopover = (event, index) => {
                         />
                     </label>
                 </div>
+                <div v-if="character.name" class="flex items-center">
+                    <Checkbox
+                        v-model="showCompleted"
+                        binary
+                        class="w-full cursor-pointer"
+                        input-id="completed-checkbox"
+                    >
+                    </Checkbox>
+                    <label class="ml-4 cursor-pointer" for="completed-checkbox">
+                        Show Completed Quests
+                    </label>
+                </div>
                 <div>
                     <div class="mb-5 text-center">
                         Level range:
@@ -160,13 +255,63 @@ const togglePopover = (event, index) => {
         </Drawer>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 grid-rows-1 gap-2 mt-2">
-                <div>
+                <div class="flex justify-between items-center">
                     <Button
                         v-if="!filterDrawer"
                         label="Show Filters"
                         class="mb-4"
                         @click="filterDrawer = true"
                     />
+                    <div>
+                        <label>Character</label>
+                        <Select
+                            v-model="character.name"
+                            :options="characters"
+                            option-value="name"
+                            option-label="name"
+                            placeholder="Select a Character"
+                            class="w-full mb-4"
+                            :show-clear="true"
+                            @change="loadCharacterQuests(character)"
+                        >
+                            <template #header>
+                                <div class="flex mb-4 mt-2">
+                                    <InputText
+                                        v-model="characterName"
+                                        class=""
+                                        placeholder="Character Name"
+                                    ></InputText>
+                                    <Button
+                                        class="w-full pi pi-plus"
+                                        severity="secondary"
+                                        @click="handleCreateCharacter"
+                                    >
+                                        New
+                                    </Button>
+                                </div>
+                            </template>
+                            <template #option="slotProps">
+                                <div
+                                    class="flex w-full justify-between items-center"
+                                >
+                                    <div>{{ slotProps.option.name }}</div>
+                                    <Button
+                                        icon="pi pi-times"
+                                        severity="secondary"
+                                        size="small"
+                                        raised
+                                        rounded
+                                        outlined
+                                        @mousedown.stop="
+                                            handleDeleteCharacter(
+                                                slotProps.option.name,
+                                            )
+                                        "
+                                    ></Button>
+                                </div>
+                            </template>
+                        </Select>
+                    </div>
                 </div>
                 <div class="text-right">
                     <Message
@@ -178,6 +323,7 @@ const togglePopover = (event, index) => {
                     </Message>
                 </div>
             </div>
+
             <Deferred data="table">
                 <DataTable
                     v-model:filters="lazyParams.filters"
@@ -187,10 +333,11 @@ const togglePopover = (event, index) => {
                     sort-mode="multiple"
                     :removable-sort="true"
                     :striped-rows="true"
-                    :value="table.data"
+                    :value="filteredQuests"
                     :paginator="!!table.data"
                     :total-records="table.total"
                     :rows="lazyParams.rows"
+                    :row-class="rowClass"
                     :lazy="true"
                     :loading="loading"
                     :default-sort-order="-1"
@@ -200,6 +347,27 @@ const togglePopover = (event, index) => {
                     @filter="applyDataLazyLoad($event)"
                 >
                     <template #empty> No Items</template>
+                    <Column
+                        v-if="character.name"
+                        header="Completed"
+                        class="tight-column"
+                    >
+                        <template #body="prop">
+                            <div
+                                class="w-full flex justify-center items-center"
+                            >
+                                <Checkbox
+                                    binary
+                                    :model-value="
+                                        character.quests.includes(prop.data.id)
+                                    "
+                                    @value-change="
+                                        handleCompleteQuest($event, prop.data)
+                                    "
+                                ></Checkbox>
+                            </div>
+                        </template>
+                    </Column>
                     <Column field="id" header="ID" class="tight-column" />
                     <Column field="name" header="Name" sortable>
                         <template #body="prop">
@@ -220,10 +388,7 @@ const togglePopover = (event, index) => {
                         class="tight-column"
                         sortable
                     />
-                    <Column
-                        field="required_class"
-                        header="Required Class"
-                    >
+                    <Column field="required_class" header="Required Class">
                         <template #body="prop">
                             <span
                                 v-for="required_class in new Set(
@@ -237,7 +402,7 @@ const togglePopover = (event, index) => {
                         </template>
                     </Column>
                     <Column
-                        field="mob"
+                        field="mob_id"
                         header="Quest Giver"
                         class="tight-column"
                         sortable

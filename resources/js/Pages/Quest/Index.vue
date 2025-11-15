@@ -42,7 +42,7 @@ const localStorageCharacterKey = "characters";
 
 const showCompleted = ref(true);
 const filteredQuests = computed(() => {
-    if (showCompleted.value || character.value.name === null) {
+    if (showCompleted.value) {
         return props.table.data;
     } else {
         return props.table.data.filter(
@@ -116,6 +116,11 @@ const character = ref({
 const characters = ref([]);
 
 const loadCharacterQuests = (character) => {
+    if (character.name === null) {
+        character.quests = [];
+        return;
+    }
+
     const storedQuests = _.find(characters.value, {
         name: character.name,
     }).quests;

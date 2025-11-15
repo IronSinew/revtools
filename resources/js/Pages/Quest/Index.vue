@@ -107,7 +107,7 @@ const togglePopover = (event, index) => {
     }
 };
 
-const characterName = ref("");
+const characterNameInput = ref("");
 const character = ref({
     name: "",
     quests: [],
@@ -126,12 +126,12 @@ const loadCharacterQuests = (character) => {
 };
 
 const handleCreateCharacter = () => {
-    characters.value.push({ name: characterName.value, quests: [] });
+    characters.value.push({ name: characterNameInput.value, quests: [] });
     localStorage.setItem(
         localStorageCharacterKey,
         JSON.stringify(characters.value),
     );
-    characterName.value = "";
+    characterNameInput.value = "";
 };
 
 const handleCompleteQuest = (event, quest) => {
@@ -277,7 +277,7 @@ const rowClass = (data) => {
                             <template #header>
                                 <div class="flex mb-4 mt-2">
                                     <InputText
-                                        v-model="characterName"
+                                        v-model="characterNameInput"
                                         class=""
                                         placeholder="Character Name"
                                     ></InputText>

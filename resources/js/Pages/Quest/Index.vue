@@ -168,7 +168,6 @@ const handleDeleteCharacter = (name) => {
 };
 
 const rowClass = (data) => {
-    console.log(data);
     return {
         "line-through opacity-20": character.value.quests.includes(data.id),
     };
@@ -414,6 +413,7 @@ const rowClass = (data) => {
                     >
                         <template #body="prop">
                             <Link
+                                v-if="prop.data.mob !== null"
                                 :href="
                                     route('mob.show', {
                                         mob: prop.data.mob.slug,
@@ -422,6 +422,7 @@ const rowClass = (data) => {
                             >
                                 {{ prop.data.mob.name }}
                             </Link>
+                            <span v-else>N/A</span>
                         </template>
                     </Column>
                     <Column

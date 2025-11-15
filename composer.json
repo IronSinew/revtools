@@ -77,6 +77,12 @@
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
         ],
+        "generate-json-objects": [
+            "@composer clear-cache",
+            "rm -Rf resources/js/Composables/GeneratedEnumObjects/*.json",
+            "@php artisan app:generate-json-objects",
+            "chmod -R 777 resources/js/Composables/GeneratedEnumObjects"
+        ],
         "pint": [
             "@php ./vendor/bin/pint"
         ],

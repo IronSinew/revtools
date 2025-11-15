@@ -43,9 +43,11 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
- * @property-read \App\Models\Pivots\ItemMob|null $pivot
+ * @property-read \App\Models\Pivots\ItemQuest|\App\Models\Pivots\ItemMob|null $pivot
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Mob> $mobs
  * @property-read int|null $mobs_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Quest> $quests
+ * @property-read int|null $quests_count
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Item newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Item newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Item query()
@@ -127,6 +129,72 @@ namespace App\Models\Pivots{
  */
 	#[\AllowDynamicProperties]
 	class IdeHelperItemMob {}
+}
+
+namespace App\Models\Pivots{
+/**
+ * @property int $id
+ * @property int $quest_id
+ * @property int $item_id
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ItemQuest newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ItemQuest newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ItemQuest query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ItemQuest whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ItemQuest whereItemId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ItemQuest whereQuestId($value)
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperItemQuest {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property int $external_id
+ * @property string $name
+ * @property string $slug
+ * @property int $level
+ * @property int $gold
+ * @property \Illuminate\Support\Collection<int, \App\Enums\ClassType>|null $required_class
+ * @property int|null $mob_id
+ * @property int|null $previous_quest_id
+ * @property array<array-key, mixed>|null $quest_chain
+ * @property array<array-key, mixed> $objectives
+ * @property array<array-key, mixed> $steps
+ * @property \Spatie\LaravelData\DataCollection|null $raw_rewards
+ * @property \Illuminate\Support\Collection<int, \App\Enums\Quests\QuestRewardType>|null $reward_types
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $deleted_at
+ * @property-read \App\Models\Pivots\ItemQuest|null $pivot
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Item> $items
+ * @property-read int|null $items_count
+ * @property-read \App\Models\Mob|null $mob
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Quest newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Quest newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Quest query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Quest whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Quest whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Quest whereExternalId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Quest whereGold($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Quest whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Quest whereLevel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Quest whereMobId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Quest whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Quest whereObjectives($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Quest wherePreviousQuestId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Quest whereQuestChain($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Quest whereRawRewards($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Quest whereRequiredClass($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Quest whereRewardTypes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Quest whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Quest whereSteps($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Quest whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperQuest {}
 }
 
 namespace App\Models{

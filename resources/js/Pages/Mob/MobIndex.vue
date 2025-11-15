@@ -106,7 +106,7 @@ const togglePopover = (event, index) => {
                             v-model="lazyParams.filters.type.value"
                             :options="jsonObjectToSelectOptions(MobType)"
                             option-value="value"
-                            option-label="name"
+                            option-label="label"
                             placeholder="Select Type"
                             class="w-full"
                             :show-clear="true"
@@ -121,7 +121,7 @@ const togglePopover = (event, index) => {
                             :options="jsonObjectToSelectOptions(MobTier)"
                             filter
                             option-value="value"
-                            option-label="name"
+                            option-label="label"
                             placeholder="Select Tier"
                             class="w-full"
                             :show-clear="true"
@@ -136,7 +136,7 @@ const togglePopover = (event, index) => {
                             :options="[]"
                             filter
                             option-value="value"
-                            option-label="name"
+                            option-label="label"
                             placeholder="Select Location"
                             class="w-full"
                             :show-clear="true"

@@ -7,6 +7,7 @@ import Chip from "primevue/chip";
 import Dialog from "primevue/dialog";
 import Menubar from "primevue/menubar";
 import Message from "primevue/message";
+import Toast from "primevue/toast";
 import {
     computed,
     nextTick,
@@ -63,6 +64,10 @@ const getLinkObject = (data) => {
     if (data.type === SearchableType.Mob.value) {
         return { mob: `${data.slug}` };
     }
+
+    if (data.type === SearchableType.Quest.value) {
+        return { quest: `${data.slug}` };
+    }
 };
 
 const menuItems = ref([
@@ -81,6 +86,11 @@ const menuItems = ref([
         label: "Items",
         route: "item.index",
         routeGroup: "item.*",
+    },
+    {
+        label: "Quests",
+        route: "quest.index",
+        routeGroup: "quest.*",
     },
     {
         label: "Mobs",
@@ -155,6 +165,8 @@ const current = computed(() => {
 </script>
 
 <template>
+    <Toast />
+
     <!-- Search -->
     <Dialog
         v-model:visible="searchModal.visible"
@@ -172,6 +184,7 @@ const current = computed(() => {
         @show="
             nextTick(() => {
                 autocompleteInput.$el.children[0].focus();
+                searchModal.selected = null;
             })
         "
     >
@@ -245,6 +258,27 @@ const current = computed(() => {
                                         <div>
                                             {{
                                                 searchModal.data.mobs[
+                                                    slotProps.option.id
+                                                ].name
+                                            }}
+                                        </div>
+                                    </div>
+                                    <div
+                                        v-else-if="
+                                            slotProps.option.type ===
+                                            SearchableType.Quest.value
+                                        "
+                                        class="flex"
+                                    >
+                                        <div class="mr-2">
+                                            <i
+                                                class="pi pi-database"
+                                                :title="slotProps.option.type"
+                                            />
+                                        </div>
+                                        <div>
+                                            {{
+                                                searchModal.data.quests[
                                                     slotProps.option.id
                                                 ].name
                                             }}

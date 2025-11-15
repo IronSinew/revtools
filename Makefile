@@ -22,3 +22,8 @@ terminal_php:
 	@echo "CMD: make terminal_php"
 	@echo "USAGE: Start a terminal in the php container"
 	docker compose exec -it php /bin/bash
+
+stub_generate:
+	@echo "CMD: make stub_generate"
+	@echo "USAGE: Generates JSON Object Stubs from Enums"
+	docker compose exec php composer generate-json-objects

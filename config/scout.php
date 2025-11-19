@@ -182,6 +182,10 @@ return [
                             'type' => 'string',
                         ],
                         [
+                            'name' => 'model_id',
+                            'type' => 'string',
+                        ],
+                        [
                             'name' => 'type',
                             'type' => 'string',
                         ],
@@ -214,6 +218,10 @@ return [
                             'type' => 'string',
                         ],
                         [
+                            'name' => 'model_id',
+                            'type' => 'string',
+                        ],
+                        [
                             'name' => 'type',
                             'type' => 'string',
                         ],
@@ -238,6 +246,10 @@ return [
                     'fields' => [
                         [
                             'name' => 'name',
+                            'type' => 'string',
+                        ],
+                        [
+                            'name' => 'model_id',
                             'type' => 'string',
                         ],
                         [

@@ -260,6 +260,7 @@ const togglePopover = (event, index) => {
                         field="type"
                         header="Type"
                         class="tight-column whitespace-nowrap"
+                        sortable
                     >
                         <template #body="prop">
                             {{
@@ -274,6 +275,7 @@ const togglePopover = (event, index) => {
                         field="sub_type"
                         header="Sub Type"
                         class="tight-column whitespace-nowrap"
+                        sortable
                     >
                         <template #body="prop">
                             {{
@@ -284,7 +286,12 @@ const togglePopover = (event, index) => {
                             }}
                         </template>
                     </Column>
-                    <Column field="slot" header="Slot" class="tight-column">
+                    <Column
+                        field="slot"
+                        header="Slot"
+                        class="tight-column"
+                        sortable
+                    >
                         <template #body="prop">
                             <span v-if="prop.data.slot">
                                 {{

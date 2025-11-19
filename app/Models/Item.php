@@ -58,7 +58,8 @@ class Item extends BaseModel
         }
 
         return [
-            'id' => (string) $this->id,
+            'id' => self::class.$this->id,
+            'model_id' => (string) $this->id,
             'created_at' => $this->created_at->timestamp,
             'type' => SearchableType::Item->value,
             'slug' => $this->slug,

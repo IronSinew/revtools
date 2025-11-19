@@ -24,15 +24,15 @@ class SearchSimpleController extends Controller
             'typesense' => $rawTypesesense,
             'data' => [
                 'items' => Item::findMany(
-                    $groupedIds->get(SearchableType::Item->value)?->pluck('id')
+                    $groupedIds->get(SearchableType::Item->value)?->pluck('model_id')
                 )
                     ->keyBy('id'),
                 'mobs' => Mob::findMany(
-                    $groupedIds->get(SearchableType::Mob->value)?->pluck('id')
+                    $groupedIds->get(SearchableType::Mob->value)?->pluck('model_id')
                 )
                     ->keyBy('id'),
                 'quests' => Quest::findMany(
-                    $groupedIds->get(SearchableType::Quest->value)?->pluck('id')
+                    $groupedIds->get(SearchableType::Quest->value)?->pluck('model_id')
 
                 )
                     ->keyBy('id'),

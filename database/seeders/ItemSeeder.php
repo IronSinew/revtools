@@ -155,9 +155,6 @@ class ItemSeeder extends Seeder
             //                xdebug_break();
             //            }
 
-            // TODO: parse DroppedBy and attempt to match to mobs
-            // TODO(blocked): Need to parse Mobs.json
-
             // TODO: parse Location and attempt to match to location
             // TODO(blocked): Need to parse WorldData.json
 

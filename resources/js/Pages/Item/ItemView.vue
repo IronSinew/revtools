@@ -36,6 +36,8 @@ onMounted(() => {
         },
     );
 });
+
+const title = [props.item.type, props.item.sub_type].join(" - ");
 </script>
 
 <template>
@@ -47,10 +49,6 @@ onMounted(() => {
         />
         <meta property="og:type" content="website" />
         <meta property="og:title" :content="item.name" />
-        <meta
-            property="og:description"
-            :content="[item.type, item.sub_type.item.slot].filter().join(' - ')"
-        />
     </Head>
     <SimpleBreadcrumb :data="breadcrumbs" />
 

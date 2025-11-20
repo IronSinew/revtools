@@ -57,6 +57,7 @@ class ItemSeeder extends Seeder
                 }
 
                 if (! empty($classTypes)) {
+                    $classTypes = collect($classTypes)->unique()->toArray();
                     $classesAreInferred = true;
                 }
             }

@@ -8,6 +8,7 @@ use App\Enums\Items\ItemSlot;
 use App\Enums\Items\ItemSubType;
 use App\Enums\Items\ItemType;
 use App\Models\Item;
+use App\ReqFinder;
 use App\ValueObjects\Items\ItemDeprecatedData;
 use App\ValueObjects\Items\ItemEffect;
 use App\ValueObjects\Items\ItemObject;
@@ -24,6 +25,7 @@ class ItemSeeder extends Seeder
     {
         $file = storage_path('app/data/Items.json');
         $now = now();
+        $reqFinder = new ReqFinder;
 
         foreach (JsonParser::parse($file) as $key => $rawItem) {
             $classTypes = [];
@@ -31,83 +33,31 @@ class ItemSeeder extends Seeder
                 $classTypes[] = ClassType::from(\Str::lower(trim($className)));
             }
 
-            $effects = [];
-
-            // Spell effects
-            if (
-                falseyToNull($rawItem['UsableSpell']) &&
-                falseyToNull($rawItem['UsableSpellLevel']) &&
-                falseyToNull($rawItem['UsableSpellRechargeTime'])
-            ) {
-                $effects[] = new ItemEffect(
-                    type: ItemEffectType::Spell,
-                    name: falseyToNull($rawItem['UsableSpell']),
-                    level: falseyToNull($rawItem['UsableSpellLevel']),
-                    recharge_time: falseyToNull($rawItem['UsableSpellRechargeTime']),
-                    descriptions: ! empty($rawItem['ItemEffects']) && empty($effects) ? $rawItem['ItemEffects'] : null,
-                );
-            }
-
-            // Proc effects
-            if (
-                falseyToNull($rawItem['ProcSpellName']) &&
-                falseyToNull($rawItem['ProcTrigger']) &&
-                falseyToNull($rawItem['ProcLevel']) &&
-                falseyToNull($rawItem['ProcChance'])
-            ) {
-                $effects[] = new ItemEffect(
-                    type: ItemEffectType::Proc,
-                    name: falseyToNull($rawItem['ProcSpellName']),
-                    level: falseyToNull($rawItem['ProcLevel']),
-                    value: falseyToNull($rawItem['ProcChance']),
-                    descriptions: ! empty($rawItem['ItemEffects']) && empty($effects) ? $rawItem['ItemEffects'] : null,
-                    trigger: falseyToNull($rawItem['ProcTrigger']),
-                );
-            }
-
-            // Potion effects
-            elseif (
-                falseyToNull($rawItem['PotionEffect']) &&
-                falseyToNull($rawItem['PotionEffectValue'])
-            ) {
-                $effects[] = new ItemEffect(
-                    type: ItemEffectType::Potion,
-                    name: falseyToNull($rawItem['PotionEffect']),
-                    value: falseyToNull($rawItem['PotionEffectValue']),
-                    descriptions: ! empty($rawItem['ItemEffects']) && empty($effects) ? $rawItem['ItemEffects'] : null,
-                );
-            }
-
-            // Poison effects
-            elseif (falseyToNull($rawItem['PoisonEffect'])) {
-                $effects[] = new ItemEffect(
-                    type: ItemEffectType::Poison,
-                    name: falseyToNull($rawItem['PoisonEffect']),
-                    descriptions: ! empty($rawItem['ItemEffects']) && empty($effects) ? $rawItem['ItemEffects'] : null,
-                );
-            }
-
-            // Scroll effects
-            elseif (falseyToNull($rawItem['ScrollEffect'])) {
-                $effects[] = new ItemEffect(
-                    type: ItemEffectType::Scroll,
-                    name: falseyToNull($rawItem['ScrollEffect']),
-                    descriptions: ! empty($rawItem['ItemEffects']) && empty($effects) ? $rawItem['ItemEffects'] : null,
-                );
-            }
-
-            // just other item descriptions
-            elseif (falseyToNull($rawItem['ItemEffects'])) {
-                $effects[] = new ItemEffect(
-                    type: ItemEffectType::Generic,
-                    descriptions: ! empty($rawItem['ItemEffects']) && empty($effects) ? $rawItem['ItemEffects'] : null,
-                );
-            }
+            $effects = $this->getEffects($rawItem);
 
             $itemType = ItemType::from(\Str::snake($rawItem['Type']));
             $typeValue = falseyToNull($rawItem['Damage']) ??
                 falseyToNull($rawItem['Armor']) ??
                 ($itemType !== ItemType::Usable ? 0 : null);
+
+            $classesAreInferred = false;
+
+            // check for required skill or spell to infer usable classes
+            if (empty($classTypes)) {
+                $reqSkill = falseyToNull($rawItem['RequiredSkill']);
+                if ($reqSkill) {
+                    $classTypes = [...$classTypes, ...$reqFinder->match(\Str::snake($rawItem['RequiredSkill']), $rawItem['RequiredSkillLevel'])];
+                }
+
+                $reqSpell = falseyToNull($rawItem['RequiredSpell']);
+                if ($reqSpell) {
+                    $classTypes = [...$classTypes, ...$reqFinder->match(\Str::snake($rawItem['RequiredSpell']), $rawItem['RequiredSpellLevel'])];
+                }
+
+                if (! empty($classTypes)) {
+                    $classesAreInferred = true;
+                }
+            }
 
             $item = new ItemObject(
                 external_id: $rawItem['Id'],
@@ -147,13 +97,11 @@ class ItemSeeder extends Seeder
                     aa_level: falseyToNull($rawItem['RequiredAALevel']),
                     spell: falseyToNull($rawItem['RequiredSpell']),
                     spell_level: falseyToNull($rawItem['RequiredSpellLevel']),
+                    classes_are_inferred: $classesAreInferred,
                 ),
                 effects: ! empty($effects) ? $effects : null,
                 description: falseyToNull($rawItem['Description']),
             );
-            //            if (!empty($effects)){
-            //                xdebug_break();
-            //            }
 
             // TODO: parse Location and attempt to match to location
             // TODO(blocked): Need to parse WorldData.json
@@ -215,6 +163,87 @@ class ItemSeeder extends Seeder
         }
 
         throw new \Exception("Could not find item subtype for: {$typesImploded}");
+    }
+
+    /**
+     * @return ItemEffect[]
+     */
+    private function getEffects(array $rawItem): array
+    {
+        $effects = [];
+
+        // Spell effects
+        if (
+            falseyToNull($rawItem['UsableSpell']) &&
+            falseyToNull($rawItem['UsableSpellLevel']) &&
+            falseyToNull($rawItem['UsableSpellRechargeTime'])
+        ) {
+            $effects[] = new ItemEffect(
+                type: ItemEffectType::Spell,
+                name: falseyToNull($rawItem['UsableSpell']),
+                level: falseyToNull($rawItem['UsableSpellLevel']),
+                recharge_time: falseyToNull($rawItem['UsableSpellRechargeTime']),
+                descriptions: ! empty($rawItem['ItemEffects']) && empty($effects) ? $rawItem['ItemEffects'] : null,
+            );
+        }
+
+        // Proc effects
+        if (
+            falseyToNull($rawItem['ProcSpellName']) &&
+            falseyToNull($rawItem['ProcTrigger']) &&
+            falseyToNull($rawItem['ProcLevel']) &&
+            falseyToNull($rawItem['ProcChance'])
+        ) {
+            $effects[] = new ItemEffect(
+                type: ItemEffectType::Proc,
+                name: falseyToNull($rawItem['ProcSpellName']),
+                level: falseyToNull($rawItem['ProcLevel']),
+                value: falseyToNull($rawItem['ProcChance']),
+                descriptions: ! empty($rawItem['ItemEffects']) && empty($effects) ? $rawItem['ItemEffects'] : null,
+                trigger: falseyToNull($rawItem['ProcTrigger']),
+            );
+        }
+
+        // Potion effects
+        elseif (
+            falseyToNull($rawItem['PotionEffect']) &&
+            falseyToNull($rawItem['PotionEffectValue'])
+        ) {
+            $effects[] = new ItemEffect(
+                type: ItemEffectType::Potion,
+                name: falseyToNull($rawItem['PotionEffect']),
+                value: falseyToNull($rawItem['PotionEffectValue']),
+                descriptions: ! empty($rawItem['ItemEffects']) && empty($effects) ? $rawItem['ItemEffects'] : null,
+            );
+        }
+
+        // Poison effects
+        elseif (falseyToNull($rawItem['PoisonEffect'])) {
+            $effects[] = new ItemEffect(
+                type: ItemEffectType::Poison,
+                name: falseyToNull($rawItem['PoisonEffect']),
+                descriptions: ! empty($rawItem['ItemEffects']) && empty($effects) ? $rawItem['ItemEffects'] : null,
+            );
+        }
+
+        // Scroll effects
+        elseif (falseyToNull($rawItem['ScrollEffect'])) {
+            $effects[] = new ItemEffect(
+                type: ItemEffectType::Scroll,
+                name: falseyToNull($rawItem['ScrollEffect']),
+                descriptions: ! empty($rawItem['ItemEffects']) && empty($effects) ? $rawItem['ItemEffects'] : null,
+            );
+        }
+
+        // just other item descriptions
+        elseif (falseyToNull($rawItem['ItemEffects'])) {
+            $effects[] = new ItemEffect(
+                type: ItemEffectType::Generic,
+                descriptions: ! empty($rawItem['ItemEffects']) && empty($effects) ? $rawItem['ItemEffects'] : null,
+            );
+        }
+
+        return $effects;
     }
 
     private function filterShieldType(string $type): ?string

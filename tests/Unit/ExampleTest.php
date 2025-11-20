@@ -1,9 +1,11 @@
 <?php
 
+use App\Enums\ClassType;
 use App\Models\Item;
 use App\Models\Mob;
 use App\Models\Quest;
 use App\Models\User;
+use App\ReqFinder;
 use Database\Seeders\ItemSeeder;
 use Database\Seeders\MobSeeder;
 use Database\Seeders\MobToItemSeeder;
@@ -48,4 +50,14 @@ test('that quests are parsable', function () {
     $quest = Quest::whereNotNull('mob_id')->first();
 
     expect($quest)->toBeInstanceOf(Quest::class)->and($quest->mob)->toBeInstanceOf(Mob::class);
+});
+
+test('that spell or skill requirements return classes that are eligible', function () {
+    // Dodge 5 should match Ranger, Redeemer, Priest
+    // Warrior has dodge, but it caps at 3, so Dodge 5 isn't possible for it to wear
+    $matchClasses = (new ReqFinder)->match('Dodge', 5);
+
+    expect($matchClasses)
+        ->toContain(ClassType::Ranger, ClassType::Redeemer, ClassType::Priest)
+        ->not->toContain(ClassType::Warrior);
 });

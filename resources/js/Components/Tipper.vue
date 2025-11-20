@@ -104,7 +104,10 @@ const tooltipHtml = computed(() => {
                         :key="`usable-class-${idx}`"
                         class="capitalize"
                     >
-                        {{ idx > 0 ? ", " : "" }}{{ className }}
+                        {{ idx > 0 ? ", " : "" }}{{ className
+                        }}{{
+                            data.requirements?.classes_are_inferred ? "*" : ""
+                        }}
                     </span>
                 </div>
 
@@ -137,12 +140,19 @@ const tooltipHtml = computed(() => {
                                 'skill_level',
                                 'spell',
                                 'spell_level',
+                                'classes_are_inferred',
                             ].includes(key) && requirement
                         "
                     >
                         <span class="capitalize">{{ key }}:</span>
                         {{ requirement }}
                     </div>
+                </div>
+                <div
+                    v-if="data.requirements?.classes_are_inferred"
+                    class="text-xs text-right mt-4"
+                >
+                    * Class inferred from spell/skill req
                 </div>
             </Fieldset>
 

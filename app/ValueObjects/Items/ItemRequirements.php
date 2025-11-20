@@ -23,5 +23,6 @@ final class ItemRequirements extends Data
         public ?int $aa_level = null,
         public ?string $spell = null,
         public ?int $spell_level = null,
+        public bool $classes_are_inferred = false,
     ) {}
 }

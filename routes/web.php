@@ -3,6 +3,7 @@
 use App\Http\Controllers\Base64DecodeImageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\RegionController;
 use App\Http\Controllers\MobController;
 use App\Http\Controllers\QuestController;
 use App\Http\Controllers\SearchSimpleController;
@@ -18,6 +19,7 @@ Route::prefix('/items')->name('item.')->group(function () {
     Route::get('/{item}', [ItemController::class, 'show'])->name('show');
 });
 Route::resource('quest', QuestController::class)->only(['index', 'show']);
+Route::resource('region', RegionController::class)->only(['index', 'show']);
 
 Route::post('/search-simple', SearchSimpleController::class)->name('search.simple');
 

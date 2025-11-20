@@ -97,6 +97,11 @@ const menuItems = ref([
         route: "mob.index",
         routeGroup: "mob.*",
     },
+    {
+        label: "Map",
+        route: "region.index",
+        routeGroup: "region.*",
+    },
 ]);
 
 onMounted(() => {});

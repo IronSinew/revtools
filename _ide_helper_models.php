@@ -201,6 +201,65 @@ namespace App\Models{
 /**
  * @property int $id
  * @property string $name
+ * @property string $slug
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Room> $rooms
+ * @property-read int|null $rooms_count
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Region newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Region newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Region query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Region whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Region whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Region whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Region whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Region whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperRegion {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property string $slug
+ * @property string $name
+ * @property string $description
+ * @property string $color_code
+ * @property string $terrain_color
+ * @property string $coordinates
+ * @property string|null $exits
+ * @property int|null $exit_region_id
+ * @property int $region_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Region $region
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Room newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Room newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Room query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereColorCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereCoordinates($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereExitRegionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereExits($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereRegionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereTerrainColor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperRoom {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property string $name
  * @property string $email
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password

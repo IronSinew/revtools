@@ -9,6 +9,7 @@
         "ext-xdebug": "*",
         "binafy/laravel-stub": "^1.1",
         "cerbero/json-parser": "^1.1",
+        "cerbero/lazy-json": "^2.0",
         "haydenpierce/class-finder": "^0.5.3",
         "inertiajs/inertia-laravel": "^2.0",
         "laravel/framework": "^11.0",

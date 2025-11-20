@@ -46,12 +46,12 @@ class ItemSeeder extends Seeder
             if (empty($classTypes)) {
                 $reqSkill = falseyToNull($rawItem['RequiredSkill']);
                 if ($reqSkill) {
-                    $classTypes = [...$classTypes, ...$reqFinder->match(\Str::snake($rawItem['RequiredSkill']), $rawItem['RequiredSkillLevel'])];
+                    $classTypes = [...$classTypes, ...$reqFinder->match(\Str::lower($rawItem['RequiredSkill']), $rawItem['RequiredSkillLevel'])];
                 }
 
                 $reqSpell = falseyToNull($rawItem['RequiredSpell']);
                 if ($reqSpell) {
-                    $classTypes = [...$classTypes, ...$reqFinder->match(\Str::snake($rawItem['RequiredSpell']), $rawItem['RequiredSpellLevel'])];
+                    $classTypes = [...$classTypes, ...$reqFinder->match(\Str::lower($rawItem['RequiredSpell']), $rawItem['RequiredSpellLevel'])];
                 }
 
                 if (! empty($classTypes)) {

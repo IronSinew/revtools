@@ -67,6 +67,6 @@ enum ClassType: string implements HasLabel
             ]
         };
 
-        return [...$wearables, ...[ItemSubType::Potion, ItemSubType::Scroll, ItemSubType::JewelryWand]];
+        return [...$wearables, ...[ItemSubType::Potion, ItemSubType::Scroll, ItemSubType::JewelryWand, ItemSubType::Jewelry]];
     }
 }

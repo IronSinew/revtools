@@ -1,0 +1,3320 @@
+[
+    {
+        "class": "warrior",
+        "character_creation": {
+            "starting_hp": 20,
+            "starting_mana": 0,
+            "starting_stats": {
+                "str": 15,
+                "tog": 12,
+                "agi": 10,
+                "foc": 6,
+                "int": 6,
+                "cha": 6
+            },
+            "starting_skills": [
+                "Swords",
+                "Bash"
+            ],
+            "starting_spells": []
+        },
+        "level_up": {
+            "hp_gain": 10,
+            "hp_scale": 1,
+            "damage_gain": 0,
+            "damage_scale": 0,
+            "mana_scale": 3,
+            "skill_point_interval": 2,
+            "spell_point_interval": 0
+        },
+        "skills": [
+            {
+                "name": "Dodge",
+                "level_learned": 2,
+                "cap": 3
+            },
+            {
+                "name": "Ward_Evil",
+                "level_learned": 5,
+                "cap": 3
+            },
+            {
+                "name": "Kick",
+                "level_learned": 10,
+                "cap": 10
+            },
+            {
+                "name": "Enrage",
+                "level_learned": 12,
+                "cap": 3
+            },
+            {
+                "name": "Improved_Vitality",
+                "level_learned": 15,
+                "cap": 4
+            },
+            {
+                "name": "Dual_Wield",
+                "level_learned": 15,
+                "cap": 6
+            },
+            {
+                "name": "Parry",
+                "level_learned": 24,
+                "cap": 8
+            },
+            {
+                "name": "Intimidation",
+                "level_learned": 28,
+                "cap": 3
+            },
+            {
+                "name": "Riposte",
+                "level_learned": 32,
+                "cap": 6
+            },
+            {
+                "name": "Magic_Resistance",
+                "level_learned": 35,
+                "cap": 5
+            },
+            {
+                "name": "Double_Attack",
+                "level_learned": 40,
+                "cap": 8
+            },
+            {
+                "name": "Deception",
+                "level_learned": 40,
+                "cap": 3
+            },
+            {
+                "name": "Stability",
+                "level_learned": 43,
+                "cap": 4
+            },
+            {
+                "name": "Battle_Mastery",
+                "level_learned": 46,
+                "cap": 8
+            },
+            {
+                "name": "Berserk",
+                "level_learned": 50,
+                "cap": 5
+            },
+            {
+                "name": "Conquest",
+                "level_learned": 52,
+                "cap": 3
+            },
+            {
+                "name": "Rapid_Attack",
+                "level_learned": 55,
+                "cap": 3
+            },
+            {
+                "name": "Triple_Attack",
+                "level_learned": 60,
+                "cap": 4
+            },
+            {
+                "name": "Revenge",
+                "level_learned": 65,
+                "cap": 5
+            },
+            {
+                "name": "Swordplay",
+                "level_learned": 68,
+                "cap": 3
+            },
+            {
+                "name": "Combat_Precision",
+                "level_learned": 70,
+                "cap": 6
+            },
+            {
+                "name": "Desperation",
+                "level_learned": 73,
+                "cap": 6
+            },
+            {
+                "name": "Mastery_of_Pain",
+                "level_learned": 75,
+                "cap": 4
+            },
+            {
+                "name": "Critical_Hit",
+                "level_learned": 80,
+                "cap": 4
+            },
+            {
+                "name": "Heroism",
+                "level_learned": 81,
+                "cap": 4
+            },
+            {
+                "name": "Rampage",
+                "level_learned": 85,
+                "cap": 5
+            },
+            {
+                "name": "Blood_Frenzy",
+                "level_learned": 100,
+                "cap": 1
+            }
+        ],
+        "spells": [],
+        "armor_levels": {
+            "leather": 1,
+            "studded": 10,
+            "chain": 30,
+            "light_plate": 60,
+            "heavy_plate": 101
+        },
+        "shield_levels": {
+            "small": 1,
+            "medium": 30,
+            "large": 101,
+            "huge": 101
+        },
+        "caps": {
+            "haste": 1,
+            "armor": 2.25,
+            "resist": 0.5
+        }
+    },
+    {
+        "class": "wizard",
+        "character_creation": {
+            "starting_hp": 10,
+            "starting_mana": 20,
+            "starting_stats": {
+                "str": 6,
+                "tog": 6,
+                "agi": 9,
+                "foc": 12,
+                "int": 16,
+                "cha": 10
+            },
+            "starting_skills": [
+                "Meditation",
+                "Channeling"
+            ],
+            "starting_spells": [
+                "Flame Bolt",
+                "Frost Bolt",
+                "Shield of Spirit"
+            ]
+        },
+        "level_up": {
+            "hp_gain": 5,
+            "hp_scale": 0.35,
+            "damage_gain": 5,
+            "damage_scale": 1,
+            "mana_scale": 0.5,
+            "skill_point_interval": 2,
+            "spell_point_interval": 1
+        },
+        "skills": [
+            {
+                "name": "Daggers",
+                "level_learned": 2,
+                "cap": 1
+            },
+            {
+                "name": "Mastery_of_Fire",
+                "level_learned": 5,
+                "cap": 10
+            },
+            {
+                "name": "Mastery_of_Ice",
+                "level_learned": 5,
+                "cap": 10
+            },
+            {
+                "name": "Mastery_of_Spirit",
+                "level_learned": 10,
+                "cap": 10
+            },
+            {
+                "name": "Mastery_of_Earth",
+                "level_learned": 20,
+                "cap": 10
+            },
+            {
+                "name": "Concentration",
+                "level_learned": 25,
+                "cap": 10
+            },
+            {
+                "name": "Magic_Resistance",
+                "level_learned": 30,
+                "cap": 10
+            },
+            {
+                "name": "Critical_Spell:_Fire",
+                "level_learned": 35,
+                "cap": 10
+            },
+            {
+                "name": "Critical_Spell:_Ice",
+                "level_learned": 35,
+                "cap": 10
+            },
+            {
+                "name": "Quick_Cast",
+                "level_learned": 40,
+                "cap": 10
+            },
+            {
+                "name": "Elemental_Defiance",
+                "level_learned": 45,
+                "cap": 4
+            },
+            {
+                "name": "Transcendence",
+                "level_learned": 50,
+                "cap": 10
+            },
+            {
+                "name": "Mana_Conservation",
+                "level_learned": 60,
+                "cap": 4
+            },
+            {
+                "name": "Mana_Shield",
+                "level_learned": 65,
+                "cap": 5
+            },
+            {
+                "name": "Arcane_Mastery",
+                "level_learned": 75,
+                "cap": 10
+            }
+        ],
+        "spells": [
+            {
+                "name": "Frigid_Arrow",
+                "level_learned": 2,
+                "cap": 10
+            },
+            {
+                "name": "Blast_of_Heat",
+                "level_learned": 10,
+                "cap": 10
+            },
+            {
+                "name": "Earthen_Binding",
+                "level_learned": 6,
+                "cap": 6
+            },
+            {
+                "name": "Circle_of_Frost",
+                "level_learned": 10,
+                "cap": 10
+            },
+            {
+                "name": "Blade_Turn",
+                "level_learned": 15,
+                "cap": 10
+            },
+            {
+                "name": "Grip_of_Fire",
+                "level_learned": 20,
+                "cap": 10
+            },
+            {
+                "name": "Arctic_Blast",
+                "level_learned": 20,
+                "cap": 10
+            },
+            {
+                "name": "Ice_Shard",
+                "level_learned": 20,
+                "cap": 10
+            },
+            {
+                "name": "Glacial_Coat",
+                "level_learned": 24,
+                "cap": 7
+            },
+            {
+                "name": "Pure_Thought",
+                "level_learned": 25,
+                "cap": 10
+            },
+            {
+                "name": "Bind_Soul",
+                "level_learned": 30,
+                "cap": 1
+            },
+            {
+                "name": "Illundium_Portal",
+                "level_learned": 41,
+                "cap": 1
+            },
+            {
+                "name": "Epiach_Portal",
+                "level_learned": 41,
+                "cap": 1
+            },
+            {
+                "name": "Naraikos_Portal",
+                "level_learned": 41,
+                "cap": 1
+            },
+            {
+                "name": "Sassaren_Portal",
+                "level_learned": 41,
+                "cap": 1
+            },
+            {
+                "name": "Atlaand_Portal",
+                "level_learned": 41,
+                "cap": 1
+            },
+            {
+                "name": "Volcanic_Bolt",
+                "level_learned": 40,
+                "cap": 10
+            },
+            {
+                "name": "Storm_of_Frost",
+                "level_learned": 40,
+                "cap": 10
+            },
+            {
+                "name": "Arctic_Frost",
+                "level_learned": 40,
+                "cap": 10
+            },
+            {
+                "name": "Raging_Flames",
+                "level_learned": 45,
+                "cap": 10
+            },
+            {
+                "name": "Prison_of_Ice",
+                "level_learned": 45,
+                "cap": 10
+            },
+            {
+                "name": "Immobilize",
+                "level_learned": 50,
+                "cap": 6
+            },
+            {
+                "name": "Greater_Shield_of_Spirit",
+                "level_learned": 55,
+                "cap": 10
+            },
+            {
+                "name": "Flameguard",
+                "level_learned": 57,
+                "cap": 4
+            },
+            {
+                "name": "Inferno",
+                "level_learned": 60,
+                "cap": 10
+            },
+            {
+                "name": "Shock_of_Ice",
+                "level_learned": 60,
+                "cap": 10
+            },
+            {
+                "name": "Armor_of_Frost",
+                "level_learned": 65,
+                "cap": 10
+            },
+            {
+                "name": "Meteor_Storm",
+                "level_learned": 70,
+                "cap": 10
+            },
+            {
+                "name": "Winter_Chill",
+                "level_learned": 72,
+                "cap": 10
+            },
+            {
+                "name": "Greater_Blade_Turn",
+                "level_learned": 75,
+                "cap": 10
+            },
+            {
+                "name": "Earthfury",
+                "level_learned": 80,
+                "cap": 10
+            },
+            {
+                "name": "Hellfire",
+                "level_learned": 95,
+                "cap": 5
+            },
+            {
+                "name": "Stinging_Siphon",
+                "level_learned": 90,
+                "cap": 1
+            },
+            {
+                "name": "Arctic_Grasp",
+                "level_learned": 90,
+                "cap": 5
+            },
+            {
+                "name": "Ethereal_Fire",
+                "level_learned": 100,
+                "cap": 1
+            },
+            {
+                "name": "Frost_of_Eternity",
+                "level_learned": 95,
+                "cap": 5
+            },
+            {
+                "name": "Starfall",
+                "level_learned": 100,
+                "cap": 1
+            },
+            {
+                "name": "Summon_Epiach_Portal",
+                "level_learned": 101,
+                "cap": 1
+            },
+            {
+                "name": "Absolute_Zero",
+                "level_learned": 100,
+                "cap": 1
+            },
+            {
+                "name": "Arch_Shield_of_Spirit",
+                "level_learned": 101,
+                "cap": 5
+            },
+            {
+                "name": "Ghal'tuk_Tower_Portal",
+                "level_learned": 101,
+                "cap": 1
+            },
+            {
+                "name": "Dephra's_Demise",
+                "level_learned": 101,
+                "cap": 1
+            },
+            {
+                "name": "Mana_Mastery",
+                "level_learned": 101,
+                "cap": 1
+            },
+            {
+                "name": "Test_Nuke",
+                "level_learned": 105,
+                "cap": 1
+            },
+            {
+                "name": "Test_Debuff",
+                "level_learned": 105,
+                "cap": 1
+            }
+        ],
+        "armor_levels": {
+            "leather": 101,
+            "studded": 101,
+            "chain": 101,
+            "light_plate": 101,
+            "heavy_plate": 101
+        },
+        "shield_levels": {
+            "small": 101,
+            "medium": 101,
+            "large": 101,
+            "huge": 101
+        },
+        "caps": {
+            "haste": 0.25,
+            "armor": 1,
+            "resist": 1
+        }
+    },
+    {
+        "class": "summoner",
+        "character_creation": {
+            "starting_hp": 10,
+            "starting_mana": 20,
+            "starting_stats": {
+                "str": 6,
+                "tog": 6,
+                "agi": 9,
+                "foc": 12,
+                "int": 16,
+                "cha": 10
+            },
+            "starting_skills": [
+                "Meditation",
+                "Channeling"
+            ],
+            "starting_spells": [
+                "Summon Elemental Companion",
+                "Shield of Spirit"
+            ]
+        },
+        "level_up": {
+            "hp_gain": 5,
+            "hp_scale": 0.25,
+            "damage_gain": 5,
+            "damage_scale": 1,
+            "mana_scale": 0.5,
+            "skill_point_interval": 2,
+            "spell_point_interval": 1
+        },
+        "skills": [
+            {
+                "name": "Daggers",
+                "level_learned": 2,
+                "cap": 1
+            },
+            {
+                "name": "Mastery_of_Fire",
+                "level_learned": 5,
+                "cap": 10
+            },
+            {
+                "name": "Mastery_of_Ice",
+                "level_learned": 5,
+                "cap": 10
+            },
+            {
+                "name": "Mastery_of_Spirit",
+                "level_learned": 10,
+                "cap": 10
+            },
+            {
+                "name": "Companion_Mastery",
+                "level_learned": 10,
+                "cap": 10
+            },
+            {
+                "name": "Mastery_of_Air",
+                "level_learned": 15,
+                "cap": 10
+            },
+            {
+                "name": "Mastery_of_Earth",
+                "level_learned": 20,
+                "cap": 10
+            },
+            {
+                "name": "Concentration",
+                "level_learned": 25,
+                "cap": 10
+            },
+            {
+                "name": "Magic_Resistance",
+                "level_learned": 30,
+                "cap": 10
+            },
+            {
+                "name": "Quick_Cast",
+                "level_learned": 40,
+                "cap": 10
+            },
+            {
+                "name": "Transcendence",
+                "level_learned": 50,
+                "cap": 10
+            },
+            {
+                "name": "Mana_Conservation",
+                "level_learned": 60,
+                "cap": 4
+            },
+            {
+                "name": "Spirit_Link",
+                "level_learned": 65,
+                "cap": 5
+            },
+            {
+                "name": "Mana_Shield",
+                "level_learned": 65,
+                "cap": 3
+            },
+            {
+                "name": "Arcane_Mastery",
+                "level_learned": 75,
+                "cap": 10
+            }
+        ],
+        "spells": [
+            {
+                "name": "Restore_Companion",
+                "level_learned": 2,
+                "cap": 5
+            },
+            {
+                "name": "Elemental_Blaze",
+                "level_learned": 5,
+                "cap": 10
+            },
+            {
+                "name": "Elemental_Power",
+                "level_learned": 8,
+                "cap": 6
+            },
+            {
+                "name": "Spirit_Lance",
+                "level_learned": 12,
+                "cap": 10
+            },
+            {
+                "name": "Pet_Recall",
+                "level_learned": 14,
+                "cap": 1
+            },
+            {
+                "name": "Shield_of_Fire",
+                "level_learned": 16,
+                "cap": 10
+            },
+            {
+                "name": "Blade_Turn",
+                "level_learned": 20,
+                "cap": 10
+            },
+            {
+                "name": "Summon_Elemental_Guardian",
+                "level_learned": 25,
+                "cap": 10
+            },
+            {
+                "name": "Elemental_Improvement",
+                "level_learned": 27,
+                "cap": 6
+            },
+            {
+                "name": "Renew_Elemental",
+                "level_learned": 30,
+                "cap": 5
+            },
+            {
+                "name": "Conjure_Blizzard",
+                "level_learned": 33,
+                "cap": 7
+            },
+            {
+                "name": "Elemental_Combustion",
+                "level_learned": 40,
+                "cap": 10
+            },
+            {
+                "name": "Raging_Elemental_Strength",
+                "level_learned": 45,
+                "cap": 6
+            },
+            {
+                "name": "Phantom_Axe",
+                "level_learned": 48,
+                "cap": 10
+            },
+            {
+                "name": "Summon_Elemental_Warder",
+                "level_learned": 50,
+                "cap": 10
+            },
+            {
+                "name": "Greater_Shield_of_Spirit",
+                "level_learned": 55,
+                "cap": 10
+            },
+            {
+                "name": "Elemental_Revival",
+                "level_learned": 60,
+                "cap": 5
+            },
+            {
+                "name": "Enhance_Elemental_Structure",
+                "level_learned": 63,
+                "cap": 6
+            },
+            {
+                "name": "Barrier_of_Flame",
+                "level_learned": 65,
+                "cap": 10
+            },
+            {
+                "name": "Elemental_Razor",
+                "level_learned": 70,
+                "cap": 10
+            },
+            {
+                "name": "Summon_Elemental_Ravager",
+                "level_learned": 75,
+                "cap": 10
+            },
+            {
+                "name": "Greater_Blade_Turn",
+                "level_learned": 75,
+                "cap": 10
+            },
+            {
+                "name": "Furious_Elemental_Savagery",
+                "level_learned": 80,
+                "cap": 10
+            },
+            {
+                "name": "Regenerate_Companion",
+                "level_learned": 82,
+                "cap": 10
+            },
+            {
+                "name": "Elemental_Firestorm",
+                "level_learned": 85,
+                "cap": 10
+            },
+            {
+                "name": "Shell_of_Magma",
+                "level_learned": 90,
+                "cap": 10
+            },
+            {
+                "name": "Shell_of_Healing",
+                "level_learned": 90,
+                "cap": 10
+            },
+            {
+                "name": "Summon_Elemental_Destroyer",
+                "level_learned": 100,
+                "cap": 1
+            },
+            {
+                "name": "Star_Fire_Summoning",
+                "level_learned": 101,
+                "cap": 1
+            },
+            {
+                "name": "Arch_Shield_of_Spirit",
+                "level_learned": 101,
+                "cap": 5
+            },
+            {
+                "name": "Rune_of_Supremacy",
+                "level_learned": 101,
+                "cap": 1
+            }
+        ],
+        "armor_levels": {
+            "leather": 101,
+            "studded": 101,
+            "chain": 101,
+            "light_plate": 101,
+            "heavy_plate": 101
+        },
+        "shield_levels": {
+            "small": 101,
+            "medium": 101,
+            "large": 101,
+            "huge": 101
+        },
+        "caps": {
+            "haste": 0.25,
+            "armor": 1,
+            "resist": 1
+        }
+    },
+    {
+        "class": "enchanter",
+        "character_creation": {
+            "starting_hp": 10,
+            "starting_mana": 20,
+            "starting_stats": {
+                "str": 6,
+                "tog": 6,
+                "agi": 9,
+                "foc": 12,
+                "int": 16,
+                "cha": 10
+            },
+            "starting_skills": [
+                "Meditation",
+                "Channeling"
+            ],
+            "starting_spells": [
+                "Charming Gaze",
+                "Shield of Spirit"
+            ]
+        },
+        "level_up": {
+            "hp_gain": 5,
+            "hp_scale": 0.25,
+            "damage_gain": 5,
+            "damage_scale": 1,
+            "mana_scale": 0.5,
+            "skill_point_interval": 2,
+            "spell_point_interval": 1
+        },
+        "skills": [
+            {
+                "name": "Daggers",
+                "level_learned": 2,
+                "cap": 1
+            },
+            {
+                "name": "Mastery_of_Fire",
+                "level_learned": 5,
+                "cap": 10
+            },
+            {
+                "name": "Mastery_of_Ice",
+                "level_learned": 5,
+                "cap": 10
+            },
+            {
+                "name": "Mastery_of_Spirit",
+                "level_learned": 10,
+                "cap": 10
+            },
+            {
+                "name": "Companion_Mastery",
+                "level_learned": 10,
+                "cap": 10
+            },
+            {
+                "name": "Mastery_of_Air",
+                "level_learned": 15,
+                "cap": 10
+            },
+            {
+                "name": "Mastery_of_Earth",
+                "level_learned": 20,
+                "cap": 10
+            },
+            {
+                "name": "Concentration",
+                "level_learned": 25,
+                "cap": 10
+            },
+            {
+                "name": "Collection_of_Thought",
+                "level_learned": 27,
+                "cap": 8
+            },
+            {
+                "name": "Magic_Resistance",
+                "level_learned": 30,
+                "cap": 10
+            },
+            {
+                "name": "Quick_Cast",
+                "level_learned": 40,
+                "cap": 10
+            },
+            {
+                "name": "Elemental_Defiance",
+                "level_learned": 45,
+                "cap": 4
+            },
+            {
+                "name": "Transcendence",
+                "level_learned": 50,
+                "cap": 10
+            },
+            {
+                "name": "Collection_of_Intellect",
+                "level_learned": 60,
+                "cap": 10
+            },
+            {
+                "name": "Mana_Conservation",
+                "level_learned": 60,
+                "cap": 4
+            },
+            {
+                "name": "Mana_Shield",
+                "level_learned": 65,
+                "cap": 5
+            },
+            {
+                "name": "Spirit_Link",
+                "level_learned": 65,
+                "cap": 5
+            },
+            {
+                "name": "Critical_Spell:_Ice",
+                "level_learned": 70,
+                "cap": 10
+            },
+            {
+                "name": "Arcane_Mastery",
+                "level_learned": 75,
+                "cap": 10
+            },
+            {
+                "name": "Ignite_Essence",
+                "level_learned": 80,
+                "cap": 10
+            }
+        ],
+        "spells": [
+            {
+                "name": "Pet_Recall",
+                "level_learned": 14,
+                "cap": 1
+            },
+            {
+                "name": "Impenetrability",
+                "level_learned": 101,
+                "cap": 1
+            },
+            {
+                "name": "Absorption",
+                "level_learned": 101,
+                "cap": 1
+            },
+            {
+                "name": "Disempower",
+                "level_learned": 2,
+                "cap": 10
+            },
+            {
+                "name": "Languid_Pace",
+                "level_learned": 5,
+                "cap": 10
+            },
+            {
+                "name": "Choke",
+                "level_learned": 10,
+                "cap": 10
+            },
+            {
+                "name": "Tranquil_Mind",
+                "level_learned": 15,
+                "cap": 10
+            },
+            {
+                "name": "Commanding_Stare",
+                "level_learned": 25,
+                "cap": 10
+            },
+            {
+                "name": "Blade_Turn",
+                "level_learned": 22,
+                "cap": 10
+            },
+            {
+                "name": "Mesmerize",
+                "level_learned": 25,
+                "cap": 10
+            },
+            {
+                "name": "Rune_of_Body",
+                "level_learned": 30,
+                "cap": 10
+            },
+            {
+                "name": "Rune_of_Mind",
+                "level_learned": 35,
+                "cap": 10
+            },
+            {
+                "name": "Suffocate",
+                "level_learned": 42,
+                "cap": 10
+            },
+            {
+                "name": "Evaporate_Strength",
+                "level_learned": 46,
+                "cap": 10
+            },
+            {
+                "name": "Hinder",
+                "level_learned": 50,
+                "cap": 10
+            },
+            {
+                "name": "Word_of_Control",
+                "level_learned": 50,
+                "cap": 10
+            },
+            {
+                "name": "Greater_Shield_of_Spirit",
+                "level_learned": 55,
+                "cap": 10
+            },
+            {
+                "name": "Destroy_Lungs",
+                "level_learned": 63,
+                "cap": 10
+            },
+            {
+                "name": "Gift_of_the_Savant",
+                "level_learned": 70,
+                "cap": 10
+            },
+            {
+                "name": "Domination",
+                "level_learned": 75,
+                "cap": 10
+            },
+            {
+                "name": "Greater_Blade_Turn",
+                "level_learned": 75,
+                "cap": 10
+            },
+            {
+                "name": "Exhaustion",
+                "level_learned": 77,
+                "cap": 10
+            },
+            {
+                "name": "Destroy_Coordination",
+                "level_learned": 80,
+                "cap": 10
+            },
+            {
+                "name": "Rune_of_Physical_Power",
+                "level_learned": 80,
+                "cap": 10
+            },
+            {
+                "name": "Rune_of_Mental_Clarity",
+                "level_learned": 82,
+                "cap": 10
+            },
+            {
+                "name": "Asphyxiate",
+                "level_learned": 85,
+                "cap": 10
+            },
+            {
+                "name": "Spell_Reflection",
+                "level_learned": 90,
+                "cap": 10
+            },
+            {
+                "name": "Rune_of_Guidance",
+                "level_learned": 95,
+                "cap": 10
+            },
+            {
+                "name": "Rune_of_the_Transcendental",
+                "level_learned": 95,
+                "cap": 10
+            },
+            {
+                "name": "Arch_Shield_of_Spirit",
+                "level_learned": 101,
+                "cap": 5
+            },
+            {
+                "name": "Rune_of_Arcane_Anger",
+                "level_learned": 101,
+                "cap": 1
+            },
+            {
+                "name": "Rune_of_Supremacy",
+                "level_learned": 101,
+                "cap": 1
+            },
+            {
+                "name": "Rune_of_Supremecy",
+                "level_learned": 101,
+                "cap": 1
+            }
+        ],
+        "armor_levels": {
+            "leather": 101,
+            "studded": 101,
+            "chain": 101,
+            "light_plate": 101,
+            "heavy_plate": 101
+        },
+        "shield_levels": {
+            "small": 101,
+            "medium": 101,
+            "large": 101,
+            "huge": 101
+        },
+        "caps": {
+            "haste": 0.25,
+            "armor": 1,
+            "resist": 1
+        }
+    },
+    {
+        "class": "priest",
+        "character_creation": {
+            "starting_hp": 12,
+            "starting_mana": 10,
+            "starting_stats": {
+                "str": 7,
+                "tog": 8,
+                "agi": 8,
+                "foc": 16,
+                "int": 11,
+                "cha": 14
+            },
+            "starting_skills": [
+                "Maces",
+                "Prayer",
+                "Divine Focus"
+            ],
+            "starting_spells": [
+                "Bless"
+            ]
+        },
+        "level_up": {
+            "hp_gain": 8,
+            "hp_scale": 0.58,
+            "damage_gain": 5,
+            "damage_scale": 1,
+            "mana_scale": 2.7,
+            "skill_point_interval": 2,
+            "spell_point_interval": 1
+        },
+        "skills": [
+            {
+                "name": "Maces",
+                "level_learned": 1,
+                "cap": 10
+            },
+            {
+                "name": "Deter_Evil",
+                "level_learned": 3,
+                "cap": 10
+            },
+            {
+                "name": "Ward_Evil",
+                "level_learned": 5,
+                "cap": 5
+            },
+            {
+                "name": "Bind_Wound",
+                "level_learned": 10,
+                "cap": 10
+            },
+            {
+                "name": "Rapid_Attack",
+                "level_learned": 10,
+                "cap": 5
+            },
+            {
+                "name": "Double_Edge",
+                "level_learned": 13,
+                "cap": 2
+            },
+            {
+                "name": "Mastery_of_Light",
+                "level_learned": 15,
+                "cap": 10
+            },
+            {
+                "name": "Aran's_Favor",
+                "level_learned": 20,
+                "cap": 5
+            },
+            {
+                "name": "Mastery_of_the_Holy",
+                "level_learned": 25,
+                "cap": 10
+            },
+            {
+                "name": "Magic_Resistance",
+                "level_learned": 30,
+                "cap": 10
+            },
+            {
+                "name": "Unity_of_Zeal",
+                "level_learned": 32,
+                "cap": 6
+            },
+            {
+                "name": "Shield_of_Aran",
+                "level_learned": 35,
+                "cap": 6
+            },
+            {
+                "name": "Shields",
+                "level_learned": 40,
+                "cap": 5
+            },
+            {
+                "name": "Dodge",
+                "level_learned": 45,
+                "cap": 5
+            },
+            {
+                "name": "Battle_Mastery",
+                "level_learned": 48,
+                "cap": 5
+            },
+            {
+                "name": "Spiritual_Purity",
+                "level_learned": 50,
+                "cap": 10
+            },
+            {
+                "name": "Healing_Mastery",
+                "level_learned": 55,
+                "cap": 10
+            },
+            {
+                "name": "Mastery_of_Pain",
+                "level_learned": 60,
+                "cap": 5
+            },
+            {
+                "name": "Unity_of_Faith",
+                "level_learned": 68,
+                "cap": 6
+            },
+            {
+                "name": "Double_Attack",
+                "level_learned": 35,
+                "cap": 5
+            },
+            {
+                "name": "Triple_Attack",
+                "level_learned": 55,
+                "cap": 2
+            }
+        ],
+        "spells": [
+            {
+                "name": "Touch_of_Health",
+                "level_learned": 2,
+                "cap": 5
+            },
+            {
+                "name": "Aran's_Strength",
+                "level_learned": 4,
+                "cap": 10
+            },
+            {
+                "name": "Hand_of_God",
+                "level_learned": 7,
+                "cap": 5
+            },
+            {
+                "name": "Fortitude",
+                "level_learned": 15,
+                "cap": 10
+            },
+            {
+                "name": "Divine_Vision",
+                "level_learned": 16,
+                "cap": 8
+            },
+            {
+                "name": "Blessing_of_Health",
+                "level_learned": 22,
+                "cap": 10
+            },
+            {
+                "name": "Restore_Life",
+                "level_learned": 25,
+                "cap": 5
+            },
+            {
+                "name": "Damn",
+                "level_learned": 30,
+                "cap": 5
+            },
+            {
+                "name": "Ressurection",
+                "level_learned": 20,
+                "cap": 10
+            },
+            {
+                "name": "Wrath_of_Aran",
+                "level_learned": 32,
+                "cap": 5
+            },
+            {
+                "name": "Blessing_of_Aran",
+                "level_learned": 40,
+                "cap": 10
+            },
+            {
+                "name": "Power_of_Aran",
+                "level_learned": 45,
+                "cap": 10
+            },
+            {
+                "name": "Amelioration",
+                "level_learned": 48,
+                "cap": 4
+            },
+            {
+                "name": "Gift_of_Healing",
+                "level_learned": 50,
+                "cap": 5
+            },
+            {
+                "name": "Heavenly_Grace",
+                "level_learned": 30,
+                "cap": 6
+            },
+            {
+                "name": "Fist_of_Heaven",
+                "level_learned": 54,
+                "cap": 5
+            },
+            {
+                "name": "Blessing_of_Life",
+                "level_learned": 58,
+                "cap": 10
+            },
+            {
+                "name": "Glorious_Resilence",
+                "level_learned": 60,
+                "cap": 10
+            },
+            {
+                "name": "Innocence",
+                "level_learned": 62,
+                "cap": 3
+            },
+            {
+                "name": "Condemn",
+                "level_learned": 63,
+                "cap": 10
+            },
+            {
+                "name": "Visage_of_Aran",
+                "level_learned": 65,
+                "cap": 8
+            },
+            {
+                "name": "Veil_of_Light",
+                "level_learned": 68,
+                "cap": 8
+            },
+            {
+                "name": "Eyesight_of_the_Divine",
+                "level_learned": 70,
+                "cap": 6
+            },
+            {
+                "name": "Ultimate_Seal_of_Faith",
+                "level_learned": 72,
+                "cap": 8
+            },
+            {
+                "name": "Light_of_Heaven",
+                "level_learned": 75,
+                "cap": 10
+            },
+            {
+                "name": "Monument_of_Purity",
+                "level_learned": 78,
+                "cap": 8
+            },
+            {
+                "name": "Hammer_of_Judgement",
+                "level_learned": 80,
+                "cap": 5
+            },
+            {
+                "name": "Heavenly_Precision",
+                "level_learned": 83,
+                "cap": 10
+            },
+            {
+                "name": "Godly_Precision",
+                "level_learned": 97,
+                "cap": 10
+            },
+            {
+                "name": "Blessing_of_Divinity",
+                "level_learned": 85,
+                "cap": 10
+            },
+            {
+                "name": "Purity_of_Soul",
+                "level_learned": 90,
+                "cap": 10
+            },
+            {
+                "name": "Deliverance",
+                "level_learned": 92,
+                "cap": 4
+            },
+            {
+                "name": "Salvation_from_Death",
+                "level_learned": 95,
+                "cap": 5
+            },
+            {
+                "name": "Hammer_of_Requiem",
+                "level_learned": 100,
+                "cap": 1
+            },
+            {
+                "name": "Mark_of_Aran",
+                "level_learned": 101,
+                "cap": 5
+            },
+            {
+                "name": "Mass_Purity",
+                "level_learned": 101,
+                "cap": 1
+            },
+            {
+                "name": "Searing_Light",
+                "level_learned": 101,
+                "cap": 1
+            }
+        ],
+        "armor_levels": {
+            "leather": 10,
+            "studded": 20,
+            "chain": 50,
+            "light_plate": 101,
+            "heavy_plate": 101
+        },
+        "shield_levels": {
+            "small": 10,
+            "medium": 30,
+            "large": 101,
+            "huge": 101
+        },
+        "caps": {
+            "haste": 1,
+            "armor": 2.25,
+            "resist": 0.75
+        }
+    },
+    {
+        "class": "paladin",
+        "character_creation": {
+            "starting_hp": 18,
+            "starting_mana": 0,
+            "starting_stats": {
+                "str": 12,
+                "tog": 10,
+                "agi": 10,
+                "foc": 12,
+                "int": 8,
+                "cha": 10
+            },
+            "starting_skills": [
+                "Hammers",
+                "Shields"
+            ],
+            "starting_spells": []
+        },
+        "level_up": {
+            "hp_gain": 15,
+            "hp_scale": 1.06,
+            "damage_gain": 2,
+            "damage_scale": 0.9,
+            "mana_scale": 2.75,
+            "skill_point_interval": 2,
+            "spell_point_interval": 2
+        },
+        "skills": [
+            {
+                "name": "Dodge",
+                "level_learned": 6,
+                "cap": 2
+            },
+            {
+                "name": "Ward_Evil",
+                "level_learned": 5,
+                "cap": 3
+            },
+            {
+                "name": "Improved_Vitality",
+                "level_learned": 10,
+                "cap": 6
+            },
+            {
+                "name": "Enrage",
+                "level_learned": 12,
+                "cap": 3
+            },
+            {
+                "name": "Divine_Focus",
+                "level_learned": 20,
+                "cap": 4
+            },
+            {
+                "name": "Prayer",
+                "level_learned": 20,
+                "cap": 4
+            },
+            {
+                "name": "Parry",
+                "level_learned": 28,
+                "cap": 6
+            },
+            {
+                "name": "Magic_Resistance",
+                "level_learned": 35,
+                "cap": 5
+            },
+            {
+                "name": "Riposte",
+                "level_learned": 45,
+                "cap": 3
+            },
+            {
+                "name": "Protect",
+                "level_learned": 42,
+                "cap": 5
+            },
+            {
+                "name": "Double_Attack",
+                "level_learned": 40,
+                "cap": 6
+            },
+            {
+                "name": "Stability",
+                "level_learned": 45,
+                "cap": 5
+            },
+            {
+                "name": "Battle_Mastery",
+                "level_learned": 50,
+                "cap": 5
+            },
+            {
+                "name": "Phalanx",
+                "level_learned": 55,
+                "cap": 3
+            },
+            {
+                "name": "Double_Edge",
+                "level_learned": 57,
+                "cap": 6
+            },
+            {
+                "name": "Crusaders_Stance",
+                "level_learned": 60,
+                "cap": 10
+            },
+            {
+                "name": "Triple_Attack",
+                "level_learned": 65,
+                "cap": 3
+            },
+            {
+                "name": "Witness_to_the_Word",
+                "level_learned": 70,
+                "cap": 10
+            },
+            {
+                "name": "Combat_Precision",
+                "level_learned": 75,
+                "cap": 8
+            },
+            {
+                "name": "Desperation",
+                "level_learned": 80,
+                "cap": 7
+            },
+            {
+                "name": "Rampage",
+                "level_learned": 85,
+                "cap": 5
+            },
+            {
+                "name": "Strike_of_Justice",
+                "level_learned": 92,
+                "cap": 6
+            }
+        ],
+        "spells": [
+            {
+                "name": "Shield_of_Faith",
+                "level_learned": 6,
+                "cap": 10
+            },
+            {
+                "name": "Word_of_Restoration",
+                "level_learned": 10,
+                "cap": 5
+            },
+            {
+                "name": "Guardians_Power",
+                "level_learned": 15,
+                "cap": 10
+            },
+            {
+                "name": "Divine_Aura",
+                "level_learned": 25,
+                "cap": 10
+            },
+            {
+                "name": "Ressurection",
+                "level_learned": 30,
+                "cap": 3
+            },
+            {
+                "name": "Holy_Shout",
+                "level_learned": 30,
+                "cap": 10
+            },
+            {
+                "name": "Barrier_of_Faith",
+                "level_learned": 40,
+                "cap": 5
+            },
+            {
+                "name": "Word_of_Lifegiving",
+                "level_learned": 50,
+                "cap": 5
+            },
+            {
+                "name": "Power_of_Faith",
+                "level_learned": 60,
+                "cap": 10
+            },
+            {
+                "name": "Raging_Fist_of_Aran",
+                "level_learned": 70,
+                "cap": 4
+            },
+            {
+                "name": "Sermon_of_the_Righteous",
+                "level_learned": 75,
+                "cap": 10
+            },
+            {
+                "name": "Bulwark_of_the_Pure",
+                "level_learned": 76,
+                "cap": 5
+            },
+            {
+                "name": "Shelter_of_Aran",
+                "level_learned": 80,
+                "cap": 10
+            },
+            {
+                "name": "Seal_of_Impenetrability",
+                "level_learned": 85,
+                "cap": 4
+            },
+            {
+                "name": "Crusaders_Purity",
+                "level_learned": 90,
+                "cap": 5
+            },
+            {
+                "name": "Holy_Cry",
+                "level_learned": 90,
+                "cap": 5
+            },
+            {
+                "name": "Health_from_Above",
+                "level_learned": 100,
+                "cap": 1
+            },
+            {
+                "name": "Holy_Cleanse",
+                "level_learned": 100,
+                "cap": 1
+            },
+            {
+                "name": "Word_of_Purity",
+                "level_learned": 101,
+                "cap": 5
+            },
+            {
+                "name": "Virtuous",
+                "level_learned": 101,
+                "cap": 1
+            },
+            {
+                "name": "Inquisitor's_Fervor",
+                "level_learned": 101,
+                "cap": 1
+            }
+        ],
+        "armor_levels": {
+            "leather": 1,
+            "studded": 15,
+            "chain": 25,
+            "light_plate": 50,
+            "heavy_plate": 85
+        },
+        "shield_levels": {
+            "small": 1,
+            "medium": 1,
+            "large": 25,
+            "huge": 60
+        },
+        "caps": {
+            "haste": 0.8,
+            "armor": 3,
+            "resist": 0.75
+        }
+    },
+    {
+        "class": "defender",
+        "character_creation": {
+            "starting_hp": 25,
+            "starting_mana": 0,
+            "starting_stats": {
+                "str": 14,
+                "tog": 18,
+                "agi": 10,
+                "foc": 6,
+                "int": 6,
+                "cha": 6
+            },
+            "starting_skills": [
+                "Swords",
+                "Shields"
+            ],
+            "starting_spells": []
+        },
+        "level_up": {
+            "hp_gain": 15,
+            "hp_scale": 1.25,
+            "damage_gain": 0,
+            "damage_scale": 0,
+            "mana_scale": 2,
+            "skill_point_interval": 2,
+            "spell_point_interval": 0
+        },
+        "skills": [
+            {
+                "name": "Dodge",
+                "level_learned": 2,
+                "cap": 3
+            },
+            {
+                "name": "Ward_Evil",
+                "level_learned": 5,
+                "cap": 3
+            },
+            {
+                "name": "Dual_Wield",
+                "level_learned": 10,
+                "cap": 3
+            },
+            {
+                "name": "Enrage",
+                "level_learned": 8,
+                "cap": 5
+            },
+            {
+                "name": "Bash",
+                "level_learned": 15,
+                "cap": 7
+            },
+            {
+                "name": "Improved_Vitality",
+                "level_learned": 5,
+                "cap": 10
+            },
+            {
+                "name": "Parry",
+                "level_learned": 20,
+                "cap": 9
+            },
+            {
+                "name": "Stability",
+                "level_learned": 22,
+                "cap": 6
+            },
+            {
+                "name": "Intimidation",
+                "level_learned": 25,
+                "cap": 4
+            },
+            {
+                "name": "Riposte",
+                "level_learned": 30,
+                "cap": 8
+            },
+            {
+                "name": "Defensive_Spin",
+                "level_learned": 33,
+                "cap": 3
+            },
+            {
+                "name": "Magic_Resistance",
+                "level_learned": 35,
+                "cap": 8
+            },
+            {
+                "name": "Protect",
+                "level_learned": 38,
+                "cap": 5
+            },
+            {
+                "name": "Double_Attack",
+                "level_learned": 40,
+                "cap": 7
+            },
+            {
+                "name": "Phalanx",
+                "level_learned": 43,
+                "cap": 4
+            },
+            {
+                "name": "Double_Edge",
+                "level_learned": 45,
+                "cap": 3
+            },
+            {
+                "name": "Taunt",
+                "level_learned": 46,
+                "cap": 8
+            },
+            {
+                "name": "Battle_Mastery",
+                "level_learned": 50,
+                "cap": 6
+            },
+            {
+                "name": "Revenge",
+                "level_learned": 55,
+                "cap": 7
+            },
+            {
+                "name": "Mastery_of_Pain",
+                "level_learned": 58,
+                "cap": 6
+            },
+            {
+                "name": "Backslash",
+                "level_learned": 60,
+                "cap": 10
+            },
+            {
+                "name": "Swordplay",
+                "level_learned": 61,
+                "cap": 6
+            },
+            {
+                "name": "Triple_Attack",
+                "level_learned": 65,
+                "cap": 4
+            },
+            {
+                "name": "Combat_Precision",
+                "level_learned": 70,
+                "cap": 10
+            },
+            {
+                "name": "Desperation",
+                "level_learned": 72,
+                "cap": 10
+            },
+            {
+                "name": "Rampage",
+                "level_learned": 75,
+                "cap": 4
+            },
+            {
+                "name": "Critical_Hit",
+                "level_learned": 80,
+                "cap": 2
+            },
+            {
+                "name": "Return_Slam",
+                "level_learned": 90,
+                "cap": 5
+            },
+            {
+                "name": "Mortal_Insult",
+                "level_learned": 95,
+                "cap": 1
+            },
+            {
+                "name": "Guardian_to_the_Grave",
+                "level_learned": 100,
+                "cap": 1
+            }
+        ],
+        "spells": [],
+        "armor_levels": {
+            "leather": 1,
+            "studded": 5,
+            "chain": 10,
+            "light_plate": 25,
+            "heavy_plate": 50
+        },
+        "shield_levels": {
+            "small": 1,
+            "medium": 1,
+            "large": 20,
+            "huge": 50
+        },
+        "caps": {
+            "haste": 0.6,
+            "armor": 3.25,
+            "resist": 1
+        }
+    },
+    {
+        "class": "assassin",
+        "character_creation": {
+            "starting_hp": 14,
+            "starting_mana": 0,
+            "starting_stats": {
+                "str": 12,
+                "tog": 10,
+                "agi": 16,
+                "foc": 6,
+                "int": 6,
+                "cha": 10
+            },
+            "starting_skills": [
+                "Daggers",
+                "Dodge"
+            ],
+            "starting_spells": []
+        },
+        "level_up": {
+            "hp_gain": 8,
+            "hp_scale": 0.5,
+            "damage_gain": 0,
+            "damage_scale": 0,
+            "mana_scale": 4,
+            "skill_point_interval": 2,
+            "spell_point_interval": 0
+        },
+        "skills": [
+            {
+                "name": "Distract",
+                "level_learned": 3,
+                "cap": 5
+            },
+            {
+                "name": "Ward_Evil",
+                "level_learned": 5,
+                "cap": 3
+            },
+            {
+                "name": "Impale",
+                "level_learned": 5,
+                "cap": 10
+            },
+            {
+                "name": "Crippling_Stab",
+                "level_learned": 5,
+                "cap": 10
+            },
+            {
+                "name": "Rapid_Attack",
+                "level_learned": 5,
+                "cap": 10
+            },
+            {
+                "name": "Dual_Wield",
+                "level_learned": 8,
+                "cap": 10
+            },
+            {
+                "name": "Stealth",
+                "level_learned": 12,
+                "cap": 8
+            },
+            {
+                "name": "Parry",
+                "level_learned": 18,
+                "cap": 4
+            },
+            {
+                "name": "Poisoning",
+                "level_learned": 20,
+                "cap": 10
+            },
+            {
+                "name": "Double_Attack",
+                "level_learned": 28,
+                "cap": 10
+            },
+            {
+                "name": "Deception",
+                "level_learned": 35,
+                "cap": 6
+            },
+            {
+                "name": "Battle_Mastery",
+                "level_learned": 40,
+                "cap": 10
+            },
+            {
+                "name": "Discover_Weakness",
+                "level_learned": 45,
+                "cap": 10
+            },
+            {
+                "name": "Double_Edge",
+                "level_learned": 50,
+                "cap": 6
+            },
+            {
+                "name": "Evade",
+                "level_learned": 55,
+                "cap": 5
+            },
+            {
+                "name": "Mastery_of_Pain",
+                "level_learned": 60,
+                "cap": 5
+            },
+            {
+                "name": "Triple_Attack",
+                "level_learned": 65,
+                "cap": 6
+            },
+            {
+                "name": "Combat_Precision",
+                "level_learned": 75,
+                "cap": 5
+            },
+            {
+                "name": "Rampage",
+                "level_learned": 80,
+                "cap": 6
+            },
+            {
+                "name": "Escape",
+                "level_learned": 90,
+                "cap": 5
+            }
+        ],
+        "spells": [],
+        "armor_levels": {
+            "leather": 1,
+            "studded": 101,
+            "chain": 101,
+            "light_plate": 101,
+            "heavy_plate": 101
+        },
+        "shield_levels": {
+            "small": 101,
+            "medium": 101,
+            "large": 101,
+            "huge": 101
+        },
+        "caps": {
+            "haste": 1,
+            "armor": 1.5,
+            "resist": 0.5
+        }
+    },
+    {
+        "class": "ranger",
+        "character_creation": {
+            "starting_hp": 16,
+            "starting_mana": 0,
+            "starting_stats": {
+                "str": 12,
+                "tog": 12,
+                "agi": 16,
+                "foc": 8,
+                "int": 6,
+                "cha": 6
+            },
+            "starting_skills": [
+                "Swords",
+                "Archery"
+            ],
+            "starting_spells": []
+        },
+        "level_up": {
+            "hp_gain": 9,
+            "hp_scale": 0.75,
+            "damage_gain": 2,
+            "damage_scale": 0.25,
+            "mana_scale": 3,
+            "skill_point_interval": 2,
+            "spell_point_interval": 2
+        },
+        "skills": [
+            {
+                "name": "Kick",
+                "level_learned": 3,
+                "cap": 4
+            },
+            {
+                "name": "Ward_Evil",
+                "level_learned": 5,
+                "cap": 3
+            },
+            {
+                "name": "Dodge",
+                "level_learned": 6,
+                "cap": 8
+            },
+            {
+                "name": "Forage",
+                "level_learned": 10,
+                "cap": 10
+            },
+            {
+                "name": "Dual_Wield",
+                "level_learned": 10,
+                "cap": 7
+            },
+            {
+                "name": "Stealth",
+                "level_learned": 20,
+                "cap": 8
+            },
+            {
+                "name": "True_Sight",
+                "level_learned": 20,
+                "cap": 4
+            },
+            {
+                "name": "Parry",
+                "level_learned": 22,
+                "cap": 5
+            },
+            {
+                "name": "Critical_Shot",
+                "level_learned": 25,
+                "cap": 10
+            },
+            {
+                "name": "Camouflage",
+                "level_learned": 32,
+                "cap": 10
+            },
+            {
+                "name": "Tracking",
+                "level_learned": 35,
+                "cap": 10
+            },
+            {
+                "name": "Double_Attack",
+                "level_learned": 40,
+                "cap": 6
+            },
+            {
+                "name": "Stability",
+                "level_learned": 43,
+                "cap": 3
+            },
+            {
+                "name": "Rapid_Attack",
+                "level_learned": 45,
+                "cap": 3
+            },
+            {
+                "name": "Mastery_of_the_Bow",
+                "level_learned": 50,
+                "cap": 10
+            },
+            {
+                "name": "Deception",
+                "level_learned": 50,
+                "cap": 4
+            },
+            {
+                "name": "Battle_Mastery",
+                "level_learned": 55,
+                "cap": 6
+            },
+            {
+                "name": "Poisoning",
+                "level_learned": 60,
+                "cap": 5
+            },
+            {
+                "name": "Perfect_Aim",
+                "level_learned": 60,
+                "cap": 10
+            },
+            {
+                "name": "Evade",
+                "level_learned": 65,
+                "cap": 4
+            },
+            {
+                "name": "Decoy",
+                "level_learned": 66,
+                "cap": 10
+            },
+            {
+                "name": "Mastery_of_Pain",
+                "level_learned": 70,
+                "cap": 5
+            },
+            {
+                "name": "Quick_Draw",
+                "level_learned": 70,
+                "cap": 10
+            },
+            {
+                "name": "Triple_Attack",
+                "level_learned": 72,
+                "cap": 4
+            },
+            {
+                "name": "Combat_Precision",
+                "level_learned": 75,
+                "cap": 5
+            },
+            {
+                "name": "Acrobatics",
+                "level_learned": 75,
+                "cap": 3
+            },
+            {
+                "name": "Rampage",
+                "level_learned": 80,
+                "cap": 6
+            },
+            {
+                "name": "Multi_Shot",
+                "level_learned": 82,
+                "cap": 10
+            },
+            {
+                "name": "Critical_Hit",
+                "level_learned": 85,
+                "cap": 3
+            },
+            {
+                "name": "Deflection",
+                "level_learned": 90,
+                "cap": 5
+            },
+            {
+                "name": "Berserk",
+                "level_learned": 100,
+                "cap": 5
+            },
+            {
+                "name": "Head_Shot",
+                "level_learned": 100,
+                "cap": 1
+            }
+        ],
+        "spells": [
+            {
+                "name": "Grasping_Roots",
+                "level_learned": 5,
+                "cap": 5
+            },
+            {
+                "name": "Rainfall",
+                "level_learned": 15,
+                "cap": 10
+            },
+            {
+                "name": "Spirit_of_the_Wolf",
+                "level_learned": 25,
+                "cap": 10
+            },
+            {
+                "name": "Attenuation_With_Nature",
+                "level_learned": 32,
+                "cap": 10
+            },
+            {
+                "name": "Tangleweed",
+                "level_learned": 40,
+                "cap": 5
+            },
+            {
+                "name": "Spring_Showers",
+                "level_learned": 50,
+                "cap": 10
+            },
+            {
+                "name": "Spirit_of_the_Beast",
+                "level_learned": 60,
+                "cap": 10
+            },
+            {
+                "name": "Solidarity_With_Nature",
+                "level_learned": 65,
+                "cap": 10
+            },
+            {
+                "name": "Poison_Vines",
+                "level_learned": 70,
+                "cap": 5
+            },
+            {
+                "name": "Soothing_Downpour",
+                "level_learned": 80,
+                "cap": 10
+            },
+            {
+                "name": "Oneness_With_Nature",
+                "level_learned": 85,
+                "cap": 10
+            },
+            {
+                "name": "Spirit_of_the_Wild",
+                "level_learned": 90,
+                "cap": 10
+            },
+            {
+                "name": "Heart_Seeker",
+                "level_learned": 100,
+                "cap": 1
+            },
+            {
+                "name": "Redeemer's_Boon",
+                "level_learned": 101,
+                "cap": 1
+            },
+            {
+                "name": "Test_Nuke",
+                "level_learned": 101,
+                "cap": 1
+            },
+            {
+                "name": "Test_Debuff",
+                "level_learned": 101,
+                "cap": 1
+            }
+        ],
+        "armor_levels": {
+            "leather": 1,
+            "studded": 30,
+            "chain": 101,
+            "light_plate": 101,
+            "heavy_plate": 101
+        },
+        "shield_levels": {
+            "small": 101,
+            "medium": 101,
+            "large": 101,
+            "huge": 101
+        },
+        "caps": {
+            "haste": 1,
+            "armor": 1.75,
+            "resist": 0.75
+        }
+    },
+    {
+        "class": "redeemer",
+        "character_creation": {
+            "starting_hp": 13,
+            "starting_mana": 15,
+            "starting_stats": {
+                "str": 8,
+                "tog": 6,
+                "agi": 8,
+                "foc": 14,
+                "int": 12,
+                "cha": 17
+            },
+            "starting_skills": [
+                "Staffs"
+            ],
+            "starting_spells": [
+                "Smite"
+            ]
+        },
+        "level_up": {
+            "hp_gain": 7,
+            "hp_scale": 0.45,
+            "damage_gain": 4,
+            "damage_scale": 0.75,
+            "mana_scale": 3,
+            "skill_point_interval": 2,
+            "spell_point_interval": 1
+        },
+        "skills": [
+            {
+                "name": "Rapid_Attack",
+                "level_learned": 2,
+                "cap": 5
+            },
+            {
+                "name": "Dodge",
+                "level_learned": 5,
+                "cap": 8
+            },
+            {
+                "name": "Ward_Evil",
+                "level_learned": 5,
+                "cap": 3
+            },
+            {
+                "name": "Personality",
+                "level_learned": 10,
+                "cap": 10
+            },
+            {
+                "name": "Benedictus's_Shield",
+                "level_learned": 15,
+                "cap": 6
+            },
+            {
+                "name": "Mastery_of_the_Holy",
+                "level_learned": 15,
+                "cap": 6
+            },
+            {
+                "name": "Double_Attack",
+                "level_learned": 20,
+                "cap": 5
+            },
+            {
+                "name": "Parry",
+                "level_learned": 25,
+                "cap": 6
+            },
+            {
+                "name": "Redeemer's_Boon",
+                "level_learned": 30,
+                "cap": 10
+            },
+            {
+                "name": "Battle_Mastery",
+                "level_learned": 35,
+                "cap": 6
+            },
+            {
+                "name": "Intimidation",
+                "level_learned": 40,
+                "cap": 1
+            },
+            {
+                "name": "Spinning_Staff",
+                "level_learned": 45,
+                "cap": 5
+            },
+            {
+                "name": "Divine_Calm",
+                "level_learned": 50,
+                "cap": 5
+            },
+            {
+                "name": "Evade",
+                "level_learned": 55,
+                "cap": 3
+            },
+            {
+                "name": "Triple_Attack",
+                "level_learned": 65,
+                "cap": 2
+            },
+            {
+                "name": "Mastery_of_Pain",
+                "level_learned": 72,
+                "cap": 3
+            },
+            {
+                "name": "Combat_Precision",
+                "level_learned": 80,
+                "cap": 8
+            },
+            {
+                "name": "Critical_Hit",
+                "level_learned": 85,
+                "cap": 2
+            },
+            {
+                "name": "Redeemer's_Grace",
+                "level_learned": 85,
+                "cap": 5
+            },
+            {
+                "name": "Rampage",
+                "level_learned": 90,
+                "cap": 5
+            },
+            {
+                "name": "Strike_of_Redemption",
+                "level_learned": 100,
+                "cap": 1
+            }
+        ],
+        "spells": [
+            {
+                "name": "Benedictum",
+                "level_learned": 2,
+                "cap": 10
+            },
+            {
+                "name": "Strength_of_Body",
+                "level_learned": 5,
+                "cap": 10
+            },
+            {
+                "name": "Splinter_Strength",
+                "level_learned": 10,
+                "cap": 10
+            },
+            {
+                "name": "Wrath",
+                "level_learned": 20,
+                "cap": 10
+            },
+            {
+                "name": "Divine_Mirror",
+                "level_learned": 20,
+                "cap": 10
+            },
+            {
+                "name": "Thunder_Absorption",
+                "level_learned": 25,
+                "cap": 8
+            },
+            {
+                "name": "Righteous_Guard",
+                "level_learned": 30,
+                "cap": 10
+            },
+            {
+                "name": "Strength_of_Character",
+                "level_learned": 35,
+                "cap": 10
+            },
+            {
+                "name": "Fury",
+                "level_learned": 40,
+                "cap": 10
+            },
+            {
+                "name": "Crush_Spirit",
+                "level_learned": 45,
+                "cap": 10
+            },
+            {
+                "name": "House_of_Light",
+                "level_learned": 50,
+                "cap": 10
+            },
+            {
+                "name": "Divine_Comeback",
+                "level_learned": 55,
+                "cap": 6
+            },
+            {
+                "name": "Glance_of_Divinity",
+                "level_learned": 60,
+                "cap": 8
+            },
+            {
+                "name": "Speed_of_the_Heavens",
+                "level_learned": 65,
+                "cap": 5
+            },
+            {
+                "name": "Rage_of_Benedictus",
+                "level_learned": 70,
+                "cap": 10
+            },
+            {
+                "name": "Ultimate_Demoralization",
+                "level_learned": 75,
+                "cap": 10
+            },
+            {
+                "name": "Unswerving_Resolve",
+                "level_learned": 80,
+                "cap": 10
+            },
+            {
+                "name": "Swift_Like_God",
+                "level_learned": 85,
+                "cap": 5
+            },
+            {
+                "name": "Shock_Shield",
+                "level_learned": 90,
+                "cap": 8
+            },
+            {
+                "name": "Unstoppable_Anger",
+                "level_learned": 95,
+                "cap": 5
+            },
+            {
+                "name": "Violent_Devastation",
+                "level_learned": 98,
+                "cap": 10
+            },
+            {
+                "name": "Benedictine_Dawn",
+                "level_learned": 101,
+                "cap": 1
+            },
+            {
+                "name": "Boonless",
+                "level_learned": 101,
+                "cap": 1
+            },
+            {
+                "name": "Benevolence",
+                "level_learned": 101,
+                "cap": 1
+            }
+        ],
+        "armor_levels": {
+            "leather": 1,
+            "studded": 101,
+            "chain": 101,
+            "light_plate": 101,
+            "heavy_plate": 101
+        },
+        "shield_levels": {
+            "small": 101,
+            "medium": 101,
+            "large": 101,
+            "huge": 101
+        },
+        "caps": {
+            "haste": 1,
+            "armor": 1.5,
+            "resist": 0.75
+        }
+    },
+    {
+        "class": "necromancer",
+        "character_creation": {
+            "starting_hp": 11,
+            "starting_mana": 18,
+            "starting_stats": {
+                "str": 8,
+                "tog": 8,
+                "agi": 9,
+                "foc": 10,
+                "int": 14,
+                "cha": 12
+            },
+            "starting_skills": [
+                "Meditation",
+                "Channeling"
+            ],
+            "starting_spells": [
+                "Minor Cloud of Poison",
+                "Spirit Shroud"
+            ]
+        },
+        "level_up": {
+            "hp_gain": 6,
+            "hp_scale": 0.3,
+            "damage_gain": 5,
+            "damage_scale": 0.9,
+            "mana_scale": 0.5,
+            "skill_point_interval": 2,
+            "spell_point_interval": 1
+        },
+        "skills": [
+            {
+                "name": "Staffs",
+                "level_learned": 2,
+                "cap": 5
+            },
+            {
+                "name": "Mastery_of_Fire",
+                "level_learned": 5,
+                "cap": 10
+            },
+            {
+                "name": "Mastery_of_Ice",
+                "level_learned": 5,
+                "cap": 10
+            },
+            {
+                "name": "Mastery_of_Spirit",
+                "level_learned": 10,
+                "cap": 10
+            },
+            {
+                "name": "Mastery_of_Air",
+                "level_learned": 15,
+                "cap": 10
+            },
+            {
+                "name": "Companion_Mastery",
+                "level_learned": 15,
+                "cap": 7
+            },
+            {
+                "name": "Mastery_of_Dark",
+                "level_learned": 20,
+                "cap": 10
+            },
+            {
+                "name": "Concentration",
+                "level_learned": 25,
+                "cap": 10
+            },
+            {
+                "name": "Magic_Resistance",
+                "level_learned": 30,
+                "cap": 10
+            },
+            {
+                "name": "Parry",
+                "level_learned": 35,
+                "cap": 3
+            },
+            {
+                "name": "Poisoning",
+                "level_learned": 40,
+                "cap": 7
+            },
+            {
+                "name": "Quick_Cast",
+                "level_learned": 40,
+                "cap": 10
+            },
+            {
+                "name": "Peace_with_Darkness",
+                "level_learned": 45,
+                "cap": 5
+            },
+            {
+                "name": "Transcendence",
+                "level_learned": 50,
+                "cap": 10
+            },
+            {
+                "name": "Mana_Conservation",
+                "level_learned": 60,
+                "cap": 4
+            },
+            {
+                "name": "Mana_Shield",
+                "level_learned": 65,
+                "cap": 3
+            },
+            {
+                "name": "Arcane_Mastery",
+                "level_learned": 75,
+                "cap": 10
+            }
+        ],
+        "spells": [
+            {
+                "name": "Pet_Recall",
+                "level_learned": 14,
+                "cap": 1
+            },
+            {
+                "name": "Pilfer_Life",
+                "level_learned": 2,
+                "cap": 6
+            },
+            {
+                "name": "Glimpse_of_Death",
+                "level_learned": 5,
+                "cap": 10
+            },
+            {
+                "name": "Curse_of_Wounding",
+                "level_learned": 8,
+                "cap": 7
+            },
+            {
+                "name": "Call_Minor_Bonewalker",
+                "level_learned": 10,
+                "cap": 10
+            },
+            {
+                "name": "Lesser_Cloud_of_Poison",
+                "level_learned": 15,
+                "cap": 7
+            },
+            {
+                "name": "Bone_Armor",
+                "level_learned": 18,
+                "cap": 10
+            },
+            {
+                "name": "Theft_of_Life",
+                "level_learned": 20,
+                "cap": 6
+            },
+            {
+                "name": "Twilight_Upheaval",
+                "level_learned": 20,
+                "cap": 10
+            },
+            {
+                "name": "Curse_of_Pain",
+                "level_learned": 25,
+                "cap": 7
+            },
+            {
+                "name": "Enhance_Bonewalker",
+                "level_learned": 30,
+                "cap": 10
+            },
+            {
+                "name": "Call_Lesser_Bonewalker",
+                "level_learned": 35,
+                "cap": 10
+            },
+            {
+                "name": "Cloud_of_Poison",
+                "level_learned": 35,
+                "cap": 7
+            },
+            {
+                "name": "Visage_of_Death",
+                "level_learned": 36,
+                "cap": 10
+            },
+            {
+                "name": "Drain_Life",
+                "level_learned": 40,
+                "cap": 6
+            },
+            {
+                "name": "Dead_of_Night",
+                "level_learned": 40,
+                "cap": 10
+            },
+            {
+                "name": "Curse_of_Suffering",
+                "level_learned": 48,
+                "cap": 7
+            },
+            {
+                "name": "Carapace_of_Bone",
+                "level_learned": 52,
+                "cap": 10
+            },
+            {
+                "name": "Greater_Cloud_of_Poison",
+                "level_learned": 55,
+                "cap": 7
+            },
+            {
+                "name": "Soul_Shroud",
+                "level_learned": 55,
+                "cap": 10
+            },
+            {
+                "name": "Call_Bonewalker",
+                "level_learned": 60,
+                "cap": 10
+            },
+            {
+                "name": "Deluge_of_Darkness",
+                "level_learned": 60,
+                "cap": 10
+            },
+            {
+                "name": "Consumption_of_Life",
+                "level_learned": 62,
+                "cap": 6
+            },
+            {
+                "name": "Enrage_Bonewalker",
+                "level_learned": 65,
+                "cap": 10
+            },
+            {
+                "name": "Terror_of_Death",
+                "level_learned": 68,
+                "cap": 10
+            },
+            {
+                "name": "Curse_of_Torment",
+                "level_learned": 72,
+                "cap": 7
+            },
+            {
+                "name": "Storm_of_Poison",
+                "level_learned": 75,
+                "cap": 7
+            },
+            {
+                "name": "Soul_Feast",
+                "level_learned": 80,
+                "cap": 6
+            },
+            {
+                "name": "Call_Boneterror",
+                "level_learned": 85,
+                "cap": 5
+            },
+            {
+                "name": "Perfection_of_Bone",
+                "level_learned": 88,
+                "cap": 10
+            },
+            {
+                "name": "Uncontrollable_Fear",
+                "level_learned": 90,
+                "cap": 10
+            },
+            {
+                "name": "Cataclysmic_Void",
+                "level_learned": 95,
+                "cap": 7
+            },
+            {
+                "name": "Call_Death_Servant",
+                "level_learned": 100,
+                "cap": 1
+            },
+            {
+                "name": "Eviscerate_Soul",
+                "level_learned": 100,
+                "cap": 1
+            },
+            {
+                "name": "Arch_Shield_of_Spirit",
+                "level_learned": 101,
+                "cap": 3
+            },
+            {
+                "name": "Blood_Sacrifice",
+                "level_learned": 105,
+                "cap": 1
+            },
+            {
+                "name": "Abyssmal_Void",
+                "level_learned": 100,
+                "cap": 10
+            }
+        ],
+        "armor_levels": {
+            "leather": 101,
+            "studded": 101,
+            "chain": 101,
+            "light_plate": 101,
+            "heavy_plate": 101
+        },
+        "shield_levels": {
+            "small": 101,
+            "medium": 101,
+            "large": 101,
+            "huge": 101
+        },
+        "caps": {
+            "haste": 0.25,
+            "armor": 1,
+            "resist": 1
+        }
+    },
+    {
+        "class": "druid",
+        "character_creation": {
+            "starting_hp": 14,
+            "starting_mana": 8,
+            "starting_stats": {
+                "str": 10,
+                "tog": 10,
+                "agi": 10,
+                "foc": 14,
+                "int": 8,
+                "cha": 10
+            },
+            "starting_skills": [
+                "Prayer",
+                "Divine Focus"
+            ],
+            "starting_spells": [
+                "Nature's Strength"
+            ]
+        },
+        "level_up": {
+            "hp_gain": 8,
+            "hp_scale": 0.6,
+            "damage_gain": 5,
+            "damage_scale": 0.8,
+            "mana_scale": 2,
+            "skill_point_interval": 2,
+            "spell_point_interval": 1
+        },
+        "skills": [
+            {
+                "name": "Maces",
+                "level_learned": 2,
+                "cap": 10
+            },
+            {
+                "name": "Ward_Evil",
+                "level_learned": 5,
+                "cap": 3
+            },
+            {
+                "name": "Dodge",
+                "level_learned": 10,
+                "cap": 4
+            },
+            {
+                "name": "Forage",
+                "level_learned": 12,
+                "cap": 6
+            },
+            {
+                "name": "Mastery_of_Air",
+                "level_learned": 15,
+                "cap": 10
+            },
+            {
+                "name": "Mastery_of_Ice",
+                "level_learned": 20,
+                "cap": 10
+            },
+            {
+                "name": "Mastery_of_Fire",
+                "level_learned": 25,
+                "cap": 10
+            },
+            {
+                "name": "Magic_Resistance",
+                "level_learned": 30,
+                "cap": 10
+            },
+            {
+                "name": "Double_Attack",
+                "level_learned": 35,
+                "cap": 4
+            },
+            {
+                "name": "Parry",
+                "level_learned": 40,
+                "cap": 4
+            },
+            {
+                "name": "Battle_Mastery",
+                "level_learned": 42,
+                "cap": 8
+            },
+            {
+                "name": "Tracking",
+                "level_learned": 45,
+                "cap": 5
+            },
+            {
+                "name": "Spiritual_Purity",
+                "level_learned": 50,
+                "cap": 10
+            },
+            {
+                "name": "Shapeshift:_Bear",
+                "level_learned": 50,
+                "cap": 10
+            },
+            {
+                "name": "Stability",
+                "level_learned": 55,
+                "cap": 5
+            },
+            {
+                "name": "Healing_Mastery",
+                "level_learned": 60,
+                "cap": 5
+            },
+            {
+                "name": "Rampage",
+                "level_learned": 60,
+                "cap": 5
+            },
+            {
+                "name": "Roar",
+                "level_learned": 65,
+                "cap": 10
+            },
+            {
+                "name": "Mastery_of_Pain",
+                "level_learned": 70,
+                "cap": 6
+            },
+            {
+                "name": "Rapid_Attack",
+                "level_learned": 70,
+                "cap": 3
+            },
+            {
+                "name": "Combat_Precision",
+                "level_learned": 75,
+                "cap": 4
+            },
+            {
+                "name": "Arcane_Mastery",
+                "level_learned": 75,
+                "cap": 5
+            },
+            {
+                "name": "Improved_Vitality",
+                "level_learned": 80,
+                "cap": 6
+            }
+        ],
+        "spells": [
+            {
+                "name": "Cloak_of_Needles",
+                "level_learned": 3,
+                "cap": 10
+            },
+            {
+                "name": "Nature's_Restoration",
+                "level_learned": 5,
+                "cap": 10
+            },
+            {
+                "name": "Wooden_Skin",
+                "level_learned": 10,
+                "cap": 6
+            },
+            {
+                "name": "Burning_Blade",
+                "level_learned": 10,
+                "cap": 5
+            },
+            {
+                "name": "Lightning_Bolt",
+                "level_learned": 15,
+                "cap": 10
+            },
+            {
+                "name": "Regeneration",
+                "level_learned": 20,
+                "cap": 10
+            },
+            {
+                "name": "Nature's_Healing",
+                "level_learned": 25,
+                "cap": 10
+            },
+            {
+                "name": "Windfall",
+                "level_learned": 28,
+                "cap": 10
+            },
+            {
+                "name": "Power_of_Nature",
+                "level_learned": 30,
+                "cap": 10
+            },
+            {
+                "name": "Healing_Showers",
+                "level_learned": 30,
+                "cap": 10
+            },
+            {
+                "name": "Pulse_Storm",
+                "level_learned": 30,
+                "cap": 10
+            },
+            {
+                "name": "Cloak_of_Spikes",
+                "level_learned": 35,
+                "cap": 10
+            },
+            {
+                "name": "Magma_Coating",
+                "level_learned": 40,
+                "cap": 5
+            },
+            {
+                "name": "Call_of_Nature",
+                "level_learned": 40,
+                "cap": 5
+            },
+            {
+                "name": "Stone_Skin",
+                "level_learned": 45,
+                "cap": 6
+            },
+            {
+                "name": "Lightning_Storm",
+                "level_learned": 50,
+                "cap": 10
+            },
+            {
+                "name": "Cloak_of_Blades",
+                "level_learned": 52,
+                "cap": 10
+            },
+            {
+                "name": "Restoration_of_the_Grove",
+                "level_learned": 55,
+                "cap": 10
+            },
+            {
+                "name": "Replenishing_Rainfall",
+                "level_learned": 60,
+                "cap": 10
+            },
+            {
+                "name": "Stormfall",
+                "level_learned": 62,
+                "cap": 10
+            },
+            {
+                "name": "Force_of_Nature",
+                "level_learned": 65,
+                "cap": 10
+            },
+            {
+                "name": "Nature's_Fire",
+                "level_learned": 68,
+                "cap": 10
+            },
+            {
+                "name": "Hurricane",
+                "level_learned": 70,
+                "cap": 10
+            },
+            {
+                "name": "Cloak_of_Storms",
+                "level_learned": 74,
+                "cap": 10
+            },
+            {
+                "name": "Diamond_Skin",
+                "level_learned": 75,
+                "cap": 6
+            },
+            {
+                "name": "Gift_of_Kaldana",
+                "level_learned": 82,
+                "cap": 10
+            },
+            {
+                "name": "Wrath_of_Verinae",
+                "level_learned": 90,
+                "cap": 10
+            },
+            {
+                "name": "Nature_Skin",
+                "level_learned": 94,
+                "cap": 4
+            },
+            {
+                "name": "West_Wind",
+                "level_learned": 100,
+                "cap": 1
+            },
+            {
+                "name": "Nature's_Spirit",
+                "level_learned": 101,
+                "cap": 1
+            },
+            {
+                "name": "Cloak_of_Tempests",
+                "level_learned": 101,
+                "cap": 1
+            }
+        ],
+        "armor_levels": {
+            "leather": 10,
+            "studded": 40,
+            "chain": 101,
+            "light_plate": 101,
+            "heavy_plate": 101
+        },
+        "shield_levels": {
+            "small": 101,
+            "medium": 101,
+            "large": 101,
+            "huge": 101
+        },
+        "caps": {
+            "haste": 1,
+            "armor": 1.75,
+            "resist": 0.75
+        }
+    }
+]

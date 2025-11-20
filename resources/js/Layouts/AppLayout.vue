@@ -241,7 +241,8 @@ const current = computed(() => {
                                                 :title-only="true"
                                                 :data="
                                                     searchModal.data.items[
-                                                        slotProps.option.id
+                                                        slotProps.option
+                                                            .model_id
                                                     ]
                                                 "
                                             ></Tipper>
@@ -263,7 +264,7 @@ const current = computed(() => {
                                         <div>
                                             {{
                                                 searchModal.data.mobs[
-                                                    slotProps.option.id
+                                                    slotProps.option.model_id
                                                 ].name
                                             }}
                                         </div>
@@ -284,7 +285,7 @@ const current = computed(() => {
                                         <div>
                                             {{
                                                 searchModal.data.quests[
-                                                    slotProps.option.id
+                                                    slotProps.option.model_id
                                                 ].name
                                             }}
                                         </div>

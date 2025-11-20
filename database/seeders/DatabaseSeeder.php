@@ -30,10 +30,13 @@ class DatabaseSeeder extends Seeder
 
         // Rebuild scout models
         $rebuildModels = [Mob::class, Item::class, Quest::class];
+
+        // Just doing the one model removal is fine since they all share the same index
+        Item::removeAllFromSearch();
+
         foreach ($rebuildModels as $model) {
             /** @var Searchable $instance */
             $instance = new $model;
-            $instance::removeAllFromSearch();
             $instance::makeAllSearchable();
         }
     }

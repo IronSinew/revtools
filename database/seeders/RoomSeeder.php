@@ -53,6 +53,9 @@ class RoomSeeder extends Seeder
                         continue;
                     }
 
+                    $npcs = collect($rawRoom['Npcs'] ?? [])->map(function ($npc) {
+                        return $npc['NpcName'];
+                    });
 
                     $position = new RoomPosition(
                         x: $rawRoom['X'],
@@ -69,6 +72,7 @@ class RoomSeeder extends Seeder
                         region_id: $region->id,
                         exit_region_id: $exitRegion->id ?? null,
                         exits: $roomExitFlags->toArray() ?? null,
+                        npcs: $npcs->toArray() ?? null,
                     );
 
                     if ($rawRoom['IsZoneExit'] === true) {

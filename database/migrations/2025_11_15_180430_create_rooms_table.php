@@ -21,6 +21,7 @@ return new class extends Migration
             $table->json('exits')->nullable();
             $table->foreignId('exit_region_id')->nullable()->constrained('regions')->cascadeOnDelete();
             $table->string('exit_region_direction')->nullable();
+            $table->json('npcs')->nullable();
             $table->foreignId('region_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

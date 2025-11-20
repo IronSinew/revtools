@@ -1,7 +1,15 @@
 <script setup>
 import { router } from "@inertiajs/vue3";
+import Drawer from "@volt/Drawer.vue";
 import Button from "primevue/button";
-import { onMounted, ref, watch } from "vue";
+import Checkbox from "primevue/checkbox";
+import MultiSelect from "primevue/multiselect";
+import Select from "primevue/select";
+import Slider from "primevue/slider";
+import {h, onMounted, ref, watch} from "vue";
+
+import ClassType from "@/Composables/GeneratedEnumObjects/ClassType.json";
+import QuestRewardType from "@/Composables/GeneratedEnumObjects/Quests-QuestRewardType.json";
 
 const props = defineProps({
     region: {
@@ -22,11 +30,17 @@ const dragStart = ref({ x: 0, y: 0 });
 const offset = ref({ x: 0, y: 0 });
 
 const hoveredRoom = ref(null);
+const filtersVisible = ref(true);
 
 const zoom = ref({
     current: 1,
     max: 5,
     min: 0.1,
+});
+
+const highlights = ref({
+    mobs: false,
+    items: false,
 });
 
 onMounted(() => {
@@ -110,6 +124,36 @@ const drawBackground = () => {
     ctx.fillRect(-mapSize.x / 2, -mapSize.y / 2, mapSize.x, mapSize.y);
 };
 
+const drawRoom = (room, ctx, size) => {
+    ctx.fillStyle = room.terrain_color;
+    const roomPosition = {
+        x: room.coordinates.x * size + offset.value.x,
+        y: -room.coordinates.y * size + offset.value.y,
+    };
+
+    ctx.fillRect(roomPosition.x, roomPosition.y, size, size);
+
+    drawRoomBorder(room, roomPosition, ctx, size);
+};
+
+const drawRoomBorder = (room, roomPosition, ctx, size) => {
+    const items = room.mobs.forEach((mob) => {
+        if (mob.items.length > 0) {
+            return true;
+        }
+    });
+    console.log(items);
+    if (room.mobs.length > 0 && highlights.value.mobs) {
+        ctx.strokeStyle = "#FF0000";
+        ctx.lineWidth = 3;
+    } else {
+        ctx.strokeStyle = "#404040";
+        ctx.lineWidth = 2;
+    }
+
+    ctx.strokeRect(roomPosition.x, roomPosition.y, size, size);
+};
+
 const drawRooms = () => {
     const canvas = map.value;
     if (!canvas) {
@@ -120,30 +164,20 @@ const drawRooms = () => {
     const scaledSize = roomSize * zoom.value.current;
     drawBackground();
 
-    props.region.rooms
-        .filter((room) => room.coordinates.z === currentZ.value)
+    const roomsAtCurrentZ = props.region.rooms.filter(
+        (room) => room.coordinates.z === currentZ.value,
+    );
+
+    roomsAtCurrentZ
+        .filter((room) => room.mobs.length === 0)
         .forEach((room) => {
-            ctx.fillStyle = room.terrain_color;
-            const roomPosition = {
-                x: room.coordinates.x * scaledSize + offset.value.x,
-                y: -room.coordinates.y * scaledSize + offset.value.y,
-            };
+            drawRoom(room, ctx, scaledSize);
+        });
 
-            ctx.fillRect(
-                roomPosition.x,
-                roomPosition.y,
-                scaledSize,
-                scaledSize,
-            );
-
-            ctx.strokeStyle = "#404040";
-            ctx.lineWidth = 2;
-            ctx.strokeRect(
-                roomPosition.x,
-                roomPosition.y,
-                scaledSize,
-                scaledSize,
-            );
+    roomsAtCurrentZ
+        .filter((room) => room.mobs.length > 0)
+        .forEach((room) => {
+            drawRoom(room, ctx, scaledSize);
         });
 
     if (hoveredRoom.value) {
@@ -152,7 +186,7 @@ const drawRooms = () => {
             y: -hoveredRoom.value.coordinates.y * scaledSize + offset.value.y,
         };
 
-        ctx.strokeStyle = "#700000";
+        ctx.strokeStyle = "blue";
         ctx.lineWidth = 4;
         ctx.strokeRect(
             hoveredRoomPosition.x,
@@ -192,7 +226,88 @@ const handleMouseWheel = (event) => {
 
 <template>
     <Head :title="`Map`" />
+    <Drawer
+        v-model:visible="filtersVisible"
+        header="Filters"
+        :dismissable="false"
+        :modal="false"
+        class="w-full"
+    >
+        <div class="grid grid-cols-1 grid-rows-5 gap-8">
+            <div>
+                <label>
+                    Highlighting
+                    <div class="flex flex-col gap-2 mt-2 ml-2 w-full">
+                        <div class="items-center flex">
+                            <Checkbox
+                                v-model="highlights.mobs"
+                                binary
+                                class="w-full cursor-pointer"
+                                input-id="mob-checkbox"
+                                @change="drawRooms"
+                            >
+                            </Checkbox>
+                            <label
+                                class="ml-4 cursor-pointer"
+                                for="mob-checkbox"
+                            >
+                                Mobs
+                            </label>
+                        </div>
+
+                        <div class="items-center flex">
+                            <Checkbox
+                                v-model="highlights.items"
+                                binary
+                                class="w-full cursor-pointer"
+                                input-id="item-checkbox"
+                                @change="drawRooms"
+                            >
+                            </Checkbox>
+                            <label
+                                class="ml-4 cursor-pointer"
+                                for="item-checkbox"
+                            >
+                                Items
+                            </label>
+                        </div>
+                    </div>
+                </label>
+            </div>
+            <div>
+                <label>
+                    Class Filter:
+                    <Select
+                        :options="jsonObjectToSelectOptions(ClassType)"
+                        option-value="value"
+                        option-label="label"
+                        placeholder="Limit to Class"
+                        class="w-full"
+                        :show-clear="true"
+                    />
+                </label>
+            </div>
+            <div>
+                <div class="mb-5 text-center">
+                    Level range:
+                    {{ 0 }}
+                    -
+                    {{ 100 }}
+                </div>
+                <Slider :min="0" :max="100" :step="5" range />
+            </div>
+            <div class="grid grid-cols-2 grid-rows-1 gap-2 mt-2">
+                <div>
+                    <Button label="Clear" severity="warn" />
+                </div>
+                <div class="text-right">
+                    <Button label="Apply" />
+                </div>
+            </div>
+        </div>
+    </Drawer>
     <Button class="mt-5 mb-5 pi pi-arrow-left"> Map Options</Button>
+    <h1 class="w-full text-center text-4xl pb-3">{{ region.name }}</h1>
     <div class="flex">
         <canvas
             ref="map"

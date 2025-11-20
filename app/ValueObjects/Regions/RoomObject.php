@@ -18,5 +18,7 @@ final class RoomObject extends Data
         public ?int $exit_region_id = null,
         /** @var RoomExitType[] */
         public ?array $exits = null,
+        /** @var string[] */
+        public ?array $npcs = null,
     ) {}
 }

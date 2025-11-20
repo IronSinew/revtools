@@ -6,6 +6,7 @@ use App\Enums\Mobs\MobTier;
 use App\Enums\Mobs\MobType;
 use App\Enums\SearchableType;
 use App\Models\Pivots\ItemMob;
+use App\Models\Pivots\MobRoom;
 use App\ValueObjects\Mobs\MobDeprecatedData;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Laravel\Scout\Searchable;
@@ -75,5 +76,11 @@ class Mob extends BaseModel
     {
         return $this->belongsToMany(Item::class)
             ->using(ItemMob::class);
+    }
+
+    public function rooms(): BelongsToMany
+    {
+        return $this->belongsToMany(Room::class)
+            ->using(MobRoom::class);
     }
 }

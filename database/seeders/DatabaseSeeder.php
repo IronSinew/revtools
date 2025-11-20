@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             QuestChainSeeder::class,
             RegionSeeder::class,
             RoomSeeder::class,
+            MobToRoomSeeder::class,
         ]);
 
         // Rebuild scout models

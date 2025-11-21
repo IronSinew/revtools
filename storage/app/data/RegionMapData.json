@@ -1,0 +1,26 @@
+{
+  "Myronmet": {
+    "X": 0,
+    "Y": 0,
+    "Z": 0,
+    "Color": "brown"
+  },
+  "Illundium Forest": {
+    "X": 1,
+    "Y": 0,
+    "Z": 0,
+    "Color": "wet_green"
+  },
+  "Myronmet Swamp": {
+    "X": -1,
+    "Y": 0,
+    "Z": 0,
+    "Color": "blue"
+  },
+  "Myronmet Graveyard": {
+    "X": -1,
+    "Y": 1,
+    "Z": 0,
+    "Color": "blue"
+  }
+}

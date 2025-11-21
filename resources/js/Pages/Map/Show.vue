@@ -271,11 +271,12 @@ const drawRooms = () => {
                 const bosses = room.mobs.filter(
                     (mob) => mob.type === MobType.Boss.value,
                 );
+
                 if (room.items.length > 0 && filters.value.highlights.items) {
                     style = "#29aecc";
                     lineWidth = 3;
                 } else if (
-                    bosses.length > 0 &&
+                    bosses.length > 1 &&
                     filters.value.highlights.bosses
                 ) {
                     style = "#d432e3";
@@ -323,13 +324,7 @@ const drawRooms = () => {
     }
 
     if (hoveredRoom.value) {
-        drawRoom(
-            hoveredRoom.value,
-            ctx,
-            scaledSize,
-            "#FFFFFF",
-            0.2,
-        );
+        drawRoom(hoveredRoom.value, ctx, scaledSize, "#FFFFFF", 0.2);
     }
 };
 

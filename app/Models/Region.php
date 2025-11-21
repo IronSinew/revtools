@@ -26,6 +26,7 @@ class Region extends BaseModel
     {
         return [
             'coordinates' => RegionPosition::class,
+            'connections' => 'array',
         ];
     }
 
@@ -49,7 +50,8 @@ class Region extends BaseModel
     public function toSearchableArray(): array
     {
         return [
-            'id' => (string) $this->id,
+            'id' => self::class.$this->id,
+            'model_id' => (string) $this->id,
             'created_at' => $this->created_at->timestamp,
             'type' => SearchableType::Quest->value,
             'slug' => $this->slug,

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\Regions\RoomColor;
 use App\Enums\Regions\RoomExitType;
+use App\Models\Pivots\ItemRoom;
 use App\Models\Pivots\MobRoom;
 use App\ValueObjects\Regions\RoomPosition;
 use Illuminate\Database\Eloquent\Casts\AsEnumCollection;
@@ -34,8 +35,19 @@ class Room extends BaseModel
             ->using(MobRoom::class);
     }
 
+    public function items(): BelongsToMany
+    {
+        return $this->belongsToMany(Item::class)
+            ->using(ItemRoom::class);
+    }
+
     public function region(): BelongsTo
     {
         return $this->belongsTo(Region::class);
+    }
+
+    public function exitRegion(): belongsTo
+    {
+        return $this->belongsTo(Region::class, 'exit_region_id');
     }
 }

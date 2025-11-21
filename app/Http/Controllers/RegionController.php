@@ -23,7 +23,7 @@ class RegionController extends Controller
     public function show(Request $request, Region $region): Response
     {
         return inertia('Map/Show', [
-            'region' => $region->load(['rooms.mobs.items']),
+            'region' => $region->load(['rooms.mobs', 'rooms.items', 'rooms.exitRegion']),
         ]);
     }
 }

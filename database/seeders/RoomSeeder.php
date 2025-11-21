@@ -31,7 +31,7 @@ class RoomSeeder extends Seeder
 
             foreach ($value as $zoneKey => $rawZone) {
                 if (empty($rawZone['Rooms'])) {
-                    break;
+                    continue;
                 }
 
                 $region = Region::where('name', $rawZone['ZoneName'])->first();
@@ -47,10 +47,6 @@ class RoomSeeder extends Seeder
 
                                 return null;
                         })->filter(fn ($flag) => ! is_null($flag))->values();
-                    } else  {
-                        // Rooms with bad room exit flag data often have other fields filled with crappy data,
-                        // so skip for now...
-                        continue;
                     }
 
                     $npcs = collect($rawRoom['Npcs'] ?? [])->map(function ($npc) {
@@ -70,7 +66,6 @@ class RoomSeeder extends Seeder
                         terrain_color: RoomColor::fromCrapValue($rawRoom['TerrainColor'])->toColor(),
                         coordinates: $position,
                         region_id: $region->id,
-                        exit_region_id: $exitRegion->id ?? null,
                         exits: $roomExitFlags->toArray() ?? null,
                         npcs: $npcs->toArray() ?? null,
                     );
@@ -119,6 +114,12 @@ class RoomSeeder extends Seeder
 
             $room->update(['exit_region_direction' => $direction]);
         }
+
+        Region::all()->each(function (Region $region) {
+            $connections = $region->rooms()->where('exit_region_id', '!=', null)
+                ->pluck('exit_region_id')->unique()->values()->toArray();
+            $region->update(['connections' => $connections]);
+        });
     }
 
     private function determineExitDirection(Room $room, Collection $allCoordinates): RoomExitType

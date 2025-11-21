@@ -1,8 +1,8 @@
 <script setup>
 import { router, usePage } from "@inertiajs/vue3";
+import Drawer from "@volt/Drawer.vue";
 import Button from "primevue/button";
 import Checkbox from "primevue/checkbox";
-import Drawer from "@volt/Drawer.vue";
 import MultiSelect from "primevue/multiselect";
 import Select from "primevue/select";
 import Slider from "primevue/slider";
@@ -113,6 +113,13 @@ const handleMouseUp = () => {
     dragging.value = false;
 };
 
+const getLocalPosition = (coordinates) => {
+    return {
+        x: coordinates.x * gridSize * zoom.value.current + offset.value.x,
+        y: coordinates.y * gridSize * zoom.value.current + offset.value.y,
+    };
+};
+
 watch(
     () => props.regions,
     () => {
@@ -157,6 +164,27 @@ const drawRegionMap = () => {
             y: region.coordinates.y * scaledSize + offset.value.y,
         };
 
+        const connectedRegions = region.connections
+            .map((regionFromId) =>
+                props.regions.find((r) => r.id === regionFromId),
+            )
+            .filter((x) => x !== undefined)
+            .forEach((connectedRegion) => {
+                const connectedRegionPosition = getLocalPosition({
+                    x: connectedRegion.coordinates.x,
+                    y: connectedRegion.coordinates.y,
+                });
+                ctx.lineWidth = 2;
+                ctx.setLineDash([5, 10]);
+                ctx.beginPath();
+                ctx.moveTo(regionPosition.x, regionPosition.y);
+                ctx.lineTo(
+                    connectedRegionPosition.x,
+                    connectedRegionPosition.y,
+                );
+                ctx.stroke();
+            });
+
         const hovered = hoveredRegion.value?.id === region.id;
 
         ctx.beginPath();
@@ -167,10 +195,10 @@ const drawRegionMap = () => {
             0,
             Math.PI * 2,
         );
-        ctx.fillStyle = hovered ? "#22c55e" : "#16a34a";
+        ctx.fillStyle = hovered ? "#22c55e" : region.color;
         ctx.fill();
-        ctx.strokeStyle = "#16a34a";
-        ctx.lineWidth = 2;
+        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = 1;
         ctx.stroke();
 
         ctx.font = `${fontSize}px serif`;

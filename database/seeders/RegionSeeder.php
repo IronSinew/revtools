@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\Regions\RoomColor;
 use App\Models\Region;
 use App\ValueObjects\Regions\RegionObject;
 use App\ValueObjects\Regions\RegionPosition;
@@ -61,10 +62,13 @@ class RegionSeeder extends Seeder
             }
         }
 
-        $file = storage_path('app/data/RegionPositions.json');
+        $file = storage_path('app/data/RegionMapData.json');
         foreach (JsonParser::parse($file) as $key => $value) {
             Region::where('name', $key)->first()
-                ->update(['coordinates' => new RegionPosition($value['X'], $value['Y'], $value['Z'])]);
+                ->update([
+                    'coordinates' => new RegionPosition($value['X'], $value['Y'], $value['Z']),
+                    'color' => RoomColor::from($value['Color'])->toColor()
+                ]);
         }
     }
 }

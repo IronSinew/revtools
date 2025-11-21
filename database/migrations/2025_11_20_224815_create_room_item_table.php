@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('regions', function (Blueprint $table) {
+        Schema::create('item_room', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug')->unique();
-            $table->json('coordinates')->nullable();
-            $table->string('color')->nullable();
-            $table->json('connections')->nullable();
-            $table->timestamps();
+            $table->foreignId('room_id')->constrained();
+            $table->foreignId('item_id')->constrained();
         });
     }
 
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('regions');
+        Schema::dropIfExists('item_room');
     }
 };

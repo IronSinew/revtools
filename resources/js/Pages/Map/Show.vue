@@ -68,14 +68,15 @@ const canvasSize = ref({
 const canvasContainer = ref(null);
 
 onMounted(() => {
-    roomsAtZ.value = props.region.rooms.filter(
-        (room) => room.coordinates.z === currentZ.value,
-    );
-
     if (props.search) {
         filters.value.global = props.search;
         filterUpdate();
+        currentZ.value = filteredRooms.value[0]?.coordinates.z;
     }
+
+    roomsAtZ.value = props.region.rooms.filter(
+        (room) => room.coordinates.z === currentZ.value,
+    );
 
     updateCanvasSize();
 
@@ -361,7 +362,7 @@ const getLocalPosition = (coordinates) => {
 };
 
 const filterUpdate = () => {
-    filteredRooms.value = roomsAtZ.value.filter((room) => {
+    filteredRooms.value = props.region.rooms.filter((room) => {
         return (
             room.items.some((item) =>
                 item.name

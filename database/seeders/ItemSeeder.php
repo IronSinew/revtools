@@ -47,14 +47,17 @@ class ItemSeeder extends Seeder
                 $reqSkill = falseyToNull($rawItem['RequiredSkill']);
                 if ($reqSkill) {
                     $classTypes = [...$classTypes, ...$reqFinder->match(\Str::lower($rawItem['RequiredSkill']), $rawItem['RequiredSkillLevel'])];
+                    $classTypes = [...$classTypes, ...$reqFinder->match(\Str::snake($rawItem['RequiredSkill']), $rawItem['RequiredSkillLevel'])];
                 }
 
                 $reqSpell = falseyToNull($rawItem['RequiredSpell']);
                 if ($reqSpell) {
                     $classTypes = [...$classTypes, ...$reqFinder->match(\Str::lower($rawItem['RequiredSpell']), $rawItem['RequiredSpellLevel'])];
+                    $classTypes = [...$classTypes, ...$reqFinder->match(\Str::snake($rawItem['RequiredSpell']), $rawItem['RequiredSpellLevel'])];
                 }
 
                 if (! empty($classTypes)) {
+                    $classTypes = collect($classTypes)->unique()->toArray();
                     $classesAreInferred = true;
                 }
             }

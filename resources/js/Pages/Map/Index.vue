@@ -285,28 +285,30 @@ const handleMouseWheel = (event) => {
             </div>
         </div>
     </Drawer>
-    <div
-        ref="canvasContainer"
-        class="h-[calc(100vh-80px)] min-w-7xl w-full border overflow-auto"
-        @resize="updateCanvasSize"
-    >
-        <canvas
-            ref="map"
-            class="cursor-grab border-brown-500"
-            :class="{
-                'cursor-pointer': hoveredRegion !== undefined,
-                'cursor-grabbing': dragging,
-            }"
-            :width="canvasSize.width"
-            :height="canvasSize.height"
-            @mousedown="handleMouseDown"
-            @mousemove="handleMouseMove"
-            @mouseup="handleMouseUp"
-            @mouseleave="handleMouseMove"
-            @click="handleCanvasClick"
-            @wheel="handleMouseWheel"
+    <div class="w-full flex justify-center">
+        <div
+            ref="canvasContainer"
+            class="h-[calc(100vh-200px)] min-w-7xl w-2/3 border overflow-auto"
             @resize="updateCanvasSize"
         >
-        </canvas>
+            <canvas
+                ref="map"
+                class="cursor-grab"
+                :class="{
+                    'cursor-pointer': hoveredRegion !== undefined,
+                    'cursor-grabbing': dragging,
+                }"
+                :width="canvasSize.width"
+                :height="canvasSize.height"
+                @mousedown="handleMouseDown"
+                @mousemove="handleMouseMove"
+                @mouseup="handleMouseUp"
+                @mouseleave="handleMouseMove"
+                @click="handleCanvasClick"
+                @wheel="handleMouseWheel"
+                @resize="updateCanvasSize"
+            >
+            </canvas>
+        </div>
     </div>
 </template>

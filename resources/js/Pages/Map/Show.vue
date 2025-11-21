@@ -200,14 +200,35 @@ const drawRoom = (room, ctx, size, color) => {
 
     ctx.fillRect(roomPosition.x, roomPosition.y, size, size);
 
-    drawRoomBorder(ctx, roomPosition, size, 2, "#404040");
+    drawSimpleRoomBorder(ctx, roomPosition, size, 2, "#404040");
 };
 
-const drawRoomBorder = (ctx, position, size, lineWidth, color) => {
+const drawSimpleRoomBorder = (ctx, position, size, lineWidth, color) => {
     ctx.lineWidth = lineWidth;
     ctx.strokeStyle = color;
     ctx.strokeRect(position.x, position.y, size, size);
 };
+
+function hexToRgba(hex, alpha) {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+function drawPulsingBorder(ctx, position, size, width, time, color) {
+    const pulse = Math.sin(time * 0.003) * 0.3 + 0.7;
+    const lineWidth = width;
+
+    ctx.strokeStyle = hexToRgba(color, pulse);
+    ctx.lineWidth = lineWidth;
+    ctx.strokeRect(
+        position.x + lineWidth,
+        position.y + lineWidth,
+        size - lineWidth * 2,
+        size - lineWidth * 2,
+    );
+}
 
 const drawRooms = () => {
     const canvas = map.value;
@@ -222,6 +243,9 @@ const drawRooms = () => {
     roomsAtZ.value.forEach((room) => {
         drawRoom(room, ctx, scaledSize);
     });
+
+    let lineWidth = 1;
+    let style = "#404040";
 
     // if any highlights are selected, we need to redraw room borders on top
     if (
@@ -239,46 +263,48 @@ const drawRooms = () => {
                 const bosses = room.mobs.filter(
                     (mob) => mob.type === MobType.Boss.value,
                 );
-
-                let lineWidth = 2;
-                let style = "#404040";
                 if (room.items.length > 0 && filters.value.highlights.items) {
                     style = "#29aecc";
-                    lineWidth = 2;
+                    lineWidth = 3;
                 } else if (
                     bosses.length > 0 &&
                     filters.value.highlights.bosses
                 ) {
                     style = "#d432e3";
-                    lineWidth = 2;
+                    lineWidth = 3;
                 } else if (
                     room.mobs.length > 0 &&
                     filters.value.highlights.mobs
                 ) {
                     style = "#FF0000";
-                    lineWidth = 2;
+                    lineWidth = 3;
                 }
 
-                drawRoomBorder(
+                drawPulsingBorder(
                     ctx,
                     getLocalPosition(room.coordinates),
                     scaledSize,
                     lineWidth,
+                    Date.now(),
                     style,
                 );
             });
     }
 
     // draw the filtered room over anything else
-    if (filteredRooms.value.length > 0) {
+    if (filteredRooms.value.length > 0 && filters.value.global !== "") {
         filteredRooms.value.forEach((filteredRoom) => {
-            if (filteredRoom.name !== selectedRoom.value?.name) {
-                drawRoomBorder(
+            if (
+                filteredRoom.id !== selectedRoom.value?.id &&
+                filteredRoom.coordinates.z === currentZ.value
+            ) {
+                drawPulsingBorder(
                     ctx,
                     getLocalPosition(filteredRoom.coordinates),
                     scaledSize,
-                    4,
-                    "#FF0000",
+                    3,
+                    Date.now(),
+                    "#f0d54d",
                 );
             }
         });
@@ -289,11 +315,11 @@ const drawRooms = () => {
     }
 
     if (hoveredRoom.value) {
-        drawRoomBorder(
+        drawSimpleRoomBorder(
             ctx,
             getLocalPosition(hoveredRoom.value.coordinates),
             scaledSize,
-            4,
+            2,
             "blue",
         );
     }

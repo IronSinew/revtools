@@ -8,9 +8,7 @@ import AccordionPanel from "primevue/accordionpanel";
 import Button from "primevue/button";
 import Checkbox from "primevue/checkbox";
 import InputText from "primevue/inputtext";
-import MultiSelect from "primevue/multiselect";
-import Select from "primevue/select";
-import { h, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
+import { nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 
 import Tipper from "@/Components/Tipper.vue";
 import MobType from "@/Composables/GeneratedEnumObjects/Mobs-MobType.json";
@@ -44,6 +42,7 @@ const filtersVisible = ref(true);
 const selectedRoom = ref(null);
 const filteredRooms = ref([]);
 const roomsAtZ = ref([]);
+const gridInsetSize = 0.5;
 
 const filters = ref({
     global: "",
@@ -187,26 +186,34 @@ const drawBackground = () => {
         y: canvas.height * 2,
     };
 
-    ctx.fillStyle = "#333333";
+    ctx.fillStyle = "#0a0a0a";
     ctx.fillRect(-mapSize.x / 2, -mapSize.y / 2, mapSize.x, mapSize.y);
 };
 
-const drawRoom = (room, ctx, size, color) => {
-    ctx.fillStyle = color ?? room.terrain_color;
-    const roomPosition = {
-        x: room.coordinates.x * size + offset.value.x,
-        y: -room.coordinates.y * size + offset.value.y,
-    };
+const drawRoom = (room, ctx, size, color, alpha) => {
+    ctx.fillStyle = color ? hexToRgba(color, alpha || 1) : room.terrain_color;
 
-    ctx.fillRect(roomPosition.x, roomPosition.y, size, size);
+    const roomPosition = getLocalPosition(room.coordinates);
 
-    drawSimpleRoomBorder(ctx, roomPosition, size, 2, "#404040");
+    ctx.fillRect(
+        roomPosition.x,
+        roomPosition.y,
+        size - gridInsetSize * 2,
+        size - gridInsetSize * 2,
+    );
+
+    drawSimpleRoomBorder(ctx, roomPosition, size, 1, "#404040");
 };
 
 const drawSimpleRoomBorder = (ctx, position, size, lineWidth, color) => {
     ctx.lineWidth = lineWidth;
     ctx.strokeStyle = color;
-    ctx.strokeRect(position.x, position.y, size, size);
+    ctx.strokeRect(
+        position.x,
+        position.y,
+        size - gridInsetSize * 2,
+        size - gridInsetSize * 2,
+    );
 };
 
 function hexToRgba(hex, alpha) {
@@ -237,6 +244,7 @@ const drawRooms = () => {
     }
 
     const ctx = canvas.getContext("2d");
+    ctx.imageSmoothingEnabled = false;
     const scaledSize = roomSize * zoom.value.current;
     drawBackground();
 
@@ -315,12 +323,12 @@ const drawRooms = () => {
     }
 
     if (hoveredRoom.value) {
-        drawSimpleRoomBorder(
+        drawRoom(
+            hoveredRoom.value,
             ctx,
-            getLocalPosition(hoveredRoom.value.coordinates),
             scaledSize,
-            2,
-            "blue",
+            "#FFFFFF",
+            0.2,
         );
     }
 };
@@ -393,8 +401,14 @@ const handleCanvasClick = (event) => {
 
 const getLocalPosition = (coordinates) => {
     return {
-        x: coordinates.x * roomSize * zoom.value.current + offset.value.x,
-        y: -coordinates.y * roomSize * zoom.value.current + offset.value.y,
+        x:
+            Math.floor(
+                coordinates.x * roomSize * zoom.value.current + offset.value.x,
+            ) + gridInsetSize,
+        y:
+            Math.floor(
+                -coordinates.y * roomSize * zoom.value.current + offset.value.y,
+            ) + gridInsetSize,
     };
 };
 

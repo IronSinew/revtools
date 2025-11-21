@@ -53,7 +53,7 @@ const dragging = ref(false);
 const dragStart = ref({ x: 0, y: 0 });
 const offset = ref({ x: 400, y: 300 });
 const hoveredRegion = ref(null);
-const showConnections = ref(false);
+const showConnections = ref(true);
 
 const canvasSize = ref({
     width: 0,
@@ -66,6 +66,13 @@ const zoom = ref({
     max: 1.7,
     min: 0.7,
 });
+
+function hexToRgba(hex, alpha) {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
 
 const getRegionAtPosition = (canvasX, canvasY) => {
     return props.regions.find((region) => {
@@ -150,6 +157,37 @@ const drawBackground = () => {
     ctx.fillRect(-mapSize.x / 2, -mapSize.y / 2, mapSize.x, mapSize.y);
 };
 
+const drawRegion = (region, ctx, size, color, alpha) => {
+    ctx.fillStyle = color ? hexToRgba(color, alpha || 1) : region.color;
+    const regionPosition = getLocalPosition(region.coordinates);
+    const fontSize = 18 * zoom.value.current;
+    const labelOffset = 10 * zoom.value.current;
+
+    ctx.beginPath();
+    ctx.arc(
+        regionPosition.x,
+        regionPosition.y,
+        regionRadius * zoom.value.current,
+        0,
+        Math.PI * 2,
+    );
+    ctx.fill();
+    ctx.strokeStyle = "#000000";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.font = `${fontSize}px serif`;
+    const textMetrics = ctx.measureText(region.name);
+
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillText(
+        region.name,
+        regionPosition.x - textMetrics.width / 2,
+        regionPosition.y - regionRadius - labelOffset,
+        size,
+    );
+};
+
 const drawRegionMap = () => {
     const canvas = map.value;
     if (!canvas) {
@@ -189,37 +227,15 @@ const drawRegionMap = () => {
                 });
         });
     }
+    ctx.setLineDash([0, 0]);
 
     props.regions.forEach((region) => {
-        const regionPosition = getLocalPosition(region.coordinates);
-
-        const hovered = hoveredRegion.value?.id === region.id;
-
-        ctx.beginPath();
-        ctx.arc(
-            regionPosition.x,
-            regionPosition.y,
-            regionRadius * zoom.value.current,
-            0,
-            Math.PI * 2,
-        );
-        ctx.fillStyle = hovered ? "#22c55e" : region.color;
-        ctx.fill();
-        ctx.strokeStyle = "#000000";
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        ctx.font = `${fontSize}px serif`;
-        const textMetrics = ctx.measureText(region.name);
-
-        ctx.fillStyle = "#FFFFFF";
-        ctx.fillText(
-            region.name,
-            regionPosition.x - textMetrics.width / 2,
-            regionPosition.y - regionRadius - labelOffset,
-            scaledSize,
-        );
+        drawRegion(region, ctx, scaledSize);
     });
+
+    if (hoveredRegion.value) {
+        drawRegion(hoveredRegion.value, ctx, scaledSize, "#FFFFFF", 0.25);
+    }
 };
 
 const handleCanvasClick = (event) => {

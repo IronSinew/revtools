@@ -2,11 +2,8 @@
 
 namespace App\Models;
 
-use App\Enums\Regions\RoomExitType;
 use App\Enums\SearchableType;
 use App\ValueObjects\Regions\RegionPosition;
-use App\ValueObjects\Regions\RoomPosition;
-use Illuminate\Database\Eloquent\Casts\AsEnumCollection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Scout\Searchable;
 use Spatie\Sluggable\HasSlug;
@@ -53,7 +50,7 @@ class Region extends BaseModel
             'id' => self::class.$this->id,
             'model_id' => (string) $this->id,
             'created_at' => $this->created_at->timestamp,
-            'type' => SearchableType::Quest->value,
+            'type' => SearchableType::Region->value,
             'slug' => $this->slug,
             'name' => $this->name,
         ];

@@ -68,6 +68,10 @@ const getLinkObject = (data) => {
     if (data.type === SearchableType.Quest.value) {
         return { quest: `${data.slug}` };
     }
+
+    if (data.type === SearchableType.Region.value) {
+        return { region: `${data.slug}` };
+    }
 };
 
 const menuItems = ref([
@@ -290,6 +294,27 @@ const current = computed(() => {
                                         <div>
                                             {{
                                                 searchModal.data.quests[
+                                                    slotProps.option.model_id
+                                                ].name
+                                            }}
+                                        </div>
+                                    </div>
+                                    <div
+                                        v-else-if="
+                                            slotProps.option.type ===
+                                            SearchableType.Region.value
+                                        "
+                                        class="flex"
+                                    >
+                                        <div class="mr-2">
+                                            <i
+                                                class="pi pi-arrow-right"
+                                                :title="slotProps.option.type"
+                                            />
+                                        </div>
+                                        <div>
+                                            {{
+                                                searchModal.data.regions[
                                                     slotProps.option.model_id
                                                 ].name
                                             }}

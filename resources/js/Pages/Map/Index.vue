@@ -6,7 +6,7 @@ import Checkbox from "primevue/checkbox";
 import MultiSelect from "primevue/multiselect";
 import Select from "primevue/select";
 import Slider from "primevue/slider";
-import {nextTick, onMounted, onUnmounted, ref, watch} from "vue";
+import { nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 
 import ClassType from "@/Composables/GeneratedEnumObjects/ClassType.json";
 import QuestRewardType from "@/Composables/GeneratedEnumObjects/Quests-QuestRewardType.json";

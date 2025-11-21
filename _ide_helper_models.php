@@ -90,9 +90,11 @@ namespace App\Models{
  * @property array<array-key, mixed>|null $drops
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Pivots\ItemMob|null $pivot
+ * @property-read \App\Models\Pivots\MobRoom|\App\Models\Pivots\ItemMob|null $pivot
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Item> $items
  * @property-read int|null $items_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Room> $rooms
+ * @property-read int|null $rooms_count
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Mob newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Mob newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Mob query()
@@ -146,6 +148,40 @@ namespace App\Models\Pivots{
  */
 	#[\AllowDynamicProperties]
 	class IdeHelperItemQuest {}
+}
+
+namespace App\Models\Pivots{
+/**
+ * @property int $id
+ * @property int $room_id
+ * @property int $item_id
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ItemRoom newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ItemRoom newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ItemRoom query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ItemRoom whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ItemRoom whereItemId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ItemRoom whereRoomId($value)
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperItemRoom {}
+}
+
+namespace App\Models\Pivots{
+/**
+ * @property int $id
+ * @property int $mob_id
+ * @property int $room_id
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MobRoom newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MobRoom newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MobRoom query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MobRoom whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MobRoom whereMobId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MobRoom whereRoomId($value)
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperMobRoom {}
 }
 
 namespace App\Models{
@@ -202,6 +238,9 @@ namespace App\Models{
  * @property int $id
  * @property string $name
  * @property string $slug
+ * @property \Spatie\LaravelData\Contracts\BaseData|\Spatie\LaravelData\Contracts\TransformableData|null $coordinates
+ * @property string|null $color
+ * @property array<array-key, mixed>|null $connections
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Room> $rooms
@@ -209,6 +248,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Region newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Region newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Region query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Region whereColor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Region whereConnections($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Region whereCoordinates($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Region whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Region whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Region whereName($value)
@@ -223,17 +265,24 @@ namespace App\Models{
 namespace App\Models{
 /**
  * @property int $id
- * @property string $slug
  * @property string $name
  * @property string $description
  * @property string $color_code
  * @property string $terrain_color
- * @property string $coordinates
- * @property string|null $exits
+ * @property \Spatie\LaravelData\Contracts\BaseData|\Spatie\LaravelData\Contracts\TransformableData $coordinates
+ * @property \Illuminate\Support\Collection<int, \App\Enums\Regions\RoomExitType>|null $exits
  * @property int|null $exit_region_id
+ * @property \App\Enums\Regions\RoomExitType|null $exit_region_direction
+ * @property array<array-key, mixed>|null $npcs
  * @property int $region_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Region|null $exitRegion
+ * @property-read \App\Models\Pivots\MobRoom|\App\Models\Pivots\ItemRoom|null $pivot
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Item> $items
+ * @property-read int|null $items_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Mob> $mobs
+ * @property-read int|null $mobs_count
  * @property-read \App\Models\Region $region
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Room newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Room newQuery()
@@ -242,12 +291,13 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereCoordinates($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereExitRegionDirection($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereExitRegionId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereExits($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereNpcs($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereRegionId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereTerrainColor($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Room whereUpdatedAt($value)
  * @mixin \Eloquent

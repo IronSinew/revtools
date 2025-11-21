@@ -67,7 +67,7 @@ class RegionSeeder extends Seeder
             Region::where('name', $key)->first()
                 ->update([
                     'coordinates' => new RegionPosition($value['X'], $value['Y'], $value['Z']),
-                    'color' => RoomColor::from($value['Color'])->toColor()
+                    'color' => RoomColor::from($value['Color'])->toColor(),
                 ]);
         }
     }

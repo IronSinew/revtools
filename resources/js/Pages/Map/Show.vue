@@ -66,6 +66,7 @@ const canvasSize = ref({
 });
 
 const canvasContainer = ref(null);
+let animationFrameId = null;
 
 onMounted(() => {
     if (props.search) {
@@ -83,9 +84,20 @@ onMounted(() => {
     updateCanvasSize();
 
     window.addEventListener("resize", updateCanvasSize);
+
+    function animate() {
+        animationFrameId = requestAnimationFrame(animate);
+        drawRooms();
+    }
+    animate();
 });
 
-onUnmounted(() => window.removeEventListener("resize", updateCanvasSize));
+onUnmounted(() => {
+    window.removeEventListener("resize", updateCanvasSize);
+    if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+    }
+});
 
 const updateCanvasSize = () => {
     if (canvasContainer.value) {
@@ -218,7 +230,11 @@ const drawRooms = () => {
         filters.value.highlights.bosses
     ) {
         roomsAtZ.value
-            .filter((room) => room.mobs.length > 0 || room.items.length > 0)
+            .filter(
+                (room) =>
+                    (room.mobs.length > 0 || room.items.length > 0) &&
+                    room !== selectedRoom.value,
+            )
             .forEach((room) => {
                 const bosses = room.mobs.filter(
                     (mob) => mob.type === MobType.Boss.value,
@@ -228,19 +244,19 @@ const drawRooms = () => {
                 let style = "#404040";
                 if (room.items.length > 0 && filters.value.highlights.items) {
                     style = "#29aecc";
-                    lineWidth = 3;
+                    lineWidth = 2;
                 } else if (
                     bosses.length > 0 &&
                     filters.value.highlights.bosses
                 ) {
                     style = "#d432e3";
-                    lineWidth = 3;
+                    lineWidth = 2;
                 } else if (
                     room.mobs.length > 0 &&
                     filters.value.highlights.mobs
                 ) {
                     style = "#FF0000";
-                    lineWidth = 3;
+                    lineWidth = 2;
                 }
 
                 drawRoomBorder(
@@ -256,24 +272,20 @@ const drawRooms = () => {
     // draw the filtered room over anything else
     if (filteredRooms.value.length > 0) {
         filteredRooms.value.forEach((filteredRoom) => {
-            drawRoomBorder(
-                ctx,
-                getLocalPosition(filteredRoom.coordinates),
-                scaledSize,
-                4,
-                "#FF0000",
-            );
+            if (filteredRoom.name !== selectedRoom.value?.name) {
+                drawRoomBorder(
+                    ctx,
+                    getLocalPosition(filteredRoom.coordinates),
+                    scaledSize,
+                    4,
+                    "#FF0000",
+                );
+            }
         });
     }
 
     if (selectedRoom.value) {
-        drawRoomBorder(
-            ctx,
-            getLocalPosition(selectedRoom.value.coordinates),
-            scaledSize,
-            4,
-            "blue",
-        );
+        drawSelectedRoomBorder(ctx, scaledSize, Date.now(), "#00d1c3");
     }
 
     if (hoveredRoom.value) {
@@ -377,6 +389,43 @@ const filterUpdate = () => {
     });
     drawRooms();
 };
+
+function drawSelectedRoomBorder(ctx, size, time, color) {
+    const bracketLength = size * 0.3;
+    const offset = Math.sin(time * 0.004) * 2;
+
+    const position = getLocalPosition(selectedRoom.value.coordinates);
+    const x = position.x;
+    const y = position.y;
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+
+    ctx.beginPath();
+    ctx.moveTo(x - offset, y + bracketLength - offset);
+    ctx.lineTo(x - offset, y - offset);
+    ctx.lineTo(x + bracketLength - offset, y - offset);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(x + size - bracketLength + offset, y - offset);
+    ctx.lineTo(x + size + offset, y - offset);
+    ctx.lineTo(x + size + offset, y + bracketLength - offset);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(x - offset, y + size - bracketLength + offset);
+    ctx.lineTo(x - offset, y + size + offset);
+    ctx.lineTo(x + bracketLength - offset, y + size + offset);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(x + size - bracketLength + offset, y + size + offset);
+    ctx.lineTo(x + size + offset, y + size + offset);
+    ctx.lineTo(x + size + offset, y + size - bracketLength + offset);
+    ctx.stroke();
+}
 </script>
 
 <template>

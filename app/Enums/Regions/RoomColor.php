@@ -2,7 +2,6 @@
 
 namespace App\Enums\Regions;
 
-use App\Attributes\Enum\ColorAttribute;
 use App\Interfaces\HasLabel;
 use App\Traits\DefaultLabelsFromEnum;
 
@@ -31,7 +30,7 @@ enum RoomColor: string implements HasLabel
     case BrownGreen = 'brown_green';
     case Black = 'black';
     case LightTurquoise = 'light_turquoise';
-    Case DarkBlue = 'dark_blue';
+    case DarkBlue = 'dark_blue';
     case LightBrownGreen = 'light_brown_green';
     case Orange = 'orange';
     case Gray = 'gray';
@@ -129,7 +128,6 @@ enum RoomColor: string implements HasLabel
             self::BadRoom => '#687c9c',
             self::Leviathan => '#1C1C1C',
             self::TheLostArchive => '#4A4A4A',
-            default => '#000000',
         };
     }
 }

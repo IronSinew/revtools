@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\Regions\RoomColor;
 use App\Enums\Regions\RoomExitType;
 use App\Models\Pivots\ItemRoom;
 use App\Models\Pivots\MobRoom;
@@ -16,7 +15,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class Room extends BaseModel
 {
-
     protected $guarded = [];
 
     protected function casts(): array

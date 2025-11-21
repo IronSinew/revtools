@@ -6,8 +6,6 @@ use App\Enums\Regions\RoomColor;
 use App\Enums\Regions\RoomExitType;
 use App\Models\Region;
 use App\Models\Room;
-use App\ValueObjects\Regions\RegionObject;
-use App\ValueObjects\Regions\RegionPosition;
 use App\ValueObjects\Regions\RoomObject;
 use App\ValueObjects\Regions\RoomPosition;
 use Cerbero\JsonParser\JsonParser;
@@ -41,11 +39,11 @@ class RoomSeeder extends Seeder
 
                     if (count($flagArray) === count(RoomExitType::cases())) {
                         $roomExitFlags = $flagArray->map(function ($flag, $key) {
-                                if ($flag === 'y') {
-                                    return RoomExitType::fromCrapValue($key);
-                                }
+                            if ($flag === 'y') {
+                                return RoomExitType::fromCrapValue($key);
+                            }
 
-                                return null;
+                            return null;
                         })->filter(fn ($flag) => ! is_null($flag))->values();
                     }
 
@@ -104,7 +102,7 @@ class RoomSeeder extends Seeder
 
         $rooms = Room::all()->groupBy('region_id')->map(function ($rooms) {
             return $rooms->pluck('coordinates', 'id');
-        });;
+        });
 
         $roomsWithExits = Room::with('region')->whereNotNull(['exit_region_id', 'exits'])->get();
 
@@ -125,7 +123,7 @@ class RoomSeeder extends Seeder
     private function determineExitDirection(Room $room, Collection $allCoordinates): RoomExitType
     {
         foreach ($room->exits as $exit) {
-            $direction = match($exit) {
+            $direction = match ($exit) {
                 RoomExitType::North => ['x' => $room->coordinates->x, 'y' => $room->coordinates->y + 1, 'z' => $room->coordinates->z],
                 RoomExitType::South => ['x' => $room->coordinates->x, 'y' => $room->coordinates->y - 1, 'z' => $room->coordinates->z],
                 RoomExitType::East => ['x' => $room->coordinates->x + 1, 'y' => $room->coordinates->y, 'z' => $room->coordinates->z],
@@ -143,7 +141,7 @@ class RoomSeeder extends Seeder
                 return $coord->x === $direction['x'] && $coord->y === $direction['y'] && $coord->z === $direction['z'];
             });
 
-            if (!$exists) {
+            if (! $exists) {
                 return $exit;
             }
         }

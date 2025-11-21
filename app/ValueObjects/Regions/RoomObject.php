@@ -2,7 +2,6 @@
 
 namespace App\ValueObjects\Regions;
 
-use App\Enums\Regions\RoomColor;
 use App\Enums\Regions\RoomExitType;
 use Spatie\LaravelData\Data;
 

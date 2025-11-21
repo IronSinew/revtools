@@ -3,10 +3,10 @@
 use App\Http\Controllers\Base64DecodeImageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
-use App\Http\Controllers\RegionController;
 use App\Http\Controllers\MobController;
 use App\Http\Controllers\MultiItemController;
 use App\Http\Controllers\QuestController;
+use App\Http\Controllers\RegionController;
 use App\Http\Controllers\SearchSimpleController;
 use Illuminate\Support\Facades\Route;
 

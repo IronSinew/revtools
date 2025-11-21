@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Mob;
 use App\Models\Pivots\ItemRoom;
-use App\Models\Pivots\MobRoom;
 use App\Models\Room;
 use Illuminate\Database\Seeder;
 

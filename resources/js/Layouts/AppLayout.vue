@@ -97,6 +97,11 @@ const menuItems = ref([
         route: "mob.index",
         routeGroup: "mob.*",
     },
+    {
+        label: "Compare Items",
+        route: "item.multi",
+        routeGroup: "item.multi",
+    },
 ]);
 
 onMounted(() => {});

@@ -248,7 +248,7 @@ const drawRooms = () => {
                     getLocalPosition(room.coordinates),
                     scaledSize,
                     lineWidth,
-                    style
+                    style,
                 );
             });
     }
@@ -335,6 +335,7 @@ const handleZLevelChange = (value) => {
 
     if (rooms.length > 0) {
         currentZ.value += value;
+        roomsAtZ.value = rooms;
         selectedRoom.value = null;
         drawRooms();
     }

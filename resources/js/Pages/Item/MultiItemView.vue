@@ -31,7 +31,7 @@ const title = _.map(props.items, "name").join(" - ");
 const searchModal = ref({
     visible: false,
     position: "top",
-    selected: null,
+    selected: props.items || null,
     filtered: [],
     data: {},
 });

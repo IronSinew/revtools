@@ -7,10 +7,10 @@ import AccordionHeader from "primevue/accordionheader";
 import AccordionPanel from "primevue/accordionpanel";
 import Button from "primevue/button";
 import Checkbox from "primevue/checkbox";
+import InputText from "primevue/inputtext";
 import MultiSelect from "primevue/multiselect";
 import Select from "primevue/select";
-import Slider from "primevue/slider";
-import { h, onMounted, ref, watch } from "vue";
+import { h, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 
 import Tipper from "@/Components/Tipper.vue";
 import MobType from "@/Composables/GeneratedEnumObjects/Mobs-MobType.json";
@@ -23,6 +23,10 @@ const props = defineProps({
         default() {
             return {};
         },
+    },
+    search: {
+        type: [Array, Object],
+        required: false,
     },
 });
 
@@ -38,6 +42,17 @@ const hoveredRoom = ref(null);
 const filtersVisible = ref(true);
 
 const selectedRoom = ref(null);
+const filteredRooms = ref([]);
+const roomsAtZ = ref([]);
+
+const filters = ref({
+    global: "",
+    highlights: {
+        mobs: false,
+        items: false,
+        bosses: false,
+    },
+});
 
 const zoom = ref({
     current: 1,
@@ -45,16 +60,43 @@ const zoom = ref({
     min: 0.1,
 });
 
-const highlights = ref({
-    mobs: false,
-    items: false,
-    bosses: false,
+const canvasSize = ref({
+    width: 0,
+    height: 0,
 });
 
+const canvasContainer = ref(null);
+
 onMounted(() => {
-    offset.value = { x: map.value.width / 2, y: map.value.height / 2 };
-    drawRooms();
+    roomsAtZ.value = props.region.rooms.filter(
+        (room) => room.coordinates.z === currentZ.value,
+    );
+
+    if (props.search) {
+        filters.value.global = props.search;
+        filterUpdate();
+    }
+
+    updateCanvasSize();
+
+    window.addEventListener("resize", updateCanvasSize);
 });
+
+onUnmounted(() => window.removeEventListener("resize", updateCanvasSize));
+
+const updateCanvasSize = () => {
+    if (canvasContainer.value) {
+        canvasSize.value = {
+            width: canvasContainer.value.clientWidth,
+            height: canvasContainer.value.clientHeight,
+        };
+    }
+
+    nextTick(() => {
+        offset.value = { x: map.value.width / 2, y: map.value.height / 2 };
+        drawRooms();
+    });
+};
 
 const getRoomAtPosition = (canvasX, canvasY) => {
     const scaledSize = roomSize * zoom.value.current;
@@ -143,27 +185,13 @@ const drawRoom = (room, ctx, size, color) => {
 
     ctx.fillRect(roomPosition.x, roomPosition.y, size, size);
 
-    drawRoomBorder(room, roomPosition, ctx, size);
+    drawRoomBorder(ctx, roomPosition, size, 2, "#404040");
 };
 
-const drawRoomBorder = (room, roomPosition, ctx, size) => {
-    const bosses = room.mobs.filter((mob) => mob.type === MobType.Boss.value);
-
-    if (room.items.length > 0 && highlights.value.items) {
-        ctx.strokeStyle = "#29aecc";
-        ctx.lineWidth = 3;
-    } else if (bosses.length > 0 && highlights.value.bosses) {
-        ctx.strokeStyle = "#d432e3";
-        ctx.lineWidth = 3;
-    } else if (room.mobs.length > 0 && highlights.value.mobs) {
-        ctx.strokeStyle = "#FF0000";
-        ctx.lineWidth = 3;
-    } else {
-        ctx.strokeStyle = "#404040";
-        ctx.lineWidth = 2;
-    }
-
-    ctx.strokeRect(roomPosition.x, roomPosition.y, size, size);
+const drawRoomBorder = (ctx, position, size, lineWidth, color) => {
+    ctx.lineWidth = lineWidth;
+    ctx.strokeStyle = color;
+    ctx.strokeRect(position.x, position.y, size, size);
 };
 
 const drawRooms = () => {
@@ -176,57 +204,85 @@ const drawRooms = () => {
     const scaledSize = roomSize * zoom.value.current;
     drawBackground();
 
-    const roomsAtCurrentZ = props.region.rooms.filter(
-        (room) => room.coordinates.z === currentZ.value,
-    );
+    roomsAtZ.value.forEach((room) => {
+        drawRoom(room, ctx, scaledSize);
+    });
 
-    roomsAtCurrentZ
-        .filter((room) => room.mobs.length === 0)
-        .forEach((room) => {
-            drawRoom(room, ctx, scaledSize);
-        });
+    // if any highlights are selected, we need to redraw room borders on top
+    if (
+        filters.value.highlights.items ||
+        filters.value.highlights.mobs ||
+        filters.value.highlights.bosses
+    ) {
+        roomsAtZ.value
+            .filter((room) => room.mobs.length > 0 || room.items.length > 0)
+            .forEach((room) => {
+                const bosses = room.mobs.filter(
+                    (mob) => mob.type === MobType.Boss.value,
+                );
 
-    roomsAtCurrentZ
-        .filter((room) => room.mobs.length > 0)
-        .forEach((room) => {
-            drawRoom(room, ctx, scaledSize);
-        });
+                let lineWidth = 0;
+                let style = "#404040";
+                if (room.items.length > 0 && filters.value.highlights.items) {
+                    style = "#29aecc";
+                    lineWidth = 3;
+                } else if (
+                    bosses.length > 0 &&
+                    filters.value.highlights.bosses
+                ) {
+                    style = "#d432e3";
+                    lineWidth = 3;
+                } else if (
+                    room.mobs.length > 0 &&
+                    filters.value.highlights.mobs
+                ) {
+                    style = "#FF0000";
+                    lineWidth = 3;
+                } else {
+                    style = "#404040";
+                    lineWidth = 2;
+                }
 
-    roomsAtCurrentZ
-        .filter((room) => room.items.length > 0)
-        .forEach((room) => {
-            drawRoom(room, ctx, scaledSize);
+                drawRoomBorder(
+                    ctx,
+                    getLocalPosition(room.coordinates),
+                    scaledSize,
+                    lineWidth,
+                    style
+                );
+            });
+    }
+
+    // draw the filtered room over anything else
+    if (filteredRooms.value.length > 0) {
+        filteredRooms.value.forEach((filteredRoom) => {
+            drawRoomBorder(
+                ctx,
+                getLocalPosition(filteredRoom.coordinates),
+                scaledSize,
+                4,
+                "#FF0000",
+            );
         });
+    }
 
     if (selectedRoom.value) {
-        const selectedRoomPosition = {
-            x: selectedRoom.value.coordinates.x * scaledSize + offset.value.x,
-            y: -selectedRoom.value.coordinates.y * scaledSize + offset.value.y,
-        };
-
-        ctx.strokeStyle = "blue";
-        ctx.lineWidth = 4;
-        ctx.strokeRect(
-            selectedRoomPosition.x,
-            selectedRoomPosition.y,
+        drawRoomBorder(
+            ctx,
+            getLocalPosition(selectedRoom.value.coordinates),
             scaledSize,
-            scaledSize,
+            4,
+            "blue",
         );
     }
 
     if (hoveredRoom.value) {
-        const hoveredRoomPosition = {
-            x: hoveredRoom.value.coordinates.x * scaledSize + offset.value.x,
-            y: -hoveredRoom.value.coordinates.y * scaledSize + offset.value.y,
-        };
-
-        ctx.strokeStyle = "blue";
-        ctx.lineWidth = 4;
-        ctx.strokeRect(
-            hoveredRoomPosition.x,
-            hoveredRoomPosition.y,
+        drawRoomBorder(
+            ctx,
+            getLocalPosition(hoveredRoom.value.coordinates),
             scaledSize,
-            scaledSize,
+            4,
+            "blue",
         );
     }
 };
@@ -295,6 +351,31 @@ const handleCanvasClick = (event) => {
         selectedRoom.value = room;
     }
 };
+
+const getLocalPosition = (coordinates) => {
+    return {
+        x: coordinates.x * roomSize * zoom.value.current + offset.value.x,
+        y: -coordinates.y * roomSize * zoom.value.current + offset.value.y,
+    };
+};
+
+const filterUpdate = () => {
+    filteredRooms.value = roomsAtZ.value.filter((room) => {
+        return (
+            room.items.some((item) =>
+                item.name
+                    .toLowerCase()
+                    .includes(filters.value.global.toLowerCase()),
+            ) ||
+            room.mobs.some((mob) =>
+                mob.name
+                    .toLowerCase()
+                    .includes(filters.value.global.toLowerCase()),
+            )
+        );
+    });
+    drawRooms();
+};
 </script>
 
 <template>
@@ -306,14 +387,14 @@ const handleCanvasClick = (event) => {
         :modal="false"
         class="w-full"
     >
-        <div class="grid grid-cols-1 grid-rows-5 gap-8">
+        <div class="grid grid-cols-1 gap-8">
             <div>
                 <label>
                     Highlighting
                     <div class="grid grid-cols-2 gap-2 mt-2 ml-2 w-full">
                         <div class="items-center flex">
                             <Checkbox
-                                v-model="highlights.mobs"
+                                v-model="filters.highlights.mobs"
                                 binary
                                 class="cursor-pointer"
                                 input-id="mob-checkbox"
@@ -329,7 +410,7 @@ const handleCanvasClick = (event) => {
                         </div>
                         <div class="items-center flex">
                             <Checkbox
-                                v-model="highlights.bosses"
+                                v-model="filters.highlights.bosses"
                                 binary
                                 class="cursor-pointer"
                                 input-id="bosses-checkbox"
@@ -346,7 +427,7 @@ const handleCanvasClick = (event) => {
 
                         <div class="items-center flex">
                             <Checkbox
-                                v-model="highlights.items"
+                                v-model="filters.highlights.items"
                                 binary
                                 class="cursor-pointer"
                                 input-id="item-checkbox"
@@ -362,6 +443,16 @@ const handleCanvasClick = (event) => {
                         </div>
                     </div>
                 </label>
+            </div>
+            <div>
+                <label>Search for mobs or items</label>
+                <InputText
+                    v-model="filters.global"
+                    class="w-full mt-2"
+                    placeholder="Search..."
+                    @update:model-value="filterUpdate"
+                >
+                </InputText>
             </div>
             <div>
                 <label>
@@ -392,7 +483,7 @@ const handleCanvasClick = (event) => {
         :dismissable="false"
         :modal="false"
         position="right"
-        class="w-full! md:w-80! lg:w-[30rem]!"
+        class="w-full! xl:w-60! 2xl:w-[25rem]!"
         size="lg"
     >
         <div class="flex flex-col gap-8">
@@ -404,7 +495,7 @@ const handleCanvasClick = (event) => {
                     {{ selectedRoom.description }}
                 </p>
             </div>
-            <Accordion value="0">
+            <Accordion>
                 <AccordionPanel value="0">
                     <AccordionHeader>
                         <h1 class="text-xl font-bold">
@@ -427,7 +518,7 @@ const handleCanvasClick = (event) => {
                     </AccordionContent>
                 </AccordionPanel>
             </Accordion>
-            <Accordion value="1">
+            <Accordion>
                 <AccordionPanel value="1">
                     <AccordionHeader>
                         <h1 class="text-xl font-bold">
@@ -513,23 +604,30 @@ const handleCanvasClick = (event) => {
         Map Options</Button
     >
     <h1 class="w-full text-center text-4xl pb-3">{{ region.name }}</h1>
-    <div class="flex">
-        <canvas
-            ref="map"
-            class="cursor-grab"
-            :class="{
-                'cursor-pointer': hoveredRoom !== undefined,
-                'cursor-grabbing': dragging,
-            }"
-            width="1400"
-            height="1000"
-            @mousedown="handleMouseDown"
-            @mousemove="handleMouseMove"
-            @mouseup="handleMouseUp"
-            @mouseleave="handleMouseMove"
-            @wheel="handleMouseWheel"
-            @click="handleCanvasClick"
+    <div class="w-full flex justify-center">
+        <div
+            ref="canvasContainer"
+            class="h-[calc(100vh-200px)] min-w-7xl w-2/3 border overflow-auto"
+            @resize="updateCanvasSize"
         >
-        </canvas>
+            <canvas
+                ref="map"
+                class="cursor-grab"
+                :class="{
+                    'cursor-pointer': hoveredRoom !== undefined,
+                    'cursor-grabbing': dragging,
+                }"
+                :width="canvasSize.width"
+                :height="canvasSize.height"
+                @mousedown="handleMouseDown"
+                @mousemove="handleMouseMove"
+                @mouseup="handleMouseUp"
+                @mouseleave="handleMouseMove"
+                @click="handleCanvasClick"
+                @wheel="handleMouseWheel"
+                @resize="updateCanvasSize"
+            >
+            </canvas>
+        </div>
     </div>
 </template>

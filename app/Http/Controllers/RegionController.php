@@ -24,6 +24,7 @@ class RegionController extends Controller
     {
         return inertia('Map/Show', [
             'region' => $region->load(['rooms.mobs', 'rooms.items', 'rooms.exitRegion']),
+            'search' => $request->input('search'),
         ]);
     }
 }

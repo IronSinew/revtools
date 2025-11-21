@@ -6,7 +6,7 @@ import Checkbox from "primevue/checkbox";
 import MultiSelect from "primevue/multiselect";
 import Select from "primevue/select";
 import Slider from "primevue/slider";
-import { onMounted, ref, watch } from "vue";
+import {nextTick, onMounted, onUnmounted, ref, watch} from "vue";
 
 import ClassType from "@/Composables/GeneratedEnumObjects/ClassType.json";
 import QuestRewardType from "@/Composables/GeneratedEnumObjects/Quests-QuestRewardType.json";
@@ -22,13 +22,12 @@ const props = defineProps({
 });
 
 onMounted(() => {
-    offset.value = { x: map.value.width / 2, y: map.value.height / 2 };
-    canvasSize.value = {
-        width: canvasContainer.value.clientWidth,
-        height: canvasContainer.value.clientHeight,
-    };
-    drawRegionMap();
+    updateCanvasSize();
+
+    window.addEventListener("resize", updateCanvasSize);
 });
+
+onUnmounted(() => window.removeEventListener("resize", updateCanvasSize));
 
 const updateCanvasSize = () => {
     if (canvasContainer.value) {
@@ -36,8 +35,12 @@ const updateCanvasSize = () => {
             width: canvasContainer.value.clientWidth,
             height: canvasContainer.value.clientHeight,
         };
-        drawRegionMap();
     }
+
+    nextTick(() => {
+        offset.value = { x: map.value.width / 2, y: map.value.height / 2 };
+        drawRegionMap();
+    });
 };
 
 const map = ref(null);
@@ -50,6 +53,7 @@ const dragging = ref(false);
 const dragStart = ref({ x: 0, y: 0 });
 const offset = ref({ x: 400, y: 300 });
 const hoveredRegion = ref(null);
+const showConnections = ref(false);
 
 const canvasSize = ref({
     width: 0,
@@ -158,32 +162,36 @@ const drawRegionMap = () => {
     const scaledSize = gridSize * zoom.value.current;
     const fontSize = 18 * zoom.value.current;
 
-    props.regions.forEach((region) => {
-        const regionPosition = {
-            x: region.coordinates.x * scaledSize + offset.value.x,
-            y: region.coordinates.y * scaledSize + offset.value.y,
-        };
+    // draw connections
+    if (showConnections.value) {
+        props.regions.forEach((region) => {
+            const regionPosition = getLocalPosition(region.coordinates);
 
-        const connectedRegions = region.connections
-            .map((regionFromId) =>
-                props.regions.find((r) => r.id === regionFromId),
-            )
-            .filter((x) => x !== undefined)
-            .forEach((connectedRegion) => {
-                const connectedRegionPosition = getLocalPosition({
-                    x: connectedRegion.coordinates.x,
-                    y: connectedRegion.coordinates.y,
+            region.connections
+                .map((regionFromId) =>
+                    props.regions.find((r) => r.id === regionFromId),
+                )
+                .filter((x) => x !== undefined)
+                .forEach((connectedRegion) => {
+                    const connectedRegionPosition = getLocalPosition({
+                        x: connectedRegion.coordinates.x,
+                        y: connectedRegion.coordinates.y,
+                    });
+                    ctx.lineWidth = 2;
+                    ctx.setLineDash([5, 10]);
+                    ctx.beginPath();
+                    ctx.moveTo(regionPosition.x, regionPosition.y);
+                    ctx.lineTo(
+                        connectedRegionPosition.x,
+                        connectedRegionPosition.y,
+                    );
+                    ctx.stroke();
                 });
-                ctx.lineWidth = 2;
-                ctx.setLineDash([5, 10]);
-                ctx.beginPath();
-                ctx.moveTo(regionPosition.x, regionPosition.y);
-                ctx.lineTo(
-                    connectedRegionPosition.x,
-                    connectedRegionPosition.y,
-                );
-                ctx.stroke();
-            });
+        });
+    }
+
+    props.regions.forEach((region) => {
+        const regionPosition = getLocalPosition(region.coordinates);
 
         const hovered = hoveredRegion.value?.id === region.id;
 
@@ -261,61 +269,19 @@ const handleMouseWheel = (event) => {
         :dismissable="false"
         :modal="false"
     >
-        <div class="grid grid-cols-1 grid-rows-5 gap-8">
-            <div>
-                <label>
-                    Reward Type:
-                    <MultiSelect
-                        :options="jsonObjectToSelectOptions(QuestRewardType)"
-                        filter
-                        option-value="value"
-                        option-label="label"
-                        placeholder="Select Reward Type"
-                        class="w-full"
-                        :show-clear="true"
-                    />
-                </label>
-            </div>
-            <div>
-                <label>
-                    Class Filter:
-                    <Select
-                        :options="jsonObjectToSelectOptions(ClassType)"
-                        option-value="value"
-                        option-label="label"
-                        placeholder="Limit to Class"
-                        class="w-full"
-                        :show-clear="true"
-                    />
-                </label>
-            </div>
+        <div class="grid grid-cols-1 gap-8">
             <div class="flex items-center">
                 <Checkbox
+                    v-model="showConnections"
                     binary
                     class="w-full cursor-pointer"
-                    input-id="completed-checkbox"
+                    input-id="connections-checkbox"
+                    @change="drawRegionMap()"
                 >
                 </Checkbox>
-                <label class="ml-4 cursor-pointer" for="completed-checkbox">
-                    Show Completed Quests
+                <label class="ml-4 cursor-pointer" for="connections-checkbox">
+                    Show Region Connections
                 </label>
-            </div>
-            <div>
-                <div class="mb-5 text-center">
-                    Level range:
-                    {{ 0 }}
-                    -
-                    {{ 100 }}
-                </div>
-                <Slider :min="0" :max="100" :step="5" range />
-            </div>
-            <div class="grid grid-cols-2 grid-rows-1 gap-2 mt-2">
-                <div>
-                    <Button label="Clear" severity="warn" />
-                </div>
-                <div class="text-right">
-                    <Button label="Apply" />
-                </div>
             </div>
         </div>
     </Drawer>
@@ -339,6 +305,7 @@ const handleMouseWheel = (event) => {
             @mouseleave="handleMouseMove"
             @click="handleCanvasClick"
             @wheel="handleMouseWheel"
+            @resize="updateCanvasSize"
         >
         </canvas>
     </div>

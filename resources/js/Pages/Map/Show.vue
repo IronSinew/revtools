@@ -72,6 +72,8 @@ onMounted(() => {
         filters.value.global = props.search;
         filterUpdate();
         currentZ.value = filteredRooms.value[0]?.coordinates.z;
+
+        selectedRoom.value = filteredRooms.value[0];
     }
 
     roomsAtZ.value = props.region.rooms.filter(
@@ -222,7 +224,7 @@ const drawRooms = () => {
                     (mob) => mob.type === MobType.Boss.value,
                 );
 
-                let lineWidth = 0;
+                let lineWidth = 2;
                 let style = "#404040";
                 if (room.items.length > 0 && filters.value.highlights.items) {
                     style = "#29aecc";
@@ -239,9 +241,6 @@ const drawRooms = () => {
                 ) {
                     style = "#FF0000";
                     lineWidth = 3;
-                } else {
-                    style = "#404040";
-                    lineWidth = 2;
                 }
 
                 drawRoomBorder(
@@ -497,7 +496,7 @@ const filterUpdate = () => {
                     {{ selectedRoom.description }}
                 </p>
             </div>
-            <Accordion>
+            <Accordion value="0">
                 <AccordionPanel value="0">
                     <AccordionHeader>
                         <h1 class="text-xl font-bold">
@@ -520,7 +519,7 @@ const filterUpdate = () => {
                     </AccordionContent>
                 </AccordionPanel>
             </Accordion>
-            <Accordion>
+            <Accordion value="1">
                 <AccordionPanel value="1">
                     <AccordionHeader>
                         <h1 class="text-xl font-bold">
@@ -531,10 +530,10 @@ const filterUpdate = () => {
                         <div
                             v-for="item in selectedRoom.items"
                             :key="item.id"
-                            class="w-full flex text-xl"
+                            class="flex flex-col"
                         >
                             <Link
-                                class="pb-3"
+                                class="mt-4"
                                 :href="
                                     route('item.show', {
                                         item: item.slug,

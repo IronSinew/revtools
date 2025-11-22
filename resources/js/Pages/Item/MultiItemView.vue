@@ -3,7 +3,7 @@ import { router } from "@inertiajs/vue3";
 import AutoComplete from "@volt/AutoComplete.vue";
 import VoltButton from "@volt/SecondaryButton.vue";
 import { useToast } from "primevue/usetoast";
-import { ref } from "vue";
+import { computed, nextTick, onMounted, ref } from "vue";
 
 import SimpleBreadcrumb from "@/Components/SimpleBreadcrumb.vue";
 import Tipper from "@/Components/Tipper.vue";
@@ -26,18 +26,20 @@ const breadcrumbs = ref([
     { label: "Multi Item View" },
 ]);
 
-const title = _.map(props.items, "name").join(" - ");
-
 const searchModal = ref({
     visible: false,
     position: "top",
-    selected: props.items || null,
+    selected: [],
     filtered: [],
     data: {},
 });
-const autocompleteInput = ref(null);
 
-const goToCompare = () => {
+const title = computed(() =>
+    _.map(searchModal.value.selected, "name").join(" - "),
+);
+
+const autocompleteInput = ref(null);
+const onItemSelect = () => {
     if (_.size(searchModal.value.selected) > 3) {
         toast.add({
             severity: "error",
@@ -45,10 +47,12 @@ const goToCompare = () => {
             detail: "Too many items selected to compare. Max of 3.",
             life: 3000,
         });
-        return;
+        searchModal.value.selected = searchModal.value.selected.slice(0, 3);
     }
 
-    router.visit(
+    window.history.pushState(
+        JSON.parse(JSON.stringify(searchModal.value.selected)),
+        title,
         route("item.multi", [
             _.map(searchModal.value.selected, "slug").join("..."),
         ]),
@@ -59,9 +63,10 @@ const search = async (event) => {
     await axios
         .post(route("search.simple"), { search: event.query })
         .then(function (response) {
-            if (_.size(response.data.data?.items) > 0) {
-                searchModal.value.filtered = response.data.typesense;
-                searchModal.value.data = response.data.data;
+            if (Object.values(response.data.data?.items).length > 0) {
+                searchModal.value.filtered = Object.values(
+                    response.data.data.items,
+                );
             } else {
                 searchModal.value.filtered = [
                     {
@@ -71,6 +76,14 @@ const search = async (event) => {
             }
         });
 };
+
+onMounted(() => {
+    const items = JSON.parse(JSON.stringify(props.items));
+
+    if (_.size(items) > 0) {
+        searchModal.value.selected = items;
+    }
+});
 </script>
 
 <template>
@@ -81,6 +94,9 @@ const search = async (event) => {
     <SimpleBreadcrumb :data="breadcrumbs" />
 
     <div class="max-w-2xl mx-auto">
+        <div class="text-center my-4">
+            <span class="text-xl">Search for up to 3 items to compare</span>
+        </div>
         <div class="flex items-stretch w-full my-4">
             <AutoComplete
                 id="mainSearch"
@@ -95,56 +111,41 @@ const search = async (event) => {
                 pt:root="flex-1 rounded-e-none rounded-s-md"
                 scroll-height="350px"
                 @complete="search($event)"
+                @item-select="onItemSelect"
+                @item-unselect="onItemSelect"
             >
                 <template #option="slotProps">
                     <div v-if="slotProps.option.slug" class="ml-2 w-full">
-                        <div>
-                            <div
-                                v-if="
-                                    slotProps.option.type ===
-                                    SearchableType.Item.value
-                                "
-                                class="flex"
-                            >
-                                <div class="mr-2">
-                                    <i
-                                        class="pi pi-book"
-                                        :title="slotProps.option.type"
-                                    />
-                                </div>
-                                <div>
-                                    <Tipper
-                                        :title-only="true"
-                                        :data="
-                                            searchModal.data.items[
-                                                slotProps.option.model_id
-                                            ]
-                                        "
-                                    ></Tipper>
-                                </div>
+                        <div class="flex">
+                            <div class="mr-2">
+                                <i
+                                    class="pi pi-book"
+                                    :title="slotProps.option.type"
+                                />
+                            </div>
+                            <div>
+                                <Tipper
+                                    :title-only="true"
+                                    :data="slotProps.option"
+                                ></Tipper>
                             </div>
                         </div>
                     </div>
                     <div v-else class="h-full">No Result</div>
                 </template>
             </AutoComplete>
-            <VoltButton
-                label="Compare"
-                icon="pi pi-plus"
-                pt:root="rounded-s-none"
-                @click="goToCompare"
-            />
         </div>
 
         <div class="flex justify-center">
-            <template v-if="items.length">
-                <div v-for="item in items" :key="item.id" class="mr-4">
+            <template v-if="searchModal.selected.length">
+                <div
+                    v-for="item in searchModal.selected"
+                    :key="item.id"
+                    class="mr-4"
+                >
                     <Tipper :data="item" :force-display="true"></Tipper>
                 </div>
             </template>
-            <div v-else>
-                <span class="text-xl">Search for up to 3 items to compare</span>
-            </div>
         </div>
     </div>
 </template>

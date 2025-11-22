@@ -11,11 +11,47 @@
     "Z": 0,
     "Color": "wet_green"
   },
+  "Desolate Altar": {
+    "X": 2,
+    "Y": 1,
+    "Z": 0,
+    "Color": "grey60"
+  },
+  "Ghal'tuk Tower": {
+    "X": 3,
+    "Y": 1,
+    "Z": 0,
+    "Color": "brown"
+  },
+  "The Gauntlet": {
+    "X": 1,
+    "Y": 1,
+    "Z": 0,
+    "Color": "grey60"
+  },
   "Lake Conosiat": {
     "X": 1,
     "Y": -1,
     "Z": 0,
     "Color": "blue"
+  },
+  "Old Conosiat Mines": {
+    "X": 0,
+    "Y": -1,
+    "Z": 0,
+    "Color": "grey40"
+  },
+  "Deep Conosiat Mines": {
+    "X": -1,
+    "Y": -1,
+    "Z": 0,
+    "Color": "grey60"
+  },
+  "Deepest Conosiat Mines": {
+    "X": -1,
+    "Y": -2,
+    "Z": 0,
+    "Color": "grey60"
   },
   "Southern Majestia": {
     "X": 2,
@@ -23,17 +59,35 @@
     "Z": 0,
     "Color": "wet_green"
   },
+  "The Ancient Caverns": {
+    "X": 2,
+    "Y": 0,
+    "Z": 0,
+    "Color": "grey40"
+  },
   "Vatlan Cliffs": {
     "X": 3,
     "Y": -1,
     "Z": 0,
     "Color": "grey40"
   },
+  "Ocean Grotto": {
+    "X": 3,
+    "Y": -2,
+    "Z": 0,
+    "Color": "blue"
+  },
   "Epiach Fields": {
     "X": 2,
     "Y": -2,
     "Z": 0,
     "Color": "wet_green"
+  },
+  "Sedgeway Manor": {
+    "X": 1,
+    "Y": -2,
+    "Z": 0,
+    "Color": "purple"
   },
   "Epiach": {
     "X": 2,
@@ -47,8 +101,266 @@
     "Z": 0,
     "Color": "grey40"
   },
+  "Subterranean Waterways": {
+    "X": 4,
+    "Y": -3,
+    "Z": 0,
+    "Color": "blue"
+  },
+  "Brevaran Desert": {
+    "X": 4,
+    "Y": -2,
+    "Z": 0,
+    "Color": "brown"
+  },
+  "Forsaken Wastelands": {
+    "X": 5,
+    "Y": -2,
+    "Z": 0,
+    "Color": "brown"
+  },
+  "Sassaren Fields": {
+    "X": 5,
+    "Y": -3,
+    "Z": 0,
+    "Color": "brown"
+  },
   "Silverspire Foothills": {
     "X": 2,
+    "Y": -4,
+    "Z": 0,
+    "Color": "brown"
+  },
+  "Silverspire Mountains": {
+    "X": 2,
+    "Y": -5,
+    "Z": 0,
+    "Color": "grey40"
+  },
+  "Coranin Forest": {
+    "X": 2,
+    "Y": -7,
+    "Z": 0,
+    "Color": "wet_green"
+  },
+  "Veratine Falls": {
+    "X": 2,
+    "Y": -8,
+    "Z": 0,
+    "Color": "blue"
+  },
+  "Road to Atlaand": {
+    "X": 3,
+    "Y": -8,
+    "Z": 0,
+    "Color": "grey40"
+  },
+  "Northern Wastes": {
+    "X": 3,
+    "Y": -9,
+    "Z": 0,
+    "Color": "grey40"
+  },
+  "Atlaand": {
+    "X": 4,
+    "Y": -8,
+    "Z": 0,
+    "Color": "brown"
+  },
+  "Lighthouse": {
+    "X": 5,
+    "Y": -8,
+    "Z": 0,
+    "Color": "grey40"
+  },
+  "Royal Ship": {
+    "X": 4,
+    "Y": -9,
+    "Z": 0,
+    "Color": "brown"
+  },
+  "Icarus Islands": {
+    "X": 5,
+    "Y": -9,
+    "Z": 0,
+    "Color": "grey40"
+  },
+  "Vast Ocean": {
+    "X": 5,
+    "Y": -10,
+    "Z": 0,
+    "Color": "blue"
+  },
+  "Undiscovered Landmass": {
+    "X": 5,
+    "Y": -11,
+    "Z": 0,
+    "Color": "brown"
+  },
+  "Royal Chessboard": {
+    "X": 4,
+    "Y": -7,
+    "Z": 0,
+    "Color": "grey60"
+  },
+  "Druid Grove": {
+    "X": 3,
+    "Y": -7,
+    "Z": 0,
+    "Color": "wet_green"
+  },
+  "Mirror of Serpolis": {
+    "X": 1,
+    "Y": -8,
+    "Z": 0,
+    "Color": "grey40"
+  },
+  "Eastern Forest": {
+    "X": 0,
+    "Y": -8,
+    "Z": 0,
+    "Color": "wet_green"
+  },
+  "Western Forest": {
+    "X": -1,
+    "Y": -8,
+    "Z": 0,
+    "Color": "wet_green"
+  },
+  "Serpolis": {
+    "X": -2,
+    "Y": -8,
+    "Z": 0,
+    "Color": "grey60"
+  },
+  "Ruins of Serpolis": {
+    "X": 1,
+    "Y": -7,
+    "Z": 0,
+    "Color": "grey40"
+  },
+  "Catacombs": {
+    "X": 0,
+    "Y": -7,
+    "Z": 0,
+    "Color": "grey40"
+  },
+  "Halls of Sorrow": {
+    "X": 1,
+    "Y": -6,
+    "Z": 0,
+    "Color": "purple"
+  },
+  "Hall of Fallen Gods": {
+    "X": 0,
+    "Y": -6,
+    "Z": 0,
+    "Color": "purple"
+  },
+  "Frozen Vale": {
+    "X": -1,
+    "Y": -6,
+    "Z": 0,
+    "Color": "white"
+  },
+  "The North Pole": {
+    "X": -2,
+    "Y": -6,
+    "Z": 0,
+    "Color": "white"
+  },
+  "Rainbow": {
+    "X": 3,
+    "Y": -6,
+    "Z": 0,
+    "Color": "yellow"
+  },
+  "Deserted City of Skaan": {
+    "X": 4,
+    "Y": -6,
+    "Z": 0,
+    "Color": "grey40"
+  },
+  "Underworld": {
+    "X": 5,
+    "Y": -6,
+    "Z": 0,
+    "Color": "grey40"
+  },
+  "Underworld_2": {
+    "X": 5,
+    "Y": -7,
+    "Z": 0,
+    "Color": "black"
+  },
+  "Spirit Realm": {
+    "X": 3,
+    "Y": -4,
+    "Z": 0,
+    "Color": "purple"
+  },
+  "Majestic Hollows": {
+    "X": 1,
+    "Y": -5,
+    "Z": 0,
+    "Color": "purple"
+  },
+  "Greeanjok": {
+    "X": 3,
+    "Y": -5,
+    "Z": 0,
+    "Color": "brown"
+  },
+  "Primordial Prison": {
+    "X": 4,
+    "Y": -5,
+    "Z": 0,
+    "Color": "grey40"
+  },
+  "Naraikos": {
+    "X": 6,
+    "Y": -5,
+    "Z": 0,
+    "Color": "grey40"
+  },
+  "Secret Six": {
+    "X": 6,
+    "Y": -4,
+    "Z": 0,
+    "Color": "grey40"
+  },
+  "The Great Chasm": {
+    "X": 6,
+    "Y": -6,
+    "Z": 0,
+    "Color": "grey40"
+  },
+  "Advisor's Dungeon": {
+    "X": 6,
+    "Y": -7,
+    "Z": 0,
+    "Color": "brown"
+  },
+  "Tinkerer's Workshop": {
+    "X": 7,
+    "Y": -6,
+    "Z": 0,
+    "Color": "grey40"
+  },
+  "Westeros": {
+    "X": 7,
+    "Y": -5,
+    "Z": 0,
+    "Color": "grey40"
+  },
+  "Epiach Vault": {
+    "X": 7,
+    "Y": -4,
+    "Z": 0,
+    "Color": "yellow"
+  },
+  "Staging Ground": {
+    "X": 8,
     "Y": -4,
     "Z": 0,
     "Color": "brown"
@@ -59,8 +371,56 @@
     "Z": 0,
     "Color": "wet_green"
   },
+  "Pine Forest": {
+    "X": 1,
+    "Y": -3,
+    "Z": 0,
+    "Color": "wet_green"
+  },
+  "The Hive": {
+    "X": 0,
+    "Y": -3,
+    "Z": 0,
+    "Color": "yellow"
+  },
+  "Lava": {
+    "X": -3,
+    "Y": -3,
+    "Z": 0,
+    "Color": "orange"
+  },
+  "Strange Wilderness": {
+    "X": -3,
+    "Y": -4,
+    "Z": 0,
+    "Color": "wet_green"
+  },
+  "Mercadian Depths": {
+    "X": -4,
+    "Y": -3,
+    "Z": 0,
+    "Color": "blue"
+  },
+  "Echoed Oasis": {
+    "X": -5,
+    "Y": -3,
+    "Z": 0,
+    "Color": "yellow"
+  },
+  "Western Drakkarloch Mines": {
+    "X": -5,
+    "Y": -4,
+    "Z": 0,
+    "Color": "grey40"
+  },
   "Dragonspire Reach": {
     "X": 0,
+    "Y": -4,
+    "Z": 0,
+    "Color": "black"
+  },
+  "Drakkarloch": {
+    "X": -1,
     "Y": -4,
     "Z": 0,
     "Color": "black"
@@ -71,11 +431,23 @@
     "Z": 0,
     "Color": "blue"
   },
+  "Tur'issik": {
+    "X": -2,
+    "Y": 1,
+    "Z": 0,
+    "Color": "grey40"
+  },
   "Myronmet Graveyard": {
     "X": -1,
     "Y": 1,
     "Z": 0,
-    "Color": "blue"
+    "Color": "grey40"
+  },
+  "Animated Graveyard": {
+    "X": -1,
+    "Y": 2,
+    "Z": 0,
+    "Color": "grey40"
   },
   "Black Marsh": {
     "X": -2,

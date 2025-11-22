@@ -6,6 +6,7 @@ use App\Enums\SearchableType;
 use App\Models\Item;
 use App\Models\Mob;
 use App\Models\Quest;
+use App\Models\Region;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -33,6 +34,11 @@ class SearchSimpleController extends Controller
                     ->keyBy('id'),
                 'quests' => Quest::findMany(
                     $groupedIds->get(SearchableType::Quest->value)?->pluck('model_id')
+
+                )
+                    ->keyBy('id'),
+                'regions' => Region::findMany(
+                    $groupedIds->get(SearchableType::Region->value)?->pluck('model_id')
 
                 )
                     ->keyBy('id'),

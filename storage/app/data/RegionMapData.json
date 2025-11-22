@@ -11,6 +11,60 @@
     "Z": 0,
     "Color": "wet_green"
   },
+  "Lake Conosiat": {
+    "X": 1,
+    "Y": -1,
+    "Z": 0,
+    "Color": "blue"
+  },
+  "Southern Majestia": {
+    "X": 2,
+    "Y": -1,
+    "Z": 0,
+    "Color": "wet_green"
+  },
+  "Vatlan Cliffs": {
+    "X": 3,
+    "Y": -1,
+    "Z": 0,
+    "Color": "grey40"
+  },
+  "Epiach Fields": {
+    "X": 2,
+    "Y": -2,
+    "Z": 0,
+    "Color": "wet_green"
+  },
+  "Epiach": {
+    "X": 2,
+    "Y": -3,
+    "Z": 0,
+    "Color": "brown"
+  },
+  "East Epiach Highway": {
+    "X": 3,
+    "Y": -3,
+    "Z": 0,
+    "Color": "grey40"
+  },
+  "Silverspire Foothills": {
+    "X": 2,
+    "Y": -4,
+    "Z": 0,
+    "Color": "brown"
+  },
+  "Western Epiach Foothills": {
+    "X": 1,
+    "Y": -4,
+    "Z": 0,
+    "Color": "wet_green"
+  },
+  "Dragonspire Reach": {
+    "X": 0,
+    "Y": -4,
+    "Z": 0,
+    "Color": "black"
+  },
   "Myronmet Swamp": {
     "X": -1,
     "Y": 0,
@@ -20,6 +74,18 @@
   "Myronmet Graveyard": {
     "X": -1,
     "Y": 1,
+    "Z": 0,
+    "Color": "blue"
+  },
+  "Black Marsh": {
+    "X": -2,
+    "Y": 0,
+    "Z": 0,
+    "Color": "wet_green"
+  },
+  "Louring Lagoon": {
+    "X": -2,
+    "Y": -1,
     "Z": 0,
     "Color": "blue"
   }

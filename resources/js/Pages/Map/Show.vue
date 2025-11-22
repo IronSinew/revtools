@@ -11,6 +11,7 @@ import InputText from "primevue/inputtext";
 import { nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 
 import Tipper from "@/Components/Tipper.vue";
+import MobTier from "@/Composables/GeneratedEnumObjects/Mobs-MobTier.json";
 import MobType from "@/Composables/GeneratedEnumObjects/Mobs-MobType.json";
 import RoomExitType from "@/Composables/GeneratedEnumObjects/Regions-RoomExitType.json";
 
@@ -35,6 +36,9 @@ const regionExitTooltip = ref({
     room: null,
 });
 
+const minZ = ref(0);
+const maxZ = ref(0);
+
 const map = ref(null);
 const roomSize = 30;
 const currentZ = ref(0);
@@ -56,7 +60,6 @@ const filters = ref({
     highlights: {
         mobs: false,
         items: false,
-        bosses: false,
     },
 });
 
@@ -75,6 +78,14 @@ const canvasContainer = ref(null);
 let animationFrameId = null;
 
 onMounted(() => {
+    const img = new Image();
+    img.src = "https://cdn-icons-png.flaticon.com/128/2545/2545603.png";
+
+    img.onload = () => {
+        bossImage.value = img;
+        drawRooms();
+    };
+
     if (props.search) {
         filters.value.global = props.search;
         filterUpdate();
@@ -83,9 +94,15 @@ onMounted(() => {
         selectedRoom.value = filteredRooms.value[0];
     }
 
-    roomsAtZ.value = props.region.rooms.filter(
-        (room) => room.coordinates.z === currentZ.value,
-    );
+    roomsAtZ.value = props.region.rooms.filter((room) => {
+        if (room.coordinates.z > maxZ.value) {
+            maxZ.value = room.coordinates.z;
+        } else if (room.coordinates.z < minZ.value) {
+            minZ.value = room.coordinates.z;
+        }
+
+        return room.coordinates.z === currentZ.value;
+    });
 
     updateCanvasSize();
 
@@ -172,6 +189,8 @@ const handleMouseUp = () => {
     dragging.value = false;
 };
 
+const bossImage = ref(null);
+
 watch(
     () => props.region,
     () => {
@@ -243,7 +262,7 @@ function drawRegionExitArrow(ctx, room, size) {
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
 
-    const exitDirection = room.exit_region_direction;
+    const exitDirection = room.exit_region_direction ?? "east";
 
     ctx.beginPath();
 
@@ -326,8 +345,26 @@ const drawRooms = () => {
 
     roomsAtZ.value.forEach((room) => {
         drawRoom(room, ctx, scaledSize);
-        if (room.exit_region_id !== null) {
+
+        if (room.exit_region) {
             drawRegionExitArrow(ctx, room, scaledSize);
+        }
+
+        const bosses = room.mobs.filter(
+            (mob) => mob.type === MobType.Boss.value,
+        );
+
+        if (bosses.length > 0 && bossImage.value) {
+            const position = getLocalPosition(room.coordinates);
+            const imageScale = scaledSize / 2;
+
+            ctx.drawImage(
+                bossImage.value,
+                position.x + imageScale / 2,
+                position.y + imageScale / 2,
+                imageScale,
+                imageScale,
+            );
         }
     });
 
@@ -347,18 +384,8 @@ const drawRooms = () => {
                     room !== selectedRoom.value,
             )
             .forEach((room) => {
-                const bosses = room.mobs.filter(
-                    (mob) => mob.type === MobType.Boss.value,
-                );
-
                 if (room.items.length > 0 && filters.value.highlights.items) {
                     style = "#29aecc";
-                    lineWidth = 3;
-                } else if (
-                    bosses.length > 0 &&
-                    filters.value.highlights.bosses
-                ) {
-                    style = "#d432e3";
                     lineWidth = 3;
                 } else if (
                     room.mobs.length > 0 &&
@@ -587,22 +614,6 @@ function drawSelectedRoomBorder(ctx, size, time, color) {
                                 Mobs
                             </label>
                         </div>
-                        <div class="items-center flex">
-                            <Checkbox
-                                v-model="filters.highlights.bosses"
-                                binary
-                                class="cursor-pointer"
-                                input-id="bosses-checkbox"
-                                @change="drawRooms"
-                            >
-                            </Checkbox>
-                            <label
-                                class="ml-4 cursor-pointer"
-                                for="bosses-checkbox"
-                            >
-                                Bosses
-                            </label>
-                        </div>
 
                         <div class="items-center flex">
                             <Checkbox
@@ -653,6 +664,7 @@ function drawSelectedRoomBorder(ctx, size, time, color) {
                         @click="handleZLevelChange(-1)"
                     ></Button>
                 </label>
+                <p class="text-sm">({{ minZ }} to {{ maxZ }})</p>
             </div>
         </div>
     </Drawer>
@@ -685,11 +697,22 @@ function drawSelectedRoomBorder(ctx, size, time, color) {
                         <Button
                             v-for="mob in selectedRoom.mobs"
                             :key="mob.id"
-                            class="w-full flex justify-between"
-                            severity="secondary mt-2"
+                            class="w-full flex justify-between mt-2"
+                            severity="secondary"
                             @click="handleMobClick(mob)"
                         >
+                            <img
+                                v-if="mob.type === MobType.Boss.value"
+                                src="https://cdn-icons-png.flaticon.com/128/2545/2545603.png"
+                                class="w-4"
+                            />
                             <p class="w-full text-left">{{ mob.name }}</p>
+                            <p
+                                v-if="mob.tier !== MobTier.Normal.value"
+                                class="text-red-500"
+                            >
+                                {{ mob.tier }}
+                            </p>
                             <p class="w-full text-right q">
                                 Lvl: {{ mob.level }}
                             </p>

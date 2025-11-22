@@ -28,6 +28,13 @@ const props = defineProps({
     },
 });
 
+const regionExitTooltip = ref({
+    visible: false,
+    x: 0,
+    y: 0,
+    room: null,
+});
+
 const map = ref(null);
 const roomSize = 30;
 const currentZ = ref(0);
@@ -131,6 +138,7 @@ const getRoomAtPosition = (canvasX, canvasY) => {
 };
 
 const handleMouseDown = (event) => {
+    regionExitTooltip.value.visible = false;
     dragging.value = true;
     dragStart.value = {
         x: event.clientX - offset.value.x,
@@ -223,17 +231,85 @@ function hexToRgba(hex, alpha) {
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
-function drawPulsingBorder(ctx, position, size, width, time, color) {
-    const pulse = Math.sin(time * 0.003) * 0.3 + 0.7;
-    const lineWidth = width;
+function drawRegionExitArrow(ctx, room, size) {
+    const position = getLocalPosition(room.coordinates);
+    const centerX = position.x + (size - gridInsetSize * 2) / 2;
+    const centerY = position.y + (size - gridInsetSize * 2) / 2;
+    const arrowSize = size * 0.3;
 
-    ctx.strokeStyle = hexToRgba(color, pulse);
-    ctx.lineWidth = lineWidth;
-    ctx.strokeRect(
-        position.x + lineWidth,
-        position.y + lineWidth,
-        size - lineWidth * 2,
-        size - lineWidth * 2,
+    ctx.fillStyle = "#FFD700";
+    ctx.strokeStyle = "#FFD700";
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    const exitDirection = room.exit_region_direction;
+
+    ctx.beginPath();
+
+    switch (exitDirection) {
+        case RoomExitType.North.value:
+            ctx.moveTo(centerX, centerY - arrowSize / 2);
+            ctx.lineTo(centerX - arrowSize / 2, centerY + arrowSize / 2);
+            ctx.lineTo(centerX + arrowSize / 2, centerY + arrowSize / 2);
+            break;
+
+        case RoomExitType.South.value:
+            ctx.moveTo(centerX, centerY + arrowSize / 2);
+            ctx.lineTo(centerX - arrowSize / 2, centerY - arrowSize / 2);
+            ctx.lineTo(centerX + arrowSize / 2, centerY - arrowSize / 2);
+            break;
+
+        case RoomExitType.East.value:
+            ctx.moveTo(centerX + arrowSize / 2, centerY);
+            ctx.lineTo(centerX - arrowSize / 2, centerY - arrowSize / 2);
+            ctx.lineTo(centerX - arrowSize / 2, centerY + arrowSize / 2);
+            break;
+
+        case RoomExitType.West.value:
+            ctx.moveTo(centerX - arrowSize / 2, centerY);
+            ctx.lineTo(centerX + arrowSize / 2, centerY - arrowSize / 2);
+            ctx.lineTo(centerX + arrowSize / 2, centerY + arrowSize / 2);
+            break;
+
+        case RoomExitType.Up.value:
+            ctx.moveTo(centerX, centerY - arrowSize / 3);
+            ctx.lineTo(centerX - arrowSize / 3, centerY);
+            ctx.lineTo(centerX + arrowSize / 3, centerY);
+            ctx.closePath();
+            ctx.fill();
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY + arrowSize / 3);
+            ctx.lineTo(centerX - arrowSize / 3, centerY + arrowSize / 6);
+            ctx.lineTo(centerX + arrowSize / 3, centerY + arrowSize / 6);
+            break;
+
+        case RoomExitType.Down.value:
+            ctx.moveTo(centerX, centerY + arrowSize / 3);
+            ctx.lineTo(centerX - arrowSize / 3, centerY);
+            ctx.lineTo(centerX + arrowSize / 3, centerY);
+            ctx.closePath();
+            ctx.fill();
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY - arrowSize / 3);
+            ctx.lineTo(centerX - arrowSize / 3, centerY - arrowSize / 6);
+            ctx.lineTo(centerX + arrowSize / 3, centerY - arrowSize / 6);
+            break;
+    }
+
+    ctx.closePath();
+    ctx.fill();
+}
+
+function drawPulsingRoom(ctx, position, size, width, time, color) {
+    const pulse = Math.sin(time * 0.003) * 0.15 + 0.17;
+
+    ctx.fillStyle = hexToRgba(color, pulse);
+    ctx.fillRect(
+        position.x,
+        position.y,
+        size - gridInsetSize * 2,
+        size - gridInsetSize * 2,
     );
 }
 
@@ -250,6 +326,9 @@ const drawRooms = () => {
 
     roomsAtZ.value.forEach((room) => {
         drawRoom(room, ctx, scaledSize);
+        if (room.exit_region_id !== null) {
+            drawRegionExitArrow(ctx, room, scaledSize);
+        }
     });
 
     let lineWidth = 1;
@@ -287,9 +366,11 @@ const drawRooms = () => {
                 ) {
                     style = "#FF0000";
                     lineWidth = 3;
+                } else {
+                    return;
                 }
 
-                drawPulsingBorder(
+                drawPulsingRoom(
                     ctx,
                     getLocalPosition(room.coordinates),
                     scaledSize,
@@ -304,10 +385,10 @@ const drawRooms = () => {
     if (filteredRooms.value.length > 0 && filters.value.global !== "") {
         filteredRooms.value.forEach((filteredRoom) => {
             if (
-                filteredRoom.id !== selectedRoom.value?.id &&
+                filteredRoom.coordinates !== selectedRoom.value?.coordinates &&
                 filteredRoom.coordinates.z === currentZ.value
             ) {
-                drawPulsingBorder(
+                drawPulsingRoom(
                     ctx,
                     getLocalPosition(filteredRoom.coordinates),
                     scaledSize,
@@ -329,6 +410,7 @@ const drawRooms = () => {
 };
 
 const handleMouseWheel = (event) => {
+    regionExitTooltip.value.visible = false;
     event.preventDefault();
     const rect = map.value.getBoundingClientRect();
     const mousePosition = {
@@ -370,6 +452,7 @@ const handleRegionExitClick = () => {
 };
 
 const handleZLevelChange = (value) => {
+    regionExitTooltip.value.visible = false;
     const rooms = props.region.rooms.filter(
         (room) => room.coordinates.z === currentZ.value + value,
     );
@@ -391,6 +474,17 @@ const handleCanvasClick = (event) => {
 
     if (room) {
         selectedRoom.value = room;
+
+        if (room.exit_region_id) {
+            regionExitTooltip.value = {
+                visible: true,
+                x: event.clientX,
+                y: event.clientY - 70,
+                room: room,
+            };
+        } else {
+            regionExitTooltip.value.visible = false;
+        }
     }
 };
 
@@ -713,6 +807,48 @@ function drawSelectedRoomBorder(ctx, size, time, color) {
                 @resize="updateCanvasSize"
             >
             </canvas>
+
+            <Transition
+                enter-active-class="transition-all duration-200"
+                leave-active-class="transition-all duration-150"
+                enter-from-class="opacity-0 scale-95"
+                leave-to-class="opacity-0 scale-95"
+            >
+                <div
+                    v-if="regionExitTooltip.visible && regionExitTooltip.room"
+                    :style="{
+                        position: 'fixed',
+                        left: `${regionExitTooltip.x}px`,
+                        top: `${regionExitTooltip.y}px`,
+                        transform: 'translateX(-50%)',
+                    }"
+                    @click="handleRegionExitClick"
+                >
+                    <div
+                        class="bg-gray-900 border-2 border-yellow-500 rounded-lg px-3 py-2 shadow-2xl backdrop-blur cursor-pointer transition-all hover:bg-gray-800 hover:border-yellow-400 hover:shadow-3xl"
+                    >
+                        <div class="flex items-center gap-2.5">
+                            <span
+                                class="text-yellow-400 text-sm whitespace-nowrap"
+                            >
+                                Go to
+                                <span class="font-bold">{{
+                                    regionExitTooltip.room.exit_region.name
+                                }}</span>
+                            </span>
+                            <i class="pi pi-arrow-right text-yellow-400"></i>
+                        </div>
+                    </div>
+                    <div
+                        class="w-0 h-0 mx-auto mt-[-1px]"
+                        style="
+                            border-left: 8px solid transparent;
+                            border-right: 8px solid transparent;
+                            border-top: 8px solid rgb(234, 179, 8);
+                        "
+                    ></div>
+                </div>
+            </Transition>
         </div>
     </div>
 </template>

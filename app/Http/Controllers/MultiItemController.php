@@ -12,13 +12,7 @@ class MultiItemController extends Controller
     {
         // We only allow a max of 3 items to be compared
         $items = array_slice(explode('...', $items), 0, 3);
-        $itemList = Item::whereIn('slug', $items)
-            ->get()
-            ->map(function(Item $row) {
-                $row->model_id = $row->id;
-
-                return $row;
-            });
+        $itemList = Item::whereIn('slug', $items)->get();
 
         return inertia('Item/MultiItemView', [
             'items' => fn () => $itemList,

@@ -3,7 +3,7 @@ import { router } from "@inertiajs/vue3";
 import AutoComplete from "@volt/AutoComplete.vue";
 import VoltButton from "@volt/SecondaryButton.vue";
 import { useToast } from "primevue/usetoast";
-import { ref, computed, nextTick, onMounted } from "vue";
+import { computed, nextTick, onMounted, ref } from "vue";
 
 import SimpleBreadcrumb from "@/Components/SimpleBreadcrumb.vue";
 import Tipper from "@/Components/Tipper.vue";
@@ -31,10 +31,12 @@ const searchModal = ref({
     position: "top",
     selected: [],
     filtered: [],
-    data: {}
+    data: {},
 });
 
-const title = computed(() => _.map(searchModal.value.selected, "name").join(" - "));
+const title = computed(() =>
+    _.map(searchModal.value.selected, "name").join(" - "),
+);
 
 const autocompleteInput = ref(null);
 const onItemSelect = () => {
@@ -48,17 +50,23 @@ const onItemSelect = () => {
         searchModal.value.selected = searchModal.value.selected.slice(0, 3);
     }
 
-    window.history.pushState(JSON.parse(JSON.stringify(searchModal.value.selected)), title, route("item.multi", [
-        _.map(searchModal.value.selected, "slug").join("..."),
-    ]));
-}
+    window.history.pushState(
+        JSON.parse(JSON.stringify(searchModal.value.selected)),
+        title,
+        route("item.multi", [
+            _.map(searchModal.value.selected, "slug").join("..."),
+        ]),
+    );
+};
 
 const search = async (event) => {
     await axios
         .post(route("search.simple"), { search: event.query })
         .then(function (response) {
             if (Object.values(response.data.data?.items).length > 0) {
-                searchModal.value.filtered = Object.values(response.data.data.items);
+                searchModal.value.filtered = Object.values(
+                    response.data.data.items,
+                );
             } else {
                 searchModal.value.filtered = [
                     {
@@ -130,7 +138,11 @@ onMounted(() => {
 
         <div class="flex justify-center">
             <template v-if="searchModal.selected.length">
-                <div v-for="item in searchModal.selected" :key="item.id" class="mr-4">
+                <div
+                    v-for="item in searchModal.selected"
+                    :key="item.id"
+                    class="mr-4"
+                >
                     <Tipper :data="item" :force-display="true"></Tipper>
                 </div>
             </template>

@@ -355,7 +355,7 @@ const drawRooms = () => {
                     style = "#29aecc";
                     lineWidth = 3;
                 } else if (
-                    bosses.length > 1 &&
+                    bosses.length > 0 &&
                     filters.value.highlights.bosses
                 ) {
                     style = "#d432e3";

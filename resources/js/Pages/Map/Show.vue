@@ -27,6 +27,20 @@ const props = defineProps({
         type: [Array, Object],
         required: false,
     },
+    mobs: {
+        type: [Array, Object],
+        required: false,
+        default() {
+            return {};
+        },
+    },
+    items: {
+        type: [Array, Object],
+        required: false,
+        default() {
+            return {};
+        },
+    },
 });
 
 const regionExitTooltip = ref({
@@ -88,10 +102,7 @@ onMounted(() => {
 
     if (props.search) {
         filters.value.global = props.search;
-        filterUpdate();
-        currentZ.value = filteredRooms.value[0]?.coordinates.z;
-
-        selectedRoom.value = filteredRooms.value[0];
+        getMobOrItemFromName(props.search);
     }
 
     roomsAtZ.value = props.region.rooms.filter((room) => {
@@ -528,24 +539,6 @@ const getLocalPosition = (coordinates) => {
     };
 };
 
-const filterUpdate = () => {
-    filteredRooms.value = props.region.rooms.filter((room) => {
-        return (
-            room.items.some((item) =>
-                item.name
-                    .toLowerCase()
-                    .includes(filters.value.global.toLowerCase()),
-            ) ||
-            room.mobs.some((mob) =>
-                mob.name
-                    .toLowerCase()
-                    .includes(filters.value.global.toLowerCase()),
-            )
-        );
-    });
-    drawRooms();
-};
-
 function drawSelectedRoomBorder(ctx, size, time, color) {
     const bracketLength = size * 0.3;
     const offset = Math.sin(time * 0.004) * 2;
@@ -582,6 +575,27 @@ function drawSelectedRoomBorder(ctx, size, time, color) {
     ctx.lineTo(x + size + offset, y + size - bracketLength + offset);
     ctx.stroke();
 }
+
+const getMobOrItemFromName = (value) => {
+    selectedRoom.value =
+        props.region.rooms.filter((room) => {
+            return (
+                room.items.some((item) =>
+                    item.name.toLowerCase().includes(value.toLowerCase()),
+                ) ||
+                room.mobs.some((mob) =>
+                    mob.name.toLowerCase().includes(value.toLowerCase()),
+                )
+            );
+        })[0] ?? null;
+    currentZ.value = selectedRoom.value.coordinates.z ?? 0;
+
+    roomsAtZ.value = props.region.rooms.filter(
+        (room) => room.coordinates.z === currentZ.value,
+    );
+
+    drawRooms();
+};
 </script>
 
 <template>
@@ -591,7 +605,7 @@ function drawSelectedRoomBorder(ctx, size, time, color) {
         header="Filters"
         :dismissable="false"
         :modal="false"
-        class="w-full"
+        class="w-full! xl:w-60! 2xl:w-[22rem]!"
     >
         <div class="grid grid-cols-1 gap-8">
             <div>
@@ -635,16 +649,6 @@ function drawSelectedRoomBorder(ctx, size, time, color) {
                 </label>
             </div>
             <div>
-                <label>Search for mobs or items</label>
-                <InputText
-                    v-model="filters.global"
-                    class="w-full mt-2"
-                    placeholder="Search..."
-                    @update:model-value="filterUpdate"
-                >
-                </InputText>
-            </div>
-            <div>
                 <label>
                     Z-Level: {{ currentZ }}
                     <Button
@@ -665,6 +669,69 @@ function drawSelectedRoomBorder(ctx, size, time, color) {
                     ></Button>
                 </label>
                 <p class="text-sm">({{ minZ }} to {{ maxZ }})</p>
+            </div>
+            <div>
+                <Accordion value="0">
+                    <AccordionPanel value="0">
+                        <AccordionHeader>
+                            <h1 class="text-xl font-bold">
+                                Mobs in {{ props.region.name }}
+                            </h1>
+                        </AccordionHeader>
+                        <AccordionContent class="max-h-60 overflow-y-auto">
+                            <Button
+                                v-for="mob in props.mobs"
+                                :key="mob.id"
+                                class="w-full flex justify-between mt-2"
+                                severity="secondary"
+                                @click="getMobOrItemFromName(mob.name)"
+                            >
+                                <img
+                                    v-if="mob.type === MobType.Boss.value"
+                                    src="https://cdn-icons-png.flaticon.com/128/2545/2545603.png"
+                                    class="w-4"
+                                />
+                                <p class="w-full text-left">
+                                    {{ mob.name }}
+                                </p>
+                                <p
+                                    v-if="mob.tier !== MobTier.Normal.value"
+                                    class="text-red-500"
+                                >
+                                    {{ mob.tier }}
+                                </p>
+                                <p class="w-full text-right q">
+                                    Lvl: {{ mob.level }}
+                                </p>
+                            </Button>
+                        </AccordionContent>
+                    </AccordionPanel>
+                </Accordion>
+            </div>
+            <div>
+                <Accordion value="1">
+                    <AccordionPanel value="1">
+                        <AccordionHeader>
+                            <h1 class="text-xl font-bold">
+                                Items in {{ props.region.name }}
+                            </h1>
+                        </AccordionHeader>
+                        <AccordionContent class="max-h-60 overflow-y-auto">
+                            <div
+                                v-for="item in props.items"
+                                :key="item.id"
+                                class="flex flex-col"
+                            >
+                                <p
+                                    class="mt-4 cursor-pointer"
+                                    @click="getMobOrItemFromName(item.name)"
+                                >
+                                    <Tipper :data="item"></Tipper>
+                                </p>
+                            </div>
+                        </AccordionContent>
+                    </AccordionPanel>
+                </Accordion>
             </div>
         </div>
     </Drawer>
@@ -809,7 +876,7 @@ function drawSelectedRoomBorder(ctx, size, time, color) {
     <div class="w-full flex justify-center">
         <div
             ref="canvasContainer"
-            class="h-[calc(100vh-200px)] min-w-7xl w-2/3 border overflow-auto"
+            class="h-[calc(100vh-200px)] lg:min-w-5xl border overflow-auto"
             @resize="updateCanvasSize"
         >
             <canvas

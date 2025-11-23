@@ -1,15 +1,8 @@
 <script setup>
 import { router, usePage } from "@inertiajs/vue3";
 import Drawer from "@volt/Drawer.vue";
-import Button from "primevue/button";
 import Checkbox from "primevue/checkbox";
-import MultiSelect from "primevue/multiselect";
-import Select from "primevue/select";
-import Slider from "primevue/slider";
 import { nextTick, onMounted, onUnmounted, ref, watch } from "vue";
-
-import ClassType from "@/Composables/GeneratedEnumObjects/ClassType.json";
-import QuestRewardType from "@/Composables/GeneratedEnumObjects/Quests-QuestRewardType.json";
 
 const props = defineProps({
     regions: {
@@ -153,7 +146,7 @@ const drawBackground = () => {
         y: canvas.height * 3,
     };
 
-    ctx.fillStyle = "#333333";
+    ctx.fillStyle = "#222222";
     ctx.fillRect(-mapSize.x / 2, -mapSize.y / 2, mapSize.x, mapSize.y);
 };
 
@@ -196,9 +189,7 @@ const drawRegionMap = () => {
 
     const ctx = canvas.getContext("2d");
     drawBackground();
-    const labelOffset = 10 * zoom.value.current;
     const scaledSize = gridSize * zoom.value.current;
-    const fontSize = 18 * zoom.value.current;
 
     // draw connections
     if (showConnections.value) {

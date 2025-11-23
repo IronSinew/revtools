@@ -19,6 +19,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/scout": "^10.8",
         "laravel/tinker": "^2.9",
+        "mavinoo/laravel-batch": "^2.4",
         "spatie/eloquent-sortable": "^4.2",
         "spatie/laravel-data": "^4.18",
         "spatie/laravel-medialibrary": "^11.0.0",

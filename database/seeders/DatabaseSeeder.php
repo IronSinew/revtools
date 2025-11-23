@@ -6,6 +6,7 @@ use App\Models\Item;
 use App\Models\Mob;
 use App\Models\Quest;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Region;
 use Illuminate\Database\Seeder;
 use Laravel\Scout\Searchable;
 
@@ -23,10 +24,14 @@ class DatabaseSeeder extends Seeder
             ItemQuestSeeder::class,
             MobToItemSeeder::class,
             QuestChainSeeder::class,
+            RegionSeeder::class,
+            RoomSeeder::class,
+            MobToRoomSeeder::class,
+            ItemToRoomSeeder::class,
         ]);
 
         // Rebuild scout models
-        $rebuildModels = [Mob::class, Item::class, Quest::class];
+        $rebuildModels = [Mob::class, Item::class, Quest::class, Region::class];
 
         // Just doing the one model removal is fine since they all share the same index
         Item::removeAllFromSearch();

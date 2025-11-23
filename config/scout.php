@@ -272,6 +272,37 @@ return [
                     'query_by' => 'name',
                 ],
             ],
+            \App\Models\Region::class => [
+                'collection-schema' => [
+                    'fields' => [
+                        [
+                            'name' => 'name',
+                            'type' => 'string',
+                        ],
+                        [
+                            'name' => 'model_id',
+                            'type' => 'string',
+                        ],
+                        [
+                            'name' => 'type',
+                            'type' => 'string',
+                        ],
+                        [
+                            'name' => 'slug',
+                            'type' => 'string',
+                        ],
+                        [
+                            'name' => 'created_at',
+                            'type' => 'int64',
+                        ],
+                    ],
+                    'token_separators' => ['-'],
+                    'default_sorting_field' => 'created_at',
+                ],
+                'search-parameters' => [
+                    'query_by' => 'name',
+                ],
+            ],
         ],
     ],
 

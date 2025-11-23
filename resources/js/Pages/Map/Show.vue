@@ -1,0 +1,943 @@
+<script setup>
+import { Link, router } from "@inertiajs/vue3";
+import Drawer from "@volt/Drawer.vue";
+import Accordion from "primevue/accordion";
+import AccordionContent from "primevue/accordioncontent";
+import AccordionHeader from "primevue/accordionheader";
+import AccordionPanel from "primevue/accordionpanel";
+import Button from "primevue/button";
+import Checkbox from "primevue/checkbox";
+import InputText from "primevue/inputtext";
+import { nextTick, onMounted, onUnmounted, ref, watch } from "vue";
+
+import Tipper from "@/Components/Tipper.vue";
+import MobTier from "@/Composables/GeneratedEnumObjects/Mobs-MobTier.json";
+import MobType from "@/Composables/GeneratedEnumObjects/Mobs-MobType.json";
+import RoomExitType from "@/Composables/GeneratedEnumObjects/Regions-RoomExitType.json";
+
+const props = defineProps({
+    region: {
+        type: [Array, Object],
+        required: false,
+        default() {
+            return {};
+        },
+    },
+    search: {
+        type: [Array, Object],
+        required: false,
+    },
+    mobs: {
+        type: [Array, Object],
+        required: false,
+        default() {
+            return {};
+        },
+    },
+    items: {
+        type: [Array, Object],
+        required: false,
+        default() {
+            return {};
+        },
+    },
+});
+
+const regionExitTooltip = ref({
+    visible: false,
+    x: 0,
+    y: 0,
+    room: null,
+});
+
+const minZ = ref(0);
+const maxZ = ref(0);
+
+const map = ref(null);
+const roomSize = 30;
+const currentZ = ref(0);
+
+const dragging = ref(false);
+const dragStart = ref({ x: 0, y: 0 });
+const offset = ref({ x: 0, y: 0 });
+
+const hoveredRoom = ref(null);
+const filtersVisible = ref(true);
+
+const selectedRoom = ref(null);
+const filteredRooms = ref([]);
+const roomsAtZ = ref([]);
+const gridInsetSize = 0.5;
+
+const filters = ref({
+    global: "",
+    highlights: {
+        mobs: false,
+        items: false,
+    },
+});
+
+const zoom = ref({
+    current: 1,
+    max: 5,
+    min: 0.1,
+});
+
+const canvasSize = ref({
+    width: 0,
+    height: 0,
+});
+
+const canvasContainer = ref(null);
+let animationFrameId = null;
+
+onMounted(() => {
+    const img = new Image();
+    img.src = "https://cdn-icons-png.flaticon.com/128/2545/2545603.png";
+
+    img.onload = () => {
+        bossImage.value = img;
+        drawRooms();
+    };
+
+    if (props.search) {
+        filters.value.global = props.search;
+        getMobOrItemFromName(props.search);
+    }
+
+    roomsAtZ.value = props.region.rooms.filter((room) => {
+        if (room.coordinates.z > maxZ.value) {
+            maxZ.value = room.coordinates.z;
+        } else if (room.coordinates.z < minZ.value) {
+            minZ.value = room.coordinates.z;
+        }
+
+        return room.coordinates.z === currentZ.value;
+    });
+
+    updateCanvasSize();
+
+    window.addEventListener("resize", updateCanvasSize);
+
+    function animate() {
+        animationFrameId = requestAnimationFrame(animate);
+        drawRooms();
+    }
+    animate();
+});
+
+onUnmounted(() => {
+    window.removeEventListener("resize", updateCanvasSize);
+    if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+    }
+});
+
+const updateCanvasSize = () => {
+    if (canvasContainer.value) {
+        canvasSize.value = {
+            width: canvasContainer.value.clientWidth,
+            height: canvasContainer.value.clientHeight,
+        };
+    }
+
+    nextTick(() => {
+        offset.value = { x: map.value.width / 2, y: map.value.height / 2 };
+        drawRooms();
+    });
+};
+
+const getRoomAtPosition = (canvasX, canvasY) => {
+    const scaledSize = roomSize * zoom.value.current;
+
+    return props.region.rooms
+        .filter((room) => room.coordinates.z === currentZ.value)
+        .find((room) => {
+            const x = room.coordinates.x * scaledSize + offset.value.x;
+            const y = -room.coordinates.y * scaledSize + offset.value.y;
+
+            return (
+                canvasX >= x &&
+                canvasX <= x + scaledSize &&
+                canvasY >= y &&
+                canvasY <= y + scaledSize
+            );
+        });
+};
+
+const handleMouseDown = (event) => {
+    regionExitTooltip.value.visible = false;
+    dragging.value = true;
+    dragStart.value = {
+        x: event.clientX - offset.value.x,
+        y: event.clientY - offset.value.y,
+    };
+};
+
+const handleMouseMove = (event) => {
+    const rect = map.value.getBoundingClientRect();
+
+    if (!dragging.value) {
+        const room = getRoomAtPosition(
+            event.clientX - rect.left,
+            event.clientY - rect.top,
+        );
+
+        if (room !== hoveredRoom.value) {
+            hoveredRoom.value = room;
+        }
+    } else {
+        offset.value = {
+            x: event.clientX - dragStart.value.x,
+            y: event.clientY - dragStart.value.y,
+        };
+    }
+
+    drawRooms();
+};
+
+const handleMouseUp = () => {
+    dragging.value = false;
+};
+
+const bossImage = ref(null);
+
+watch(
+    () => props.region,
+    () => {
+        drawRooms();
+    },
+    { deep: true },
+);
+
+const drawBackground = () => {
+    const canvas = map.value;
+    if (!canvas) {
+        return;
+    }
+
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const mapSize = {
+        x: canvas.width * 2,
+        y: canvas.height * 2,
+    };
+
+    ctx.fillStyle = "#0a0a0a";
+    ctx.fillRect(-mapSize.x / 2, -mapSize.y / 2, mapSize.x, mapSize.y);
+};
+
+const drawRoom = (room, ctx, size, color, alpha) => {
+    ctx.fillStyle = color ? hexToRgba(color, alpha || 1) : room.terrain_color;
+
+    const roomPosition = getLocalPosition(room.coordinates);
+
+    ctx.fillRect(
+        roomPosition.x,
+        roomPosition.y,
+        size - gridInsetSize * 2,
+        size - gridInsetSize * 2,
+    );
+
+    drawSimpleRoomBorder(ctx, roomPosition, size, 1, "#404040");
+};
+
+const drawSimpleRoomBorder = (ctx, position, size, lineWidth, color) => {
+    ctx.lineWidth = lineWidth;
+    ctx.strokeStyle = color;
+    ctx.strokeRect(
+        position.x,
+        position.y,
+        size - gridInsetSize * 2,
+        size - gridInsetSize * 2,
+    );
+};
+
+function hexToRgba(hex, alpha) {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+function drawRegionExitArrow(ctx, room, size) {
+    const position = getLocalPosition(room.coordinates);
+    const centerX = position.x + (size - gridInsetSize * 2) / 2;
+    const centerY = position.y + (size - gridInsetSize * 2) / 2;
+    const arrowSize = size * 0.3;
+
+    ctx.fillStyle = "#FFD700";
+    ctx.strokeStyle = "#FFD700";
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    const exitDirection = room.exit_region_direction ?? "east";
+
+    ctx.beginPath();
+
+    switch (exitDirection) {
+        case RoomExitType.North.value:
+            ctx.moveTo(centerX, centerY - arrowSize / 2);
+            ctx.lineTo(centerX - arrowSize / 2, centerY + arrowSize / 2);
+            ctx.lineTo(centerX + arrowSize / 2, centerY + arrowSize / 2);
+            break;
+
+        case RoomExitType.South.value:
+            ctx.moveTo(centerX, centerY + arrowSize / 2);
+            ctx.lineTo(centerX - arrowSize / 2, centerY - arrowSize / 2);
+            ctx.lineTo(centerX + arrowSize / 2, centerY - arrowSize / 2);
+            break;
+
+        case RoomExitType.East.value:
+            ctx.moveTo(centerX + arrowSize / 2, centerY);
+            ctx.lineTo(centerX - arrowSize / 2, centerY - arrowSize / 2);
+            ctx.lineTo(centerX - arrowSize / 2, centerY + arrowSize / 2);
+            break;
+
+        case RoomExitType.West.value:
+            ctx.moveTo(centerX - arrowSize / 2, centerY);
+            ctx.lineTo(centerX + arrowSize / 2, centerY - arrowSize / 2);
+            ctx.lineTo(centerX + arrowSize / 2, centerY + arrowSize / 2);
+            break;
+
+        case RoomExitType.Up.value:
+            ctx.moveTo(centerX, centerY - arrowSize / 3);
+            ctx.lineTo(centerX - arrowSize / 3, centerY);
+            ctx.lineTo(centerX + arrowSize / 3, centerY);
+            ctx.closePath();
+            ctx.fill();
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY + arrowSize / 3);
+            ctx.lineTo(centerX - arrowSize / 3, centerY + arrowSize / 6);
+            ctx.lineTo(centerX + arrowSize / 3, centerY + arrowSize / 6);
+            break;
+
+        case RoomExitType.Down.value:
+            ctx.moveTo(centerX, centerY + arrowSize / 3);
+            ctx.lineTo(centerX - arrowSize / 3, centerY);
+            ctx.lineTo(centerX + arrowSize / 3, centerY);
+            ctx.closePath();
+            ctx.fill();
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY - arrowSize / 3);
+            ctx.lineTo(centerX - arrowSize / 3, centerY - arrowSize / 6);
+            ctx.lineTo(centerX + arrowSize / 3, centerY - arrowSize / 6);
+            break;
+    }
+
+    ctx.closePath();
+    ctx.fill();
+}
+
+function drawPulsingRoom(ctx, position, size, width, time, color) {
+    const pulse = Math.sin(time * 0.003) * 0.15 + 0.17;
+
+    ctx.fillStyle = hexToRgba(color, pulse);
+    ctx.fillRect(
+        position.x,
+        position.y,
+        size - gridInsetSize * 2,
+        size - gridInsetSize * 2,
+    );
+}
+
+const drawRooms = () => {
+    const canvas = map.value;
+    if (!canvas) {
+        return;
+    }
+
+    const ctx = canvas.getContext("2d");
+    ctx.imageSmoothingEnabled = false;
+    const scaledSize = roomSize * zoom.value.current;
+    drawBackground();
+
+    roomsAtZ.value.forEach((room) => {
+        drawRoom(room, ctx, scaledSize);
+
+        if (room.exit_region) {
+            drawRegionExitArrow(ctx, room, scaledSize);
+        }
+
+        const bosses = room.mobs.filter(
+            (mob) => mob.type === MobType.Boss.value,
+        );
+
+        if (bosses.length > 0 && bossImage.value) {
+            const position = getLocalPosition(room.coordinates);
+            const imageScale = scaledSize / 2;
+
+            ctx.drawImage(
+                bossImage.value,
+                position.x + imageScale / 2,
+                position.y + imageScale / 2,
+                imageScale,
+                imageScale,
+            );
+        }
+    });
+
+    let lineWidth = 1;
+    let style = "#404040";
+
+    // if any highlights are selected, we need to redraw room borders on top
+    if (
+        filters.value.highlights.items ||
+        filters.value.highlights.mobs ||
+        filters.value.highlights.bosses
+    ) {
+        roomsAtZ.value
+            .filter(
+                (room) =>
+                    (room.mobs.length > 0 || room.items.length > 0) &&
+                    room !== selectedRoom.value,
+            )
+            .forEach((room) => {
+                if (room.items.length > 0 && filters.value.highlights.items) {
+                    style = "#29aecc";
+                    lineWidth = 3;
+                } else if (
+                    room.mobs.length > 0 &&
+                    filters.value.highlights.mobs
+                ) {
+                    style = "#FF0000";
+                    lineWidth = 3;
+                } else {
+                    return;
+                }
+
+                drawPulsingRoom(
+                    ctx,
+                    getLocalPosition(room.coordinates),
+                    scaledSize,
+                    lineWidth,
+                    Date.now(),
+                    style,
+                );
+            });
+    }
+
+    // draw the filtered room over anything else
+    if (filteredRooms.value.length > 0 && filters.value.global !== "") {
+        filteredRooms.value.forEach((filteredRoom) => {
+            if (
+                filteredRoom.coordinates !== selectedRoom.value?.coordinates &&
+                filteredRoom.coordinates.z === currentZ.value
+            ) {
+                drawPulsingRoom(
+                    ctx,
+                    getLocalPosition(filteredRoom.coordinates),
+                    scaledSize,
+                    3,
+                    Date.now(),
+                    "#f0d54d",
+                );
+            }
+        });
+    }
+
+    if (selectedRoom.value) {
+        drawSelectedRoomBorder(ctx, scaledSize, Date.now(), "#00d1c3");
+    }
+
+    if (hoveredRoom.value) {
+        drawRoom(hoveredRoom.value, ctx, scaledSize, "#FFFFFF", 0.2);
+    }
+};
+
+const handleMouseWheel = (event) => {
+    regionExitTooltip.value.visible = false;
+    event.preventDefault();
+    const rect = map.value.getBoundingClientRect();
+    const mousePosition = {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top,
+    };
+
+    const worldPosition = {
+        x: (mousePosition.x - offset.value.x) / zoom.value.current,
+        y: (mousePosition.y - offset.value.y) / zoom.value.current,
+    };
+    const delta = event.deltaY > 0 ? 0.9 : 1.1;
+
+    zoom.value.current = Math.min(
+        Math.max(zoom.value.min, zoom.value.current * delta),
+        zoom.value.max,
+    );
+    offset.value = {
+        x: mousePosition.x - worldPosition.x * zoom.value.current,
+        y: mousePosition.y - worldPosition.y * zoom.value.current,
+    };
+
+    drawRooms();
+};
+const handleMobClick = (mob) => {
+    router.get(
+        route("mob.show", {
+            mob: mob.slug,
+        }),
+    );
+};
+
+const handleRegionExitClick = () => {
+    router.get(
+        route("region.show", {
+            region: selectedRoom.value.exit_region.slug,
+        }),
+    );
+};
+
+const handleZLevelChange = (value) => {
+    regionExitTooltip.value.visible = false;
+    const rooms = props.region.rooms.filter(
+        (room) => room.coordinates.z === currentZ.value + value,
+    );
+
+    if (rooms.length > 0) {
+        currentZ.value += value;
+        roomsAtZ.value = rooms;
+        selectedRoom.value = null;
+        drawRooms();
+    }
+};
+
+const handleCanvasClick = (event) => {
+    const rect = map.value.getBoundingClientRect();
+    const room = getRoomAtPosition(
+        event.clientX - rect.left,
+        event.clientY - rect.top,
+    );
+
+    if (room) {
+        selectedRoom.value = room;
+
+        if (room.exit_region_id) {
+            regionExitTooltip.value = {
+                visible: true,
+                x: event.clientX,
+                y: event.clientY - 70,
+                room: room,
+            };
+        } else {
+            regionExitTooltip.value.visible = false;
+        }
+    }
+};
+
+const getLocalPosition = (coordinates) => {
+    return {
+        x:
+            Math.floor(
+                coordinates.x * roomSize * zoom.value.current + offset.value.x,
+            ) + gridInsetSize,
+        y:
+            Math.floor(
+                -coordinates.y * roomSize * zoom.value.current + offset.value.y,
+            ) + gridInsetSize,
+    };
+};
+
+function drawSelectedRoomBorder(ctx, size, time, color) {
+    const bracketLength = size * 0.3;
+    const offset = Math.sin(time * 0.004) * 2;
+
+    const position = getLocalPosition(selectedRoom.value.coordinates);
+    const x = position.x;
+    const y = position.y;
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+
+    ctx.beginPath();
+    ctx.moveTo(x - offset, y + bracketLength - offset);
+    ctx.lineTo(x - offset, y - offset);
+    ctx.lineTo(x + bracketLength - offset, y - offset);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(x + size - bracketLength + offset, y - offset);
+    ctx.lineTo(x + size + offset, y - offset);
+    ctx.lineTo(x + size + offset, y + bracketLength - offset);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(x - offset, y + size - bracketLength + offset);
+    ctx.lineTo(x - offset, y + size + offset);
+    ctx.lineTo(x + bracketLength - offset, y + size + offset);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(x + size - bracketLength + offset, y + size + offset);
+    ctx.lineTo(x + size + offset, y + size + offset);
+    ctx.lineTo(x + size + offset, y + size - bracketLength + offset);
+    ctx.stroke();
+}
+
+const getMobOrItemFromName = (value) => {
+    selectedRoom.value =
+        props.region.rooms.filter((room) => {
+            return (
+                room.items.some((item) =>
+                    item.name.toLowerCase().includes(value.toLowerCase()),
+                ) ||
+                room.mobs.some((mob) =>
+                    mob.name.toLowerCase().includes(value.toLowerCase()),
+                )
+            );
+        })[0] ?? null;
+    currentZ.value = selectedRoom.value.coordinates.z ?? 0;
+
+    roomsAtZ.value = props.region.rooms.filter(
+        (room) => room.coordinates.z === currentZ.value,
+    );
+
+    drawRooms();
+};
+</script>
+
+<template>
+    <Head :title="`Map`" />
+    <Drawer
+        v-model:visible="filtersVisible"
+        header="Filters"
+        :dismissable="false"
+        :modal="false"
+        class="w-full! xl:w-60! 2xl:w-[22rem]!"
+    >
+        <div class="grid grid-cols-1 gap-8">
+            <div>
+                <label>
+                    Highlighting
+                    <div class="grid grid-cols-2 gap-2 mt-2 ml-2 w-full">
+                        <div class="items-center flex">
+                            <Checkbox
+                                v-model="filters.highlights.mobs"
+                                binary
+                                class="cursor-pointer"
+                                input-id="mob-checkbox"
+                                @change="drawRooms"
+                            >
+                            </Checkbox>
+                            <label
+                                class="ml-4 cursor-pointer"
+                                for="mob-checkbox"
+                            >
+                                Mobs
+                            </label>
+                        </div>
+
+                        <div class="items-center flex">
+                            <Checkbox
+                                v-model="filters.highlights.items"
+                                binary
+                                class="cursor-pointer"
+                                input-id="item-checkbox"
+                                @change="drawRooms"
+                            >
+                            </Checkbox>
+                            <label
+                                class="ml-4 cursor-pointer"
+                                for="item-checkbox"
+                            >
+                                Items
+                            </label>
+                        </div>
+                    </div>
+                </label>
+            </div>
+            <div>
+                <label>
+                    Z-Level: {{ currentZ }}
+                    <Button
+                        icon="pi pi-arrow-up"
+                        size="small"
+                        variant="outlined"
+                        rounded
+                        severity="contrast"
+                        @click="handleZLevelChange(1)"
+                    ></Button>
+                    <Button
+                        icon="pi pi-arrow-down"
+                        size="small"
+                        variant="outlined"
+                        rounded
+                        severity="contrast"
+                        @click="handleZLevelChange(-1)"
+                    ></Button>
+                </label>
+                <p class="text-sm">({{ minZ }} to {{ maxZ }})</p>
+            </div>
+            <div>
+                <Accordion value="0">
+                    <AccordionPanel value="0">
+                        <AccordionHeader>
+                            <h1 class="text-xl font-bold">
+                                Mobs in {{ props.region.name }}
+                            </h1>
+                        </AccordionHeader>
+                        <AccordionContent class="max-h-60 overflow-y-auto">
+                            <Button
+                                v-for="mob in props.mobs"
+                                :key="mob.id"
+                                class="w-full flex justify-between mt-2"
+                                severity="secondary"
+                                @click="getMobOrItemFromName(mob.name)"
+                            >
+                                <img
+                                    v-if="mob.type === MobType.Boss.value"
+                                    src="https://cdn-icons-png.flaticon.com/128/2545/2545603.png"
+                                    class="w-4"
+                                />
+                                <p class="w-full text-left">
+                                    {{ mob.name }}
+                                </p>
+                                <p
+                                    v-if="mob.tier !== MobTier.Normal.value"
+                                    class="text-red-500"
+                                >
+                                    {{ mob.tier }}
+                                </p>
+                                <p class="w-full text-right q">
+                                    Lvl: {{ mob.level }}
+                                </p>
+                            </Button>
+                        </AccordionContent>
+                    </AccordionPanel>
+                </Accordion>
+            </div>
+            <div>
+                <Accordion value="1">
+                    <AccordionPanel value="1">
+                        <AccordionHeader>
+                            <h1 class="text-xl font-bold">
+                                Items in {{ props.region.name }}
+                            </h1>
+                        </AccordionHeader>
+                        <AccordionContent class="max-h-60 overflow-y-auto">
+                            <div
+                                v-for="item in props.items"
+                                :key="item.id"
+                                class="flex flex-col"
+                            >
+                                <p
+                                    class="mt-4 cursor-pointer"
+                                    @click="getMobOrItemFromName(item.name)"
+                                >
+                                    <Tipper :data="item"></Tipper>
+                                </p>
+                            </div>
+                        </AccordionContent>
+                    </AccordionPanel>
+                </Accordion>
+            </div>
+        </div>
+    </Drawer>
+    <Drawer
+        v-model:visible="selectedRoom"
+        header="Selected Room"
+        :dismissable="false"
+        :modal="false"
+        position="right"
+        class="w-full! xl:w-60! 2xl:w-[25rem]!"
+        size="lg"
+    >
+        <div class="flex flex-col gap-8">
+            <div>
+                <h1 class="text-xl font-bold">
+                    {{ selectedRoom.name }}
+                </h1>
+                <p class="pt-5 max-h-100 overflow-y-auto text-sm">
+                    {{ selectedRoom.description }}
+                </p>
+            </div>
+            <Accordion value="0">
+                <AccordionPanel value="0">
+                    <AccordionHeader>
+                        <h1 class="text-xl font-bold">
+                            Mobs in {{ selectedRoom.name }}
+                        </h1>
+                    </AccordionHeader>
+                    <AccordionContent>
+                        <Button
+                            v-for="mob in selectedRoom.mobs"
+                            :key="mob.id"
+                            class="w-full flex justify-between mt-2"
+                            severity="secondary"
+                            @click="handleMobClick(mob)"
+                        >
+                            <img
+                                v-if="mob.type === MobType.Boss.value"
+                                src="https://cdn-icons-png.flaticon.com/128/2545/2545603.png"
+                                class="w-4"
+                            />
+                            <p class="w-full text-left">{{ mob.name }}</p>
+                            <p
+                                v-if="mob.tier !== MobTier.Normal.value"
+                                class="text-red-500 capitalize"
+                            >
+                                {{ mob.tier }}
+                            </p>
+                            <p class="w-full text-right q">
+                                Lvl: {{ mob.level }}
+                            </p>
+                        </Button>
+                    </AccordionContent>
+                </AccordionPanel>
+            </Accordion>
+            <Accordion value="1">
+                <AccordionPanel value="1">
+                    <AccordionHeader>
+                        <h1 class="text-xl font-bold">
+                            Items in {{ selectedRoom.name }}
+                        </h1>
+                    </AccordionHeader>
+                    <AccordionContent>
+                        <div
+                            v-for="item in selectedRoom.items"
+                            :key="item.id"
+                            class="flex flex-col"
+                        >
+                            <Link
+                                class="mt-4"
+                                :href="
+                                    route('item.show', {
+                                        item: item.slug,
+                                    })
+                                "
+                            >
+                                <Tipper :data="item"></Tipper>
+                            </Link>
+                        </div>
+                    </AccordionContent>
+                </AccordionPanel>
+            </Accordion>
+            <div v-if="selectedRoom && selectedRoom.exit_region_id">
+                <div class="flex items-center">
+                    <h1 class="text-xl">
+                        This room exits to {{ selectedRoom.exit_region.name }}
+                    </h1>
+                    <Button
+                        icon="pi pi-arrow-right"
+                        class="ml-3"
+                        rounded
+                        size="small"
+                        severity="secondary"
+                        variant="text"
+                        @click="handleRegionExitClick"
+                    ></Button>
+                </div>
+            </div>
+            <div v-if="selectedRoom" class="flex">
+                <h1 class="text-xl mr-5">Room Exits:</h1>
+                <div
+                    v-for="exit in selectedRoom.exits"
+                    :key="exit"
+                    class="mr-1"
+                >
+                    <div
+                        v-if="exit === RoomExitType.North.value"
+                        class="pi pi-arrow-up"
+                    ></div>
+                    <div
+                        v-if="exit === RoomExitType.West.value"
+                        class="pi pi-arrow-left"
+                    ></div>
+                    <div
+                        v-if="exit === RoomExitType.East.value"
+                        class="pi pi-arrow-right"
+                    ></div>
+                    <div
+                        v-if="exit === RoomExitType.South.value"
+                        class="pi pi-arrow-down"
+                    ></div>
+                    <div
+                        v-if="exit === RoomExitType.Down.value"
+                        class="pi pi-angle-double-down"
+                    ></div>
+                    <div
+                        v-if="exit === RoomExitType.Up.value"
+                        class="pi pi-angle-double-up"
+                    ></div>
+                </div>
+            </div>
+        </div>
+    </Drawer>
+    <Button
+        v-if="!filtersVisible"
+        class="mt-5 mb-5 pi pi-arrow-left"
+        @click="filtersVisible = true"
+    >
+        Map Options</Button
+    >
+    <h1 class="w-full text-center text-4xl pb-3">{{ region.name }}</h1>
+    <div class="w-full flex justify-center">
+        <div
+            ref="canvasContainer"
+            class="h-[calc(100vh-200px)] lg:min-w-5xl border overflow-auto"
+            @resize="updateCanvasSize"
+        >
+            <canvas
+                ref="map"
+                class="cursor-grab"
+                :class="{
+                    'cursor-pointer': hoveredRoom !== undefined,
+                    'cursor-grabbing': dragging,
+                }"
+                :width="canvasSize.width"
+                :height="canvasSize.height"
+                @mousedown="handleMouseDown"
+                @mousemove="handleMouseMove"
+                @mouseup="handleMouseUp"
+                @mouseleave="handleMouseMove"
+                @click="handleCanvasClick"
+                @wheel="handleMouseWheel"
+                @resize="updateCanvasSize"
+            >
+            </canvas>
+
+            <Transition
+                enter-active-class="transition-all duration-200"
+                leave-active-class="transition-all duration-150"
+                enter-from-class="opacity-0 scale-95"
+                leave-to-class="opacity-0 scale-95"
+            >
+                <div
+                    v-if="regionExitTooltip.visible && regionExitTooltip.room"
+                    :style="{
+                        position: 'fixed',
+                        left: `${regionExitTooltip.x}px`,
+                        top: `${regionExitTooltip.y}px`,
+                        transform: 'translateX(-50%)',
+                    }"
+                    @click="handleRegionExitClick"
+                >
+                    <div
+                        class="bg-gray-900 border-2 border-yellow-500 rounded-lg px-3 py-2 shadow-2xl backdrop-blur cursor-pointer transition-all hover:bg-gray-800 hover:border-yellow-400 hover:shadow-3xl"
+                    >
+                        <div class="flex items-center gap-2.5">
+                            <span
+                                class="text-yellow-400 text-sm whitespace-nowrap"
+                            >
+                                Go to
+                                <span class="font-bold">{{
+                                    regionExitTooltip.room.exit_region.name
+                                }}</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div
+                        class="w-0 h-0 mx-auto mt-[-1px]"
+                        style="
+                            border-left: 8px solid transparent;
+                            border-right: 8px solid transparent;
+                            border-top: 8px solid rgb(234, 179, 8);
+                        "
+                    ></div>
+                </div>
+            </Transition>
+        </div>
+    </div>
+</template>

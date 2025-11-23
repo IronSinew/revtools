@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\ClassType;
 use App\Models\Mob;
+use App\Models\Region;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -54,10 +55,13 @@ class MobController extends Controller
 
     public function show(Mob $Mob, Request $request): Response
     {
-        $Mob->loadMissing('items');
+        $Mob->loadMissing(['items']);
 
         return inertia('Mob/MobView', [
             'mob' => fn () => $Mob,
+            'regions' => fn () => Region::query()
+                ->whereHas('rooms.mobs', fn ($query) => $query->where('mob_id', $Mob->id))
+                ->get(),
         ]);
     }
 }

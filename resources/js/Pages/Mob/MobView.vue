@@ -17,6 +17,13 @@ const props = defineProps({
             return [];
         },
     },
+    regions: {
+        type: [Array, Object],
+        required: false,
+        default() {
+            return [];
+        },
+    },
 });
 
 const breadcrumbs = ref([
@@ -71,6 +78,25 @@ const breadcrumbs = ref([
                             </div>
                         </div>
                     </div>
+                    <Fieldset v-if="regions.length" legend="Locations">
+                        <template
+                            v-for="region in props.regions"
+                            :key="region.id"
+                        >
+                            <div class="mt-2">
+                                <Link
+                                    :href="
+                                        route('region.show', {
+                                            region: region.slug,
+                                            search: props.mob.name,
+                                        })
+                                    "
+                                >
+                                    {{ region.name }}
+                                </Link>
+                            </div>
+                        </template>
+                    </Fieldset>
                     <Fieldset v-if="mob.items?.length" legend="Drops">
                         <template
                             v-for="item in mob.items"

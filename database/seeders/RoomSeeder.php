@@ -106,11 +106,24 @@ class RoomSeeder extends Seeder
 
         $roomsWithExits = Room::with('region')->whereNotNull(['exit_region_id', 'exits'])->get();
 
+        $batchUpdates = [];
         foreach ($roomsWithExits as $room) {
             $allCoordinates = $rooms[$room->region_id] ?? collect();
             $direction = $this->determineExitDirection($room, $allCoordinates);
 
-            $room->update(['exit_region_direction' => $direction]);
+            $batchUpdates[] = [
+                'id' => $room->id,
+                'exit_region_direction' => $direction->value,
+            ];
+
+            if (count($batchUpdates) > 500) {
+                Room::batchUpdate($batchUpdates, 'id');
+                $batchUpdates = [];
+            }
+        }
+
+        if (! empty($batchUpdates)) {
+            Room::batchUpdate($batchUpdates, 'id');
         }
 
         Region::all()->each(function (Region $region) {

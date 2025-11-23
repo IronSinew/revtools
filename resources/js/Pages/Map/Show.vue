@@ -776,7 +776,7 @@ const getMobOrItemFromName = (value) => {
                             <p class="w-full text-left">{{ mob.name }}</p>
                             <p
                                 v-if="mob.tier !== MobTier.Normal.value"
-                                class="text-red-500"
+                                class="text-red-500 capitalize"
                             >
                                 {{ mob.tier }}
                             </p>
@@ -926,7 +926,6 @@ const getMobOrItemFromName = (value) => {
                                     regionExitTooltip.room.exit_region.name
                                 }}</span>
                             </span>
-                            <i class="pi pi-arrow-right text-yellow-400"></i>
                         </div>
                     </div>
                     <div

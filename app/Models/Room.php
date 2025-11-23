@@ -9,12 +9,15 @@ use App\ValueObjects\Regions\RoomPosition;
 use Illuminate\Database\Eloquent\Casts\AsEnumCollection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Mavinoo\Batch\Traits\HasBatch;
 
 /**
  * @mixin IdeHelperRoom
  */
 class Room extends BaseModel
 {
+    use HasBatch;
+
     protected $guarded = [];
 
     protected function casts(): array
@@ -30,12 +33,15 @@ class Room extends BaseModel
     public function mobs(): BelongsToMany
     {
         return $this->belongsToMany(Mob::class)
+            ->orderBy('level', 'desc')
             ->using(MobRoom::class);
     }
 
     public function items(): BelongsToMany
     {
         return $this->belongsToMany(Item::class)
+            ->orderBy('type', 'desc')
+            ->orderBy('effective_required_level', 'desc')
             ->using(ItemRoom::class);
     }
 

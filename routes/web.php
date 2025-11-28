@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Base64DecodeImageController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ImportQuestDataController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MobController;
 use App\Http\Controllers\MultiItemController;
@@ -21,6 +22,8 @@ Route::prefix('/items')->name('item.')->group(function () {
 });
 Route::resource('quest', QuestController::class)->only(['index', 'show']);
 Route::resource('region', RegionController::class)->only(['index', 'show']);
+
+Route::post('/import-quest', ImportQuestDataController::class)->name('import.quest');
 
 Route::post('/search-simple', SearchSimpleController::class)->name('search.simple');
 Route::get('/multi-item/{items?}', MultiItemController::class)->name('item.multi');

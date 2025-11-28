@@ -1,8 +1,10 @@
 <script setup>
 import { Deferred, Link, router, usePage } from "@inertiajs/vue3";
+import Dialog from "@volt/Dialog.vue";
 import Drawer from "@volt/Drawer.vue";
 import VoltInputText from "@volt/InputText.vue";
 import VoltButton from "@volt/SecondaryButton.vue";
+import Textarea from "@volt/Textarea.vue";
 import Button from "primevue/button";
 import Checkbox from "primevue/checkbox";
 import Column from "primevue/column";
@@ -15,6 +17,7 @@ import Select from "primevue/select";
 import Slider from "primevue/slider";
 import { useToast } from "primevue/usetoast";
 import { computed, onMounted, ref } from "vue";
+import { route } from "ziggy-js";
 
 import Tipper from "@/Components/Tipper.vue";
 import ClassType from "@/Composables/GeneratedEnumObjects/ClassType.json";
@@ -184,6 +187,47 @@ const handleDeleteCharacter = (name) => {
     }
 };
 
+const importVisible = ref(false);
+const importInput = ref("");
+
+const handleQuestImport = async () => {
+    const currentText = "--- Current Quests ---";
+    const completedText = "--- Completed Quests ---";
+
+    const lines = importInput.value.split("\n");
+    if (lines.length === 0 || !lines[0].includes(currentText)) {
+        console.log(lines[0]);
+        return;
+    }
+
+    let completedQuests = [];
+    for (let i = 0; i < lines.length; i++) {
+        if (lines[i].includes(completedText)) {
+            completedQuests = lines.slice(i + 1, lines.length);
+        }
+    }
+
+    await axios
+        .post(route("import.quest"), {
+            names: completedQuests,
+        })
+        .then(({ data }) => {
+            _.find(characters.value, { name: character.value.name }).quests =
+                data.questsCompleted;
+
+            localStorage.setItem(
+                localStorageCharacterKey,
+                JSON.stringify(characters.value),
+            );
+
+            importVisible.value = false;
+            router.reload({ only: ["table"] });
+            toast.add({
+                detail: "Quests imported successfully",
+            });
+        });
+};
+
 const rowClass = (data) => {
     return {
         "line-through opacity-20": character.value.quests.includes(data.id),
@@ -193,6 +237,25 @@ const rowClass = (data) => {
 
 <template>
     <Head :title="`Quests`" />
+
+    <Dialog v-model:visible="importVisible" modal>
+        <template #header>
+            <h1>Quest Data Importer</h1>
+        </template>
+        <p class="mb-4">
+            Type /quests in Revelation and paste the output into the text box
+            below
+        </p>
+        <Textarea
+            v-model="importInput"
+            class="w-full resize-none h-40"
+        ></Textarea>
+        <template #footer>
+            <div class="flex justify-end">
+                <Button @click="handleQuestImport">Submit</Button>
+            </div>
+        </template>
+    </Dialog>
 
     <div class="px-6 lg:px-0 py-12">
         <Drawer
@@ -333,6 +396,9 @@ const rowClass = (data) => {
                             </template>
                         </Select>
                     </div>
+                    <Button v-if="character.name" @click="importVisible = true">
+                        Import
+                    </Button>
                 </div>
                 <div class="text-right">
                     <Message

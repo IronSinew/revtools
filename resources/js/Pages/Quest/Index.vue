@@ -145,6 +145,7 @@ const handleCreateCharacter = () => {
     if (!characterNameInput.value) {
         toast.add({
             detail: "Name is required",
+            life: 3000,
         });
         characterInputIsInvalid.value = true;
 
@@ -189,6 +190,7 @@ const handleDeleteCharacter = (name) => {
 
 const importVisible = ref(false);
 const importInput = ref("");
+const importError = ref("");
 
 const handleQuestImport = async () => {
     const currentText = "--- Current Quests ---";
@@ -196,7 +198,8 @@ const handleQuestImport = async () => {
 
     const lines = importInput.value.split("\n");
     if (lines.length === 0 || !lines[0].includes(currentText)) {
-        console.log(lines[0]);
+        importError.value =
+            "Quests could not be parsed. Make sure you are copying the full output of the /quests command";
         return;
     }
 
@@ -215,16 +218,22 @@ const handleQuestImport = async () => {
             _.find(characters.value, { name: character.value.name }).quests =
                 data.questsCompleted;
 
+            character.value.quests = data.questsCompleted;
+
             localStorage.setItem(
                 localStorageCharacterKey,
                 JSON.stringify(characters.value),
             );
 
             importVisible.value = false;
-            router.reload({ only: ["table"] });
             toast.add({
                 detail: "Quests imported successfully",
+                severity: "success",
+                life: 3000,
             });
+
+            importError.value = "";
+            importInput.value = "";
         });
 };
 
@@ -246,6 +255,10 @@ const rowClass = (data) => {
             Type /quests in Revelation and paste the output into the text box
             below
         </p>
+        <Message v-if="importError" severity="error" class="mb-2" >
+          <i class="pi pi-info-circle mr-2"></i>
+          <span>{{ importError }}</span>
+        </Message>
         <Textarea
             v-model="importInput"
             class="w-full resize-none h-40"

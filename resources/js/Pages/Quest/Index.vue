@@ -183,7 +183,7 @@ const handleDeleteCharacter = (name) => {
         JSON.stringify(characters.value),
     );
 
-    if (characters.value.length === 0) {
+    if (characters.value.length === 0 || character.value.name === name) {
         character.value = { name: "", quests: [] };
     }
 };
@@ -255,9 +255,9 @@ const rowClass = (data) => {
             Type /quests in Revelation and paste the output into the text box
             below
         </p>
-        <Message v-if="importError" severity="error" class="mb-2" >
-          <i class="pi pi-info-circle mr-2"></i>
-          <span>{{ importError }}</span>
+        <Message v-if="importError" severity="error" class="mb-2">
+            <i class="pi pi-info-circle mr-2"></i>
+            <span>{{ importError }}</span>
         </Message>
         <Textarea
             v-model="importInput"
@@ -361,57 +361,67 @@ const rowClass = (data) => {
                     />
                     <div>
                         <label>Track Completion by Character</label>
-                        <Select
-                            v-model="character.name"
-                            :options="characters"
-                            option-value="name"
-                            option-label="name"
-                            placeholder="Select a Character"
-                            class="w-full mb-4"
-                            :show-clear="true"
-                            @change="loadCharacterQuests(character)"
-                        >
-                            <template #header>
-                                <div>
-                                    <div class="flex items-stretch flex-auto">
-                                        <VoltInputText
-                                            v-model="characterNameInput"
-                                            placeholder="Character Name"
-                                            pt:root="flex-1 rounded-e-none rounded-s-md"
-                                            :invalid="characterInputIsInvalid"
-                                        />
-                                        <VoltButton
-                                            label="Add"
-                                            icon="pi pi-plus"
-                                            pt:root="rounded-s-none"
-                                            @click="handleCreateCharacter"
-                                        />
+                        <div class="flex items-center mb-4 w-full">
+                            <Select
+                                v-model="character.name"
+                                :options="characters"
+                                option-value="name"
+                                option-label="name"
+                                placeholder="Select a Character"
+                                class="w-full"
+                                :show-clear="true"
+                                @change="loadCharacterQuests(character)"
+                            >
+                                <template #header>
+                                    <div>
+                                        <div
+                                            class="flex items-stretch flex-auto"
+                                        >
+                                            <VoltInputText
+                                                v-model="characterNameInput"
+                                                placeholder="Character Name"
+                                                pt:root="flex-1 rounded-e-none rounded-s-md"
+                                                :invalid="
+                                                    characterInputIsInvalid
+                                                "
+                                            />
+                                            <VoltButton
+                                                label="Add"
+                                                icon="pi pi-plus"
+                                                pt:root="rounded-s-none"
+                                                @click="handleCreateCharacter"
+                                            />
+                                        </div>
                                     </div>
-                                </div>
-                            </template>
-                            <template #option="slotProps">
-                                <div
-                                    class="flex w-full justify-between items-center"
-                                >
-                                    <div>{{ slotProps.option.name }}</div>
-                                    <Button
-                                        icon="pi pi-trash"
-                                        severity="danger"
-                                        size="small"
-                                        raised
-                                        @mousedown.stop="
-                                            handleDeleteCharacter(
-                                                slotProps.option.name,
-                                            )
-                                        "
-                                    ></Button>
-                                </div>
-                            </template>
-                        </Select>
+                                </template>
+                                <template #option="slotProps">
+                                    <div
+                                        class="flex w-full justify-between items-center"
+                                    >
+                                        <div>{{ slotProps.option.name }}</div>
+                                        <Button
+                                            icon="pi pi-trash"
+                                            severity="danger"
+                                            size="small"
+                                            raised
+                                            @mousedown.stop="
+                                                handleDeleteCharacter(
+                                                    slotProps.option.name,
+                                                )
+                                            "
+                                        ></Button>
+                                    </div>
+                                </template>
+                            </Select>
+                            <VoltButton
+                                v-if="character.name"
+                                class="ml-1"
+                                @click="importVisible = true"
+                            >
+                                Import
+                            </VoltButton>
+                        </div>
                     </div>
-                    <Button v-if="character.name" @click="importVisible = true">
-                        Import
-                    </Button>
                 </div>
                 <div class="text-right">
                     <Message

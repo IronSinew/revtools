@@ -30,7 +30,11 @@ class ItemSeeder extends Seeder
         foreach (JsonParser::parse($file) as $key => $rawItem) {
             $classTypes = [];
             foreach (array_filter(explode('&', $rawItem['RequiredClass'])) as $className) {
-                $classTypes[] = ClassType::from(\Str::lower(trim($className)));
+                try {
+                    $classTypes[] = ClassType::from(\Str::lower(trim($className)));
+                } catch (\Throwable $e) {
+                    echo $e->getMessage();
+                }
             }
 
             $effects = $this->getEffects($rawItem);
@@ -151,6 +155,7 @@ class ItemSeeder extends Seeder
                 ItemSlot::Potion => ItemSubType::Potion,
                 ItemSlot::Poison => ItemSubType::Poison,
                 ItemSlot::Scroll => ItemSubType::Scroll,
+                ItemSlot::Usable => ItemSubType::Usable,
             };
         }
 

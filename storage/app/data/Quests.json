@@ -81,7 +81,7 @@
     "Experience": 0,
     "Gold": 0,
     "RequiredLevel": 0,
-    "RequiredClass": "Priest Paladin Redeemer Paladin Redeemer",
+    "RequiredClass": "Priest Paladin Redeemer",
     "RequiredQuest": "",
     "RequiredClassFaction": "Defenders of the Faith",
     "NpcQuestGiver": "Theolate Ho",
@@ -7717,13 +7717,7 @@
     "NpcQuestGiver": "Freleck",
     "Objectives": [
       "Say \"drink\" to Freleck",
-      "Freleck gulps the last of his drink and says, \"Ooo lad if you're buying I'll never say no. Pull up a pew and maybe we can talk a little \\b\\ulbusiness\\b0\\ul0.",
-      "Say \"business\" to Freleck",
-      "Freleck taps the stool next to him and whispers, \"If you're interested in earning a pretty penny, I have just the job for a strapping fellow such as yourself. My brother \\b\\ulBregrel\\b0\\ul0 and I attempted to rob the vaults in Epiach Bank recently and well.. it didn't exactly go as planned.",
-      "Say \"bregrel\" to Freleck",
-      "Freleck takes another swig of his drink, \"Aye my brother and I had scoped the bank for months, putting together the perfect plan. Unfortunately on the day, to calm my nerves I had one too many ales and almost got myself caught, so now my brother is \\b\\ulstranded\\b0\\ul0 in the underground vault.",
-      "Say \"stranded\" to Freleck",
-      "Freleck sighs, \"Yes, he managed to pose as a weathly lord looking to store away some valuable items. He's waiting for me to return and break ito the \\b\\ulvaults\\b0\\ul0, but I'm not in a fit state as you can see.\"",
+      "Freleck gulps the last of his drink and says, \"Ooo lad if you're buying I'll never say no. If you're interested in earning a pretty penny, I have just the job for a strapping fellow such as yourself. My brother Bregrel and I attempted to rob the vaults in Epiach Bank recently and well.. it didn't exactly go as planned. Unfortunately on the day, to calm my nerves I had one too many ales and almost got myself caught, so now my brother is stranded in the underground vault. He cleverly posed as an Lord, putting away his valuables, awaiting for my return to finish the job and enter the \\b\\ulvaults\\b0\\ul0.",
       "Say \"vaults\" to Freleck",
       "Freleck whispers in your ear, \"Yes, below the bank there are 4 vaults, each with unimaginable riches to be had. If you're willing to join in for a share in the spoils, you'd need to disguise as a potential customer and go speak to my brother and see what he suggests. But to do that though we're going to need to get you some fake identification papers and those don't come cheap! Each set will cost you a \\cf14 Silver Bar\\cf2 . If you bring me one, I'll know you're serious. I have a guy that can get new papers drawn up straight away so hurry!",
       "Freleck yells as you head out of the Inn, \"Maybe don't tell my brother you met me in the inn yea? And good luck!\""
@@ -7779,7 +7773,6 @@
       "Say \"left10\" to Bregrel",
       "Say \"right15\" to Bregrel",
       "Say \"left14\" to Bregrel",
-      "Say \"right11\" to Bregrel",
       "Find Bregrel's Share",
       "Find Deposit Box",
       "Find Deposit Box",
@@ -9557,7 +9550,7 @@
     "RequiredClassFaction": "",
     "NpcQuestGiver": "Hephaestus the Legendary Blacksmith",
     "Objectives": [
-      "Say \"anvilboots\" to Hephaestus the Legendary Blacksmith",
+      "Say \"guards\" to Hephaestus the Legendary Blacksmith",
       "Hephaestus the Legendary Blacksmith says, \"Ohh? You've been battling the \\b\\uldwarves\\b0\\ul0 in the Workshop?\"",
       "Say \"dwarves\" to Hephaestus the Legendary Blacksmith",
       "Hephaestus the Legendary Blacksmith says, \"Well, I know a few tricks of the trade that I had learn from their culture! What?! Don't believe me?! Well bring me 5 each of their workshop creations, starting with \\b\\ulGearheart Cogforge\\b0\\ul0.\"",
@@ -9631,7 +9624,7 @@
     "RequiredClassFaction": "",
     "NpcQuestGiver": "Hephaestus the Legendary Blacksmith",
     "Objectives": [
-      "Say \"torque neck\" to Hephaestus the Legendary Blacksmith",
+      "Say \"torque\" to Hephaestus the Legendary Blacksmith",
       "Hephaestus the Legendary Blacksmith says, \"Ohh? You've been battling the \\b\\uldwarves\\b0\\ul0 in the Workshop?\"",
       "Say \"dwarves\" to Hephaestus the Legendary Blacksmith",
       "Hephaestus the Legendary Blacksmith says, \"Well, I know a few tricks of the trade that I had learn from their culture! What?! Don't believe me?! Well bring me 5 each of their workshop creations, starting with \\b\\ulGearheart Cogforge\\b0\\ul0.\"",
@@ -9705,7 +9698,7 @@
     "RequiredClassFaction": "",
     "NpcQuestGiver": "Hephaestus the Legendary Blacksmith",
     "Objectives": [
-      "Say \"chain neck\" to Hephaestus the Legendary Blacksmith",
+      "Say \"chain\" to Hephaestus the Legendary Blacksmith",
       "Hephaestus the Legendary Blacksmith says, \"Ohh? You've been battling the \\b\\uldwarves\\b0\\ul0 in the Workshop?\"",
       "Say \"dwarves\" to Hephaestus the Legendary Blacksmith",
       "Hephaestus the Legendary Blacksmith says, \"Well, I know a few tricks of the trade that I had learn from their culture! What?! Don't believe me?! Well bring me 5 each of their workshop creations, starting with \\b\\ulGearheart Cogforge\\b0\\ul0.\"",
@@ -9742,7 +9735,7 @@
     "RequiredClassFaction": "",
     "NpcQuestGiver": "Hephaestus the Legendary Blacksmith",
     "Objectives": [
-      "Say \"fire neck\" to Hephaestus the Legendary Blacksmith",
+      "Say \"fire sigil\" to Hephaestus the Legendary Blacksmith",
       "Hephaestus the Legendary Blacksmith says, \"Ohh? You've been battling the \\b\\uldwarves\\b0\\ul0 in the Workshop?\"",
       "Say \"dwarves\" to Hephaestus the Legendary Blacksmith",
       "Hephaestus the Legendary Blacksmith says, \"Well, I know a few tricks of the trade that I had learn from their culture! What?! Don't believe me?! Well bring me 5 each of their workshop creations, starting with \\b\\ulGearheart Cogforge\\b0\\ul0.\"",
@@ -9890,7 +9883,7 @@
     "RequiredClassFaction": "",
     "NpcQuestGiver": "Hephaestus the Legendary Blacksmith",
     "Objectives": [
-      "Say \"signet\" to Hephaestus the Legendary Blacksmith",
+      "Say \"dial\" to Hephaestus the Legendary Blacksmith",
       "Hephaestus the Legendary Blacksmith says, \"Ohh? You've been battling the \\b\\uldwarves\\b0\\ul0 in the Workshop?\"",
       "Say \"dwarves\" to Hephaestus the Legendary Blacksmith",
       "Hephaestus the Legendary Blacksmith says, \"Well, I know a few tricks of the trade that I had learn from their culture! What?! Don't believe me?! Well bring me 5 each of their workshop creations, starting with \\b\\ulGearheart Cogforge\\b0\\ul0.\"",
@@ -10001,7 +9994,7 @@
     "RequiredClassFaction": "",
     "NpcQuestGiver": "Hephaestus the Legendary Blacksmith",
     "Objectives": [
-      "Say \"shield\" to Hephaestus the Legendary Blacksmith",
+      "Say \"bastion\" to Hephaestus the Legendary Blacksmith",
       "Hephaestus the Legendary Blacksmith says, \"Ohh? You've been battling the \\b\\uldwarves\\b0\\ul0 in the Workshop?\"",
       "Say \"dwarves\" to Hephaestus the Legendary Blacksmith",
       "Hephaestus the Legendary Blacksmith says, \"Well, I know a few tricks of the trade that I had learn from their culture! What?! Don't believe me?! Well bring me 5 each of their workshop creations, starting with \\b\\ulGearheart Cogforge\\b0\\ul0.\"",

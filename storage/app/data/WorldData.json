@@ -30534,9 +30534,9 @@
           "Npcs": [
             {
               "NpcName": "A Dread Guardian of Serpolis",
-              "RespawnRate": 10,
+              "RespawnRate": 5,
               "Level": 100,
-              "Quantity": 1
+              "Quantity": 3
             }
           ],
           "RawExitFlags": "nnyynn",
@@ -35471,12 +35471,11 @@
           "ExitUp": false,
           "ExitDown": true,
           "ConnectedRooms": [
-            2,
-            206
+            2
           ],
           "Npcs": [],
           "RawExitFlags": "nnnyny",
-          "RawConnections": "2 206",
+          "RawConnections": "2",
           "IsZoneExit": false,
           "ExitToZone": "",
           "ExitToEntryPoint": 0
@@ -35497,10 +35496,7 @@
           "ExitUp": false,
           "ExitDown": false,
           "ConnectedRooms": [
-            3,
-            303,
-            304,
-            306
+            3
           ],
           "Npcs": [
             {
@@ -35517,7 +35513,7 @@
             }
           ],
           "RawExitFlags": "yyyynn",
-          "RawConnections": "3 303 304 306",
+          "RawConnections": "3",
           "IsZoneExit": false,
           "ExitToZone": "",
           "ExitToEntryPoint": 0
@@ -35538,11 +35534,7 @@
           "ExitUp": false,
           "ExitDown": false,
           "ConnectedRooms": [
-            3,
-            303,
-            304,
-            305,
-            306
+            3
           ],
           "Npcs": [
             {
@@ -35553,7 +35545,7 @@
             }
           ],
           "RawExitFlags": "yyyynn",
-          "RawConnections": "3 303 304 305 306",
+          "RawConnections": "3",
           "IsZoneExit": false,
           "ExitToZone": "",
           "ExitToEntryPoint": 0
@@ -35617,15 +35609,11 @@
           "ExitUp": false,
           "ExitDown": false,
           "ConnectedRooms": [
-            3,
-            303,
-            304,
-            305,
-            306
+            3
           ],
           "Npcs": [],
           "RawExitFlags": "yyyynn",
-          "RawConnections": "3 303 304 305 306",
+          "RawConnections": "3",
           "IsZoneExit": false,
           "ExitToZone": "",
           "ExitToEntryPoint": 0
@@ -35646,11 +35634,7 @@
           "ExitUp": false,
           "ExitDown": false,
           "ConnectedRooms": [
-            3,
-            303,
-            304,
-            305,
-            306
+            3
           ],
           "Npcs": [
             {
@@ -35661,7 +35645,7 @@
             }
           ],
           "RawExitFlags": "yyyynn",
-          "RawConnections": "3 303 304 305 306",
+          "RawConnections": "3",
           "IsZoneExit": false,
           "ExitToZone": "",
           "ExitToEntryPoint": 0
@@ -35681,12 +35665,7 @@
           "ExitWest": true,
           "ExitUp": false,
           "ExitDown": false,
-          "ConnectedRooms": [
-            303,
-            304,
-            305,
-            306
-          ],
+          "ConnectedRooms": [],
           "Npcs": [
             {
               "NpcName": "An Alabaster Titan",
@@ -35696,7 +35675,7 @@
             }
           ],
           "RawExitFlags": "yyyynn",
-          "RawConnections": "303 304 305 306",
+          "RawConnections": "",
           "IsZoneExit": false,
           "ExitToZone": "",
           "ExitToEntryPoint": 0
@@ -35782,11 +35761,7 @@
           "ExitDown": false,
           "ConnectedRooms": [
             1,
-            2,
-            303,
-            304,
-            305,
-            306
+            2
           ],
           "Npcs": [
             {
@@ -35803,7 +35778,7 @@
             }
           ],
           "RawExitFlags": "yyyynn",
-          "RawConnections": "1 2 303 304 305 306",
+          "RawConnections": "1 2",
           "IsZoneExit": false,
           "ExitToZone": "",
           "ExitToEntryPoint": 0
@@ -35862,10 +35837,7 @@
           "ExitWest": true,
           "ExitUp": false,
           "ExitDown": false,
-          "ConnectedRooms": [
-            304,
-            306
-          ],
+          "ConnectedRooms": [],
           "Npcs": [
             {
               "NpcName": "An Alabaster Titan",
@@ -35881,7 +35853,7 @@
             }
           ],
           "RawExitFlags": "nynynn",
-          "RawConnections": "304 306",
+          "RawConnections": "",
           "IsZoneExit": false,
           "ExitToZone": "",
           "ExitToEntryPoint": 0
@@ -35903,8 +35875,6 @@
           "ExitDown": false,
           "ConnectedRooms": [
             1,
-            304,
-            305,
             307
           ],
           "Npcs": [
@@ -35928,7 +35898,7 @@
             }
           ],
           "RawExitFlags": "nyynyn",
-          "RawConnections": "1 304 305 307",
+          "RawConnections": "1 307",
           "IsZoneExit": false,
           "ExitToZone": "",
           "ExitToEntryPoint": 0
@@ -38803,11 +38773,12 @@
           "ExitUp": false,
           "ExitDown": true,
           "ConnectedRooms": [
-            2
+            2,
+            208
           ],
           "Npcs": [],
           "RawExitFlags": "nynnny",
-          "RawConnections": "2",
+          "RawConnections": "2 208",
           "IsZoneExit": true,
           "ExitToZone": "Drakkarloch",
           "ExitToEntryPoint": 0
@@ -39160,9 +39131,7 @@
           "ExitDown": false,
           "ConnectedRooms": [
             1,
-            2,
-            206,
-            306
+            2
           ],
           "Npcs": [
             {
@@ -39173,7 +39142,7 @@
             }
           ],
           "RawExitFlags": "nynynn",
-          "RawConnections": "1 2 206 306",
+          "RawConnections": "1 2",
           "IsZoneExit": false,
           "ExitToZone": "",
           "ExitToEntryPoint": 0
@@ -67379,7 +67348,7 @@
         },
         "7": {
           "RoomId": 7,
-          "Name": "bad room",
+          "Name": "Freshly Cut Grass",
           "Description": "The grass here was recently cut. You can see a large house to the south.",
           "ColorCode": "",
           "TerrainColor": "deadgrass",
@@ -110391,7 +110360,7 @@
       "ZoneName": "Frozen Vale",
       "FileName": "frozen_vale.wdt",
       "FileKey": "frozen_vale",
-      "Version": "1.50",
+      "Version": "2.00",
       "TotalRooms": 141,
       "Rooms": {
         "0": {
@@ -113653,7 +113622,7 @@
           "X": -3,
           "Y": 0,
           "Z": -5,
-          "ExitNorth": false,
+          "ExitNorth": true,
           "ExitSouth": true,
           "ExitEast": true,
           "ExitWest": true,
@@ -113661,10 +113630,10 @@
           "ExitDown": false,
           "ConnectedRooms": [],
           "Npcs": [],
-          "RawExitFlags": "nyyynn",
+          "RawExitFlags": "yyyynn",
           "RawConnections": "",
-          "IsZoneExit": false,
-          "ExitToZone": "",
+          "IsZoneExit": true,
+          "ExitToZone": "The North Pole",
           "ExitToEntryPoint": 0
         },
         "125": {
@@ -175862,12 +175831,11 @@
           "ExitUp": false,
           "ExitDown": true,
           "ConnectedRooms": [
-            2,
-            203
+            2
           ],
           "Npcs": [],
           "RawExitFlags": "ynnnny",
-          "RawConnections": "2 203",
+          "RawConnections": "2",
           "IsZoneExit": false,
           "ExitToZone": "",
           "ExitToEntryPoint": 0
@@ -233988,7 +233956,7 @@
           "Npcs": [
             {
               "NpcName": "A Majestic Elite Commander",
-              "RespawnRate": 4,
+              "RespawnRate": 2,
               "Level": 100,
               "Quantity": 1
             }
@@ -238014,7 +237982,7 @@
           "Npcs": [
             {
               "NpcName": "A Sassaren Commander",
-              "RespawnRate": 20,
+              "RespawnRate": 2,
               "Level": 100,
               "Quantity": 1
             }
@@ -244120,9 +244088,9 @@
           "Npcs": [
             {
               "NpcName": "A Dread Guardian of Serpolis",
-              "RespawnRate": 10,
+              "RespawnRate": 5,
               "Level": 100,
-              "Quantity": 2
+              "Quantity": 3
             }
           ],
           "RawExitFlags": "nyynnn",
@@ -266909,7 +266877,7 @@
       "FileName": "SpiritRealm.wdt",
       "FileKey": "SpiritRealm",
       "Version": "2.00",
-      "TotalRooms": 367,
+      "TotalRooms": 366,
       "Rooms": {
         "0": {
           "RoomId": 0,
@@ -274999,35 +274967,45 @@
         },
         "310": {
           "RoomId": 310,
-          "Name": "24",
-          "Description": "\\cf10 1 100 2",
+          "Name": "Secret Room",
+          "Description": "This secret room is filled with training opportunities and shops.",
           "ColorCode": "",
-          "TerrainColor": "nnyynn 1 100 2",
-          "X": 0,
-          "Y": 1,
-          "Z": 100,
+          "TerrainColor": "gray",
+          "X": 15,
+          "Y": -11,
+          "Z": 0,
           "ExitNorth": false,
           "ExitSouth": false,
           "ExitEast": false,
-          "ExitWest": false,
+          "ExitWest": true,
           "ExitUp": false,
           "ExitDown": false,
           "ConnectedRooms": [
-            0,
             1,
-            100,
             2
           ],
           "Npcs": [
             {
-              "NpcName": "0",
-              "RespawnRate": 1,
+              "NpcName": "Trainer of the Shadows",
+              "RespawnRate": 0,
               "Level": 100,
-              "Quantity": 2
+              "Quantity": 1
+            },
+            {
+              "NpcName": "Banker of the Shadows",
+              "RespawnRate": 0,
+              "Level": 100,
+              "Quantity": 1
+            },
+            {
+              "NpcName": "Shopkeeper of the Shadows",
+              "RespawnRate": 0,
+              "Level": 100,
+              "Quantity": 1
             }
           ],
-          "RawExitFlags": "The 1 100 2",
-          "RawConnections": "0 1 100 2",
+          "RawExitFlags": "nnnynn",
+          "RawConnections": "1 2",
           "IsZoneExit": false,
           "ExitToZone": "",
           "ExitToEntryPoint": 0
@@ -276577,57 +276555,6 @@
           "IsZoneExit": false,
           "ExitToZone": "",
           "ExitToEntryPoint": 0
-        },
-        "366": {
-          "RoomId": 366,
-          "Name": "Secret Room",
-          "Description": "This secret room is filled with training opportunities and shops.",
-          "ColorCode": "",
-          "TerrainColor": "gray",
-          "X": 15,
-          "Y": -11,
-          "Z": 0,
-          "ExitNorth": false,
-          "ExitSouth": false,
-          "ExitEast": false,
-          "ExitWest": true,
-          "ExitUp": false,
-          "ExitDown": false,
-          "ConnectedRooms": [
-            1,
-            2
-          ],
-          "Npcs": [
-            {
-              "NpcName": "Bazaar of the Shadows",
-              "RespawnRate": 0,
-              "Level": 100,
-              "Quantity": 1
-            },
-            {
-              "NpcName": "Banker of the Shadows",
-              "RespawnRate": 0,
-              "Level": 100,
-              "Quantity": 1
-            },
-            {
-              "NpcName": "Shopkeeper of the Shadows",
-              "RespawnRate": 0,
-              "Level": 100,
-              "Quantity": 1
-            },
-            {
-              "NpcName": "Trainer of the Shadows",
-              "RespawnRate": 0,
-              "Level": 100,
-              "Quantity": 1
-            }
-          ],
-          "RawExitFlags": "nnnynn",
-          "RawConnections": "1 2",
-          "IsZoneExit": false,
-          "ExitToZone": "",
-          "ExitToEntryPoint": 0
         }
       },
       "MinX": -1,
@@ -276635,7 +276562,7 @@
       "MinY": -44,
       "MaxY": 12,
       "MinZ": 0,
-      "MaxZ": 100
+      "MaxZ": 0
     },
     "SubWaterways": {
       "ZoneName": "Subterranean Waterways",
@@ -339382,9 +339309,9 @@
           "Npcs": [
             {
               "NpcName": "A Lesser Basilisk",
-              "RespawnRate": 2,
+              "RespawnRate": 1,
               "Level": 100,
-              "Quantity": 1
+              "Quantity": 3
             }
           ],
           "RawExitFlags": "yynynn",
@@ -339490,9 +339417,9 @@
           "Npcs": [
             {
               "NpcName": "A Basilisk",
-              "RespawnRate": 4,
+              "RespawnRate": 1,
               "Level": 100,
-              "Quantity": 1
+              "Quantity": 3
             }
           ],
           "RawExitFlags": "yynnnn",
@@ -339581,9 +339508,9 @@
           "Npcs": [
             {
               "NpcName": "A Basilisk",
-              "RespawnRate": 2,
+              "RespawnRate": 1,
               "Level": 100,
-              "Quantity": 2
+              "Quantity": 3
             }
           ],
           "RawExitFlags": "ynynnn",
@@ -339614,9 +339541,9 @@
           "Npcs": [
             {
               "NpcName": "A Lesser Basilisk",
-              "RespawnRate": 3,
+              "RespawnRate": 1,
               "Level": 100,
-              "Quantity": 1
+              "Quantity": 3
             }
           ],
           "RawExitFlags": "ynyynn",
@@ -339649,7 +339576,7 @@
               "NpcName": "A Basilisk",
               "RespawnRate": 1,
               "Level": 100,
-              "Quantity": 1
+              "Quantity": 3
             }
           ],
           "RawExitFlags": "nnynnn",
@@ -339703,9 +339630,9 @@
           "Npcs": [
             {
               "NpcName": "A Lesser Basilisk",
-              "RespawnRate": 2,
+              "RespawnRate": 1,
               "Level": 100,
-              "Quantity": 1
+              "Quantity": 3
             }
           ],
           "RawExitFlags": "ynnnnn",
@@ -350459,26 +350386,6 @@
         "EntryPointNumber": 0
       }
     ],
-    "Bibby's Bear Cave": [
-      {
-        "X": 3,
-        "Y": 4,
-        "Z": 0,
-        "EntryPointNumber": 0
-      },
-      {
-        "X": -2,
-        "Y": 4,
-        "Z": 0,
-        "EntryPointNumber": 1
-      },
-      {
-        "X": 0,
-        "Y": 0,
-        "Z": 0,
-        "EntryPointNumber": 2
-      }
-    ],
     "Nithalak's Ancient Crypt": [
       {
         "X": 0,
@@ -352792,29 +352699,6 @@
         "Z": 0,
         "TargetEntryPoint": 3,
         "TargetZone": "Coranin Forest"
-      }
-    ],
-    "Bibby's Bear Cave": [
-      {
-        "X": -1,
-        "Y": 4,
-        "Z": 0,
-        "TargetEntryPoint": 0,
-        "TargetZone": "Bibby's Bear Cave"
-      },
-      {
-        "X": 2,
-        "Y": 4,
-        "Z": 0,
-        "TargetEntryPoint": 1,
-        "TargetZone": "Bibby's Bear Cave"
-      },
-      {
-        "X": 0,
-        "Y": -1,
-        "Z": 0,
-        "TargetEntryPoint": 8,
-        "TargetZone": "Silverspire Mountains"
       }
     ],
     "Nithalak's Ancient Crypt": [

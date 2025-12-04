@@ -508,16 +508,6 @@
                 "name": "Mana_Mastery",
                 "level_learned": 101,
                 "cap": 1
-            },
-            {
-                "name": "Test_Nuke",
-                "level_learned": 105,
-                "cap": 1
-            },
-            {
-                "name": "Test_Debuff",
-                "level_learned": 105,
-                "cap": 1
             }
         ],
         "armor_levels": {
@@ -797,11 +787,6 @@
                 "name": "Arch_Shield_of_Spirit",
                 "level_learned": 101,
                 "cap": 5
-            },
-            {
-                "name": "Rune_of_Supremacy",
-                "level_learned": 101,
-                "cap": 1
             }
         ],
         "armor_levels": {
@@ -963,16 +948,6 @@
                 "cap": 1
             },
             {
-                "name": "Impenetrability",
-                "level_learned": 101,
-                "cap": 1
-            },
-            {
-                "name": "Absorption",
-                "level_learned": 101,
-                "cap": 1
-            },
-            {
                 "name": "Disempower",
                 "level_learned": 2,
                 "cap": 10
@@ -1093,6 +1068,11 @@
                 "cap": 10
             },
             {
+                "name": "Prismatic_Rune:_Intellect",
+                "level_learned": 90,
+                "cap": 10
+            },
+            {
                 "name": "Rune_of_Guidance",
                 "level_learned": 95,
                 "cap": 10
@@ -1101,6 +1081,11 @@
                 "name": "Rune_of_the_Transcendental",
                 "level_learned": 95,
                 "cap": 10
+            },
+            {
+                "name": "Absorption",
+                "level_learned": 101,
+                "cap": 1
             },
             {
                 "name": "Arch_Shield_of_Spirit",
@@ -1118,7 +1103,7 @@
                 "cap": 1
             },
             {
-                "name": "Rune_of_Supremecy",
+                "name": "Enigmatic_Rune:_Invincibility",
                 "level_learned": 101,
                 "cap": 1
             }
@@ -1457,11 +1442,6 @@
                 "cap": 5
             },
             {
-                "name": "Mass_Purity",
-                "level_learned": 101,
-                "cap": 1
-            },
-            {
                 "name": "Searing_Light",
                 "level_learned": 101,
                 "cap": 1
@@ -1534,6 +1514,11 @@
                 "name": "Enrage",
                 "level_learned": 12,
                 "cap": 3
+            },
+            {
+                "name": "Bash",
+                "level_learned": 18,
+                "cap": 6
             },
             {
                 "name": "Divine_Focus",
@@ -2199,7 +2184,7 @@
             {
                 "name": "Rapid_Attack",
                 "level_learned": 45,
-                "cap": 3
+                "cap": 4
             },
             {
                 "name": "Mastery_of_the_Bow",
@@ -2960,11 +2945,6 @@
                 "cap": 1
             },
             {
-                "name": "Arch_Shield_of_Spirit",
-                "level_learned": 101,
-                "cap": 3
-            },
-            {
                 "name": "Blood_Sacrifice",
                 "level_learned": 105,
                 "cap": 1
@@ -2973,6 +2953,11 @@
                 "name": "Abyssmal_Void",
                 "level_learned": 100,
                 "cap": 10
+            },
+            {
+                "name": "Arch_Carapace_of_Bone",
+                "level_learned": 101,
+                "cap": 5
             }
         ],
         "armor_levels": {

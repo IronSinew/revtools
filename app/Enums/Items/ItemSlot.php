@@ -21,4 +21,5 @@ enum ItemSlot: string implements HasLabel
     case Potion = 'potion';
     case Poison = 'poison';
     case Scroll = 'scroll';
+    case Usable = 'usable';
 }

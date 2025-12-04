@@ -12,4 +12,5 @@ enum ItemType: string implements HasLabel
     case Weapon = 'weapon';
     case Armor = 'armor';
     case Usable = 'usable';
+    case Container = 'container';
 }

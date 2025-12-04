@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Quest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class ImportQuestDataController
 {
@@ -15,17 +14,8 @@ class ImportQuestDataController
             'names' => ['required', 'array'],
         ]);
 
-        $questIdsCompleted = [];
-        foreach ($valid['names'] as $name) {
-            $quest = Quest::where('name', Str::trim($name))->first();
-
-            if ($quest) {
-                $questIdsCompleted[] = $quest->id;
-            }
-        }
-
-        return response()->json([
-            'questsCompleted' => $questIdsCompleted,
-        ]);
+        return response()->json(
+            Quest::whereIn('name', $valid['names'])->pluck('id')
+        );
     }
 }

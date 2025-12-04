@@ -216,9 +216,9 @@ const handleQuestImport = async () => {
         })
         .then(({ data }) => {
             _.find(characters.value, { name: character.value.name }).quests =
-                data.questsCompleted;
+                data;
 
-            character.value.quests = data.questsCompleted;
+            character.value.quests = data;
 
             localStorage.setItem(
                 localStorageCharacterKey,

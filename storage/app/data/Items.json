@@ -51069,7 +51069,7 @@
     "ItemEffects": [
       "Item Effect: +2 SPELL:Sermon*of*the*Righteous",
       "Item Effect: +50 tog",
-      "Item Effect: +2 SKILL:Protect",
+      "Item Effect: +1 SKILL:Protect",
       "Item Effect: +2 SKILL:Shields",
       "Item Effect: +12 spellpower"
     ],
@@ -51609,7 +51609,7 @@
     "Location": "",
     "ItemEffects": [
       "Item Effect: +10 haste",
-      "Item Effect: +50 foc",
+      "Item Effect: +40 foc",
       "Item Effect: +1 SPELL:House*of*Light",
       "Item Effect: +10 spellpower",
       "Item Effect: +2 SKILL:Triple*Attack"
@@ -51663,7 +51663,7 @@
     "Location": "",
     "ItemEffects": [
       "Item Effect: +10 haste",
-      "Item Effect: +50 foc",
+      "Item Effect: +40 foc",
       "Item Effect: +1 SPELL:House*of*Light",
       "Item Effect: +10 spellpower",
       "Item Effect: +2 SKILL:Triple*Attack"
@@ -51718,7 +51718,8 @@
     "ItemEffects": [
       "Item Effect: +3 absorbcap",
       "Item Effect: +50 foc",
-      "Item Effect: +9 spellpower",
+      "Item Effect: +12 spellpower",
+      "Item Effect: +1 SPELL:House*of*Light",
       "Item Effect: +1 SKILL:Double*Attack",
       "Item Effect: +2 SKILL:Triple*Attack",
       "Item Casts Spell: Dark Heart (Proc Chance: 8%, Req. Level: 100)"
@@ -66508,7 +66509,7 @@
     "ItemEffects": [
       "Item Effect: +50 foc",
       "Item Effect: +15 spellpower",
-      "Item Effect: +2 SKILL:Protect",
+      "Item Effect: +1 SKILL:Protect",
       "Item Effect: +2 SKILL:Divine*Focus"
     ],
     "Drops": [],
@@ -68807,8 +68808,8 @@
     "PoisonEffect": "",
     "ScrollEffect": "Arch*Carapace*of*Bone",
     "Description": "",
-    "DroppedBy": "",
-    "Location": "",
+    "DroppedBy": "Greeanjok Inquisitor Darjuk¹, Cult Leader Tarn², Barakhorn the Hopeslayer³, Barakhorn the Hopeslayer⁴, Meelium the Druid Sage⁵, Calick'Gon of the Earth⁶, Lighthouse Keeper⁷, Ghost of Raoras⁸, Barakhorn the Hopeslayer 2⁹, Barakhorn the Hopeslayer Reflection¹⁰, Drogon the Winged Shadow¹¹, Rhaegal the Green Fury¹², The Ghost of Viserion¹³, The Ghost of Rhaegal¹⁴, The Ghost of Drogon¹⁵, Enormous Sea Creature¹⁶, Sidapa¹⁷, Santa's Sack¹⁸",
+    "Location": "¹Greeanjok; ²Deepest Conosiat Mines; ³¹⁰Mirror of Serpolis; ⁴Ruins of Serpolis; ⁵Druid Grove; ⁶Forsaken Wastelands; ⁷Lighthouse; ⁸Spirit Realm; ¹¹¹²¹³¹⁴¹⁵Westeros; ¹⁶Vast Ocean; ¹⁷Undiscovered Landmass",
     "ItemEffects": [
       "Teaches Arch*Carapace*of*Bone (Level 1)"
     ],

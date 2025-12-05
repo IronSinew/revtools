@@ -17,6 +17,7 @@ import {
     watch,
     watchEffect,
 } from "vue";
+import { route } from "ziggy-js";
 
 import ApplicationMark from "@/Components/ApplicationMark.vue";
 import DarkModeButton from "@/Components/DarkModeButton.vue";
@@ -110,6 +111,11 @@ const menuItems = ref([
         label: "Compare Items",
         route: "item.multi",
         routeGroup: "item.multi",
+    },
+    {
+        label: "Gear Planner",
+        route: "gear.planner",
+        routeGroup: "gear.planner",
     },
 ]);
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Base64DecodeImageController;
+use App\Http\Controllers\GearPlannerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MobController;
@@ -24,6 +25,7 @@ Route::resource('region', RegionController::class)->only(['index', 'show']);
 
 Route::post('/search-simple', SearchSimpleController::class)->name('search.simple');
 Route::get('/multi-item/{items?}', MultiItemController::class)->name('item.multi');
+Route::get('/gear-planner', GearPlannerController::class)->name('gear.planner');
 
 Route::prefix('/mobs')->name('mob.')->group(function () {
     Route::get('/', [MobController::class, 'index'])->name('index');

@@ -334,12 +334,18 @@ const togglePopover = (event, index) => {
                                                 }}</span>
                                             </Link>
                                             <br />
-                                            <span class="ml-2">{{
-                                                (
-                                                    JSON.parse(mob.location) ||
-                                                    []
-                                                ).join(", ")
-                                            }}</span>
+                                            <Link
+                                                v-for="region in mob.regions"
+                                                :key="region.id"
+                                                :href="
+                                                    route('region.show', {
+                                                        region: region.slug,
+                                                        search: mob.name,
+                                                    })
+                                                "
+                                            >
+                                                {{ region.name }} <br />
+                                            </Link>
                                         </div>
                                     </template>
                                 </Fieldset>

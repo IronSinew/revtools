@@ -90,9 +90,11 @@ namespace App\Models{
  * @property array<array-key, mixed>|null $drops
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Pivots\MobRoom|\App\Models\Pivots\ItemMob|null $pivot
+ * @property-read \App\Models\Pivots\MobRoom|\App\Models\Pivots\MobRegion|\App\Models\Pivots\ItemMob|null $pivot
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Item> $items
  * @property-read int|null $items_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Region> $regions
+ * @property-read int|null $regions_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Room> $rooms
  * @property-read int|null $rooms_count
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Mob newModelQuery()
@@ -165,6 +167,23 @@ namespace App\Models\Pivots{
  */
 	#[\AllowDynamicProperties]
 	class IdeHelperItemRoom {}
+}
+
+namespace App\Models\Pivots{
+/**
+ * @property int $id
+ * @property int $mob_id
+ * @property int $region_id
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MobRegion newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MobRegion newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MobRegion query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MobRegion whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MobRegion whereMobId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MobRegion whereRegionId($value)
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperMobRegion {}
 }
 
 namespace App\Models\Pivots{

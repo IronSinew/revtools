@@ -39474,7 +39474,7 @@
       "FileName": "Drakkarloch.wdt",
       "FileKey": "Drakkarloch",
       "Version": "2.00",
-      "TotalRooms": 733,
+      "TotalRooms": 732,
       "Rooms": {
         "0": {
           "RoomId": 0,
@@ -53921,8 +53921,8 @@
           "Description": "",
           "ColorCode": "",
           "TerrainColor": "purple",
-          "X": -24,
-          "Y": 38,
+          "X": 0,
+          "Y": -7,
           "Z": 0,
           "ExitNorth": false,
           "ExitSouth": false,
@@ -59754,35 +59754,12 @@
           "IsZoneExit": false,
           "ExitToZone": "",
           "ExitToEntryPoint": 0
-        },
-        "732": {
-          "RoomId": 732,
-          "Name": "The City Ramparts",
-          "Description": "",
-          "ColorCode": "",
-          "TerrainColor": "grey40",
-          "X": 0,
-          "Y": -7,
-          "Z": 0,
-          "ExitNorth": false,
-          "ExitSouth": false,
-          "ExitEast": true,
-          "ExitWest": true,
-          "ExitUp": false,
-          "ExitDown": false,
-          "ConnectedRooms": [],
-          "Npcs": [],
-          "RawExitFlags": "nnyynn",
-          "RawConnections": "",
-          "IsZoneExit": false,
-          "ExitToZone": "",
-          "ExitToEntryPoint": 0
         }
       },
-      "MinX": -24,
+      "MinX": -20,
       "MaxX": 16,
       "MinY": -23,
-      "MaxY": 38,
+      "MaxY": 24,
       "MinZ": -1,
       "MaxZ": 1
     },
@@ -323830,20 +323807,6 @@
       "MinZ": 0,
       "MaxZ": 2
     },
-    "Western_Drakkarloch_Mines": {
-      "ZoneName": "Western Drakkarloch Mines",
-      "FileName": "Western_Drakkarloch_Mines.wdt",
-      "FileKey": "Western_Drakkarloch_Mines",
-      "Version": "5.00",
-      "TotalRooms": 0,
-      "Rooms": {},
-      "MinX": 0,
-      "MaxX": 0,
-      "MinY": 0,
-      "MaxY": 0,
-      "MinZ": 0,
-      "MaxZ": 0
-    },
     "western_foothills": {
       "ZoneName": "Western Epiach Foothills",
       "FileName": "western_foothills.wdt",
@@ -350015,8 +349978,34 @@
         "EntryPointNumber": 6
       }
     ],
-    "Western Drakkarloch Mines": [],
-    "The Heart of the Mountain": [],
+    "Western Drakkarloch Mines": [
+      {
+        "X": 0,
+        "Y": 0,
+        "Z": 0,
+        "EntryPointNumber": 0
+      },
+      {
+        "X": -21,
+        "Y": -3,
+        "Z": -2,
+        "EntryPointNumber": 1
+      }
+    ],
+    "The Heart of the Mountain": [
+      {
+        "X": 0,
+        "Y": 0,
+        "Z": 0,
+        "EntryPointNumber": 0
+      },
+      {
+        "X": 2,
+        "Y": 0,
+        "Z": 2,
+        "EntryPointNumber": 1
+      }
+    ],
     "Dragonspire Ascent": [
       {
         "X": 0,
@@ -351955,8 +351944,31 @@
         "TargetZone": "The Pilgrim's Road"
       }
     ],
-    "Western Drakkarloch Mines": [],
-    "The Heart of the Mountain": [],
+    "Western Drakkarloch Mines": [
+      {
+        "X": 1,
+        "Y": 0,
+        "Z": 0,
+        "TargetEntryPoint": 3,
+        "TargetZone": "Drakkarloch"
+      },
+      {
+        "X": -22,
+        "Y": -3,
+        "Z": -2,
+        "TargetEntryPoint": 0,
+        "TargetZone": "The Heart of the Mountain"
+      }
+    ],
+    "The Heart of the Mountain": [
+      {
+        "X": 0,
+        "Y": 0,
+        "Z": -1,
+        "TargetEntryPoint": 1,
+        "TargetZone": "Western Drakkarloch Mines"
+      }
+    ],
     "Dragonspire Ascent": [
       {
         "X": 0,

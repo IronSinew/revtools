@@ -64,11 +64,13 @@ class RegionSeeder extends Seeder
 
         $file = storage_path('app/data/RegionMapData.json');
         foreach (JsonParser::parse($file) as $key => $value) {
-            Region::where('name', $key)->first()
-                ->update([
+            $region = Region::where('name', $key)->first();
+            if ($region) {
+                $region->update([
                     'coordinates' => new RegionPosition($value['X'], $value['Y'], $value['Z']),
                     'color' => RoomColor::from($value['Color'])->toColor(),
                 ]);
+            }
         }
     }
 }

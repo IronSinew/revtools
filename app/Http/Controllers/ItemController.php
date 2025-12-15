@@ -46,7 +46,7 @@ class ItemController extends Controller
                         $query->orderBy($key, $direction);
                     }
                 })
-                ->with('mobs')
+                ->with('mobs.regions')
                 ->when(! $request->input('sort'), fn ($query, $filters) => $query->orderBy('id', 'DESC'))
                 ->paginate(
                     perPage: $request->get('rows') ?? \Config::get('database.paginate.per_page'),

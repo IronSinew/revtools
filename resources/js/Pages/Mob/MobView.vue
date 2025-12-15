@@ -17,13 +17,6 @@ const props = defineProps({
             return [];
         },
     },
-    regions: {
-        type: [Array, Object],
-        required: false,
-        default() {
-            return [];
-        },
-    },
 });
 
 const breadcrumbs = ref([
@@ -78,9 +71,12 @@ const breadcrumbs = ref([
                             </div>
                         </div>
                     </div>
-                    <Fieldset v-if="regions.length" legend="Locations">
+                    <Fieldset
+                        v-if="props.mob.regions.length"
+                        legend="Locations"
+                    >
                         <template
-                            v-for="region in props.regions"
+                            v-for="region in props.mob.regions"
                             :key="region.id"
                         >
                             <div class="mt-2">

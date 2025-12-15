@@ -6,6 +6,7 @@ use App\Enums\Mobs\MobTier;
 use App\Enums\Mobs\MobType;
 use App\Enums\SearchableType;
 use App\Models\Pivots\ItemMob;
+use App\Models\Pivots\MobRegion;
 use App\Models\Pivots\MobRoom;
 use App\ValueObjects\Mobs\MobDeprecatedData;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -83,5 +84,11 @@ class Mob extends BaseModel
     {
         return $this->belongsToMany(Room::class)
             ->using(MobRoom::class);
+    }
+
+    public function regions(): BelongsToMany
+    {
+        return $this->belongsToMany(Region::class)
+            ->using(MobRegion::class);
     }
 }

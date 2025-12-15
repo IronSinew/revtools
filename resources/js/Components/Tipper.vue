@@ -156,7 +156,11 @@ const tooltipHtml = computed(() => {
                 </div>
             </Fieldset>
 
-            <Fieldset v-if="data.effects?.length" legend="Effects" class="mt-4 q1">
+            <Fieldset
+                v-if="data.effects?.length"
+                legend="Effects"
+                class="mt-4 q1"
+            >
                 <div>
                     <template v-for="effect in data.effects">
                         <div
@@ -175,7 +179,11 @@ const tooltipHtml = computed(() => {
                 </div>
             </Fieldset>
 
-            <Fieldset v-if="data.mobs?.length" legend="Dropped By" class="mt-4 q1">
+            <Fieldset
+                v-if="data.mobs?.length"
+                legend="Dropped By"
+                class="mt-4 q1"
+            >
                 <div>
                     <template v-for="mob in data.mobs" :key="`mobs-${mob.id}`">
                         <div class="mt-2">

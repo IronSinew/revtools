@@ -696,7 +696,7 @@ const getMobOrItemFromName = (value) => {
                                 </p>
                                 <p
                                     v-if="mob.tier !== MobTier.Normal.value"
-                                    class="text-red-500"
+                                    class="text-red-500 capitalize"
                                 >
                                     {{ mob.tier }}
                                 </p>

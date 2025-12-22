@@ -4715,15 +4715,15 @@
         },
         "124": {
           "RoomId": 124,
-          "Name": "The Drakkari Protectorate Embassy",
-          "Description": "Port City of Atlaand",
+          "Name": "Drakkarloch Portal",
+          "Description": "You went bye-bye!",
           "ColorCode": "",
-          "TerrainColor": "brown",
+          "TerrainColor": "RottenMauve",
           "X": 18,
           "Y": 13,
           "Z": 0,
           "ExitNorth": false,
-          "ExitSouth": true,
+          "ExitSouth": false,
           "ExitEast": false,
           "ExitWest": true,
           "ExitUp": false,
@@ -4739,16 +4739,16 @@
               "Quantity": 1
             }
           ],
-          "RawExitFlags": "nynynn",
+          "RawExitFlags": "nnnynn",
           "RawConnections": "3",
-          "IsZoneExit": false,
-          "ExitToZone": "",
-          "ExitToEntryPoint": 0
+          "IsZoneExit": true,
+          "ExitToZone": "Drakkarloch",
+          "ExitToEntryPoint": 7
         },
         "125": {
           "RoomId": 125,
-          "Name": "The Drakkari Protectorate Embassy",
-          "Description": "Port City of Atlaand",
+          "Name": "Before the Drakkarloch Portal",
+          "Description": "Here is the location that the Drakkari opened an Embassy to establish peace and connection with the Majestic Empire. To the East is the Teleporter to transport those who are at peace with the Drakkari.",
           "ColorCode": "",
           "TerrainColor": "brown",
           "X": 17,
@@ -4796,7 +4796,7 @@
         "127": {
           "RoomId": 127,
           "Name": "The Drakkari Protectorate Embassy",
-          "Description": "Port City of Atlaand",
+          "Description": "Here is the location that the Drakkari opened an Embassy to establish peace and connection with the Majestic Empire.",
           "ColorCode": "",
           "TerrainColor": "brown",
           "X": 16,
@@ -4980,7 +4980,7 @@
         "135": {
           "RoomId": 135,
           "Name": "The Drakkari Protectorate Embassy",
-          "Description": "Port City of Atlaand",
+          "Description": "Entry way to the Drakkari Embassy. Here is the location that the Drakkari opened an Embassy to establish peace and connection with the Majestic Empire.",
           "ColorCode": "",
           "TerrainColor": "brown",
           "X": 16,
@@ -5437,7 +5437,7 @@
         "154": {
           "RoomId": 154,
           "Name": "The Drakkari Protectorate Embassy",
-          "Description": "Port City of Atlaand",
+          "Description": "Here is the location that the Drakkari opened an Embassy to establish peace and connection with the Majestic Empire.",
           "ColorCode": "",
           "TerrainColor": "brown",
           "X": 15,
@@ -5483,7 +5483,7 @@
         "156": {
           "RoomId": 156,
           "Name": "The Drakkari Protectorate Embassy",
-          "Description": "Port City of Atlaand",
+          "Description": "Here is the location that the Drakkari opened an Embassy to establish peace and connection with the Majestic Empire.",
           "ColorCode": "",
           "TerrainColor": "brown",
           "X": 16,
@@ -5508,7 +5508,7 @@
         "157": {
           "RoomId": 157,
           "Name": "The Drakkari Protectorate Embassy",
-          "Description": "Port City of Atlaand",
+          "Description": "Here is the location that the Drakkari opened an Embassy to establish peace and connection with the Majestic Empire.",
           "ColorCode": "",
           "TerrainColor": "brown",
           "X": 15,
@@ -5540,7 +5540,7 @@
         "158": {
           "RoomId": 158,
           "Name": "The Drakkari Protectorate Embassy",
-          "Description": "Port City of Atlaand",
+          "Description": "Here is the location that the Drakkari opened an Embassy to establish peace and connection with the Majestic Empire.",
           "ColorCode": "",
           "TerrainColor": "brown",
           "X": 16,
@@ -5572,7 +5572,7 @@
         "159": {
           "RoomId": 159,
           "Name": "The Drakkari Protectorate Embassy",
-          "Description": "Port City of Atlaand",
+          "Description": "Here is the location that the Drakkari opened an Embassy to establish peace and connection with the Majestic Empire.",
           "ColorCode": "",
           "TerrainColor": "brown",
           "X": 17,
@@ -5597,13 +5597,13 @@
         "160": {
           "RoomId": 160,
           "Name": "The Drakkari Protectorate Embassy",
-          "Description": "Port City of Atlaand",
+          "Description": "Here is the location that the Drakkari opened an Embassy to establish peace and connection with the Majestic Empire.",
           "ColorCode": "",
           "TerrainColor": "brown",
           "X": 18,
           "Y": 12,
           "Z": 0,
-          "ExitNorth": true,
+          "ExitNorth": false,
           "ExitSouth": false,
           "ExitEast": false,
           "ExitWest": true,
@@ -5613,7 +5613,7 @@
             3
           ],
           "Npcs": [],
-          "RawExitFlags": "ynnynn",
+          "RawExitFlags": "nnnynn",
           "RawConnections": "3",
           "IsZoneExit": false,
           "ExitToZone": "",
@@ -5622,7 +5622,7 @@
         "161": {
           "RoomId": 161,
           "Name": "The Drakkari Protectorate Embassy",
-          "Description": "Port City of Atlaand",
+          "Description": "Here is the location that the Drakkari opened an Embassy to establish peace and connection with the Majestic Empire.",
           "ColorCode": "",
           "TerrainColor": "brown",
           "X": 17,
@@ -5654,7 +5654,7 @@
         "162": {
           "RoomId": 162,
           "Name": "The Drakkari Protectorate Embassy",
-          "Description": "Port City of Atlaand",
+          "Description": "Here is the location that the Drakkari opened an Embassy to establish peace and connection with the Majestic Empire.",
           "ColorCode": "",
           "TerrainColor": "brown",
           "X": 16,
@@ -5679,7 +5679,7 @@
         "163": {
           "RoomId": 163,
           "Name": "The Drakkari Protectorate Embassy",
-          "Description": "Port City of Atlaand",
+          "Description": "Here is the location that the Drakkari opened an Embassy to establish peace and connection with the Majestic Empire.",
           "ColorCode": "",
           "TerrainColor": "brown",
           "X": 15,
@@ -50147,7 +50147,7 @@
         },
         "373": {
           "RoomId": 373,
-          "Name": "The Drakkarmar Conclave",
+          "Name": "Before the Drakkarloch Portal",
           "Description": "",
           "ColorCode": "",
           "TerrainColor": "LusciousPurp",
@@ -50160,7 +50160,9 @@
           "ExitWest": true,
           "ExitUp": true,
           "ExitDown": false,
-          "ConnectedRooms": [],
+          "ConnectedRooms": [
+            205
+          ],
           "Npcs": [
             {
               "NpcName": "A Drakkamar Apprentice",
@@ -50170,14 +50172,14 @@
             }
           ],
           "RawExitFlags": "nyyyyn",
-          "RawConnections": "",
+          "RawConnections": "205",
           "IsZoneExit": false,
           "ExitToZone": "",
           "ExitToEntryPoint": 0
         },
         "374": {
           "RoomId": 374,
-          "Name": "The Drakkarmar Conclave",
+          "Name": "Drakkari Portal",
           "Description": "",
           "ColorCode": "",
           "TerrainColor": "RottenMauve",
@@ -50201,9 +50203,9 @@
           ],
           "RawExitFlags": "nnnynn",
           "RawConnections": "",
-          "IsZoneExit": false,
-          "ExitToZone": "",
-          "ExitToEntryPoint": 0
+          "IsZoneExit": true,
+          "ExitToZone": "Atlaand",
+          "ExitToEntryPoint": 7
         },
         "375": {
           "RoomId": 375,
@@ -52485,7 +52487,7 @@
           "X": -2,
           "Y": 12,
           "Z": 0,
-          "ExitNorth": false,
+          "ExitNorth": true,
           "ExitSouth": true,
           "ExitEast": false,
           "ExitWest": false,
@@ -52506,10 +52508,10 @@
               "Quantity": 1
             }
           ],
-          "RawExitFlags": "nynnnn",
+          "RawExitFlags": "yynnnn",
           "RawConnections": "1 303 304 305 306",
-          "IsZoneExit": false,
-          "ExitToZone": "",
+          "IsZoneExit": true,
+          "ExitToZone": "Dragonspire Ascent",
           "ExitToEntryPoint": 0
         },
         "465": {
@@ -54195,7 +54197,7 @@
           "Z": 0,
           "ExitNorth": false,
           "ExitSouth": false,
-          "ExitEast": false,
+          "ExitEast": true,
           "ExitWest": true,
           "ExitUp": false,
           "ExitDown": false,
@@ -54214,10 +54216,10 @@
               "Quantity": 1
             }
           ],
-          "RawExitFlags": "nnnynn",
+          "RawExitFlags": "nnyynn",
           "RawConnections": "1 303 304 305 306",
-          "IsZoneExit": false,
-          "ExitToZone": "",
+          "IsZoneExit": true,
+          "ExitToZone": "The Pilgrim's Road",
           "ExitToEntryPoint": 0
         },
         "524": {
@@ -54484,7 +54486,7 @@
           "Y": -8,
           "Z": -1,
           "ExitNorth": true,
-          "ExitSouth": true,
+          "ExitSouth": false,
           "ExitEast": false,
           "ExitWest": true,
           "ExitUp": false,
@@ -54498,7 +54500,7 @@
               "Quantity": 1
             }
           ],
-          "RawExitFlags": "yynynn",
+          "RawExitFlags": "ynnynn",
           "RawConnections": "",
           "IsZoneExit": false,
           "ExitToZone": "",
@@ -55308,7 +55310,7 @@
           "ExitNorth": false,
           "ExitSouth": false,
           "ExitEast": true,
-          "ExitWest": false,
+          "ExitWest": true,
           "ExitUp": false,
           "ExitDown": false,
           "ConnectedRooms": [
@@ -55326,10 +55328,10 @@
               "Quantity": 1
             }
           ],
-          "RawExitFlags": "nnynnn",
+          "RawExitFlags": "nnyynn",
           "RawConnections": "1 303 304 305 306",
-          "IsZoneExit": false,
-          "ExitToZone": "",
+          "IsZoneExit": true,
+          "ExitToZone": "Western Drakkarloch Mines",
           "ExitToEntryPoint": 0
         },
         "567": {
@@ -349770,6 +349772,12 @@
         "Y": 16,
         "Z": 0,
         "EntryPointNumber": 6
+      },
+      {
+        "X": 17,
+        "Y": 13,
+        "Z": 0,
+        "EntryPointNumber": 7
       }
     ],
     "Royal Chessboard": [
@@ -349976,6 +349984,12 @@
         "Y": -11,
         "Z": 0,
         "EntryPointNumber": 6
+      },
+      {
+        "X": -5,
+        "Y": 7,
+        "Z": 0,
+        "EntryPointNumber": 7
       }
     ],
     "Western Drakkarloch Mines": [
@@ -349998,30 +350012,50 @@
         "Y": 0,
         "Z": 0,
         "EntryPointNumber": 0
-      },
-      {
-        "X": 2,
-        "Y": 0,
-        "Z": 2,
-        "EntryPointNumber": 1
       }
     ],
     "Dragonspire Ascent": [
       {
         "X": 0,
+        "Y": -25,
+        "Z": -2,
+        "EntryPointNumber": 0
+      },
+      {
+        "X": 0,
+        "Y": 4,
+        "Z": 1,
+        "EntryPointNumber": 1
+      },
+      {
+        "X": 1,
         "Y": 1,
+        "Z": 0,
+        "EntryPointNumber": 2
+      }
+    ],
+    "Dragonspire Peak": [
+      {
+        "X": 0,
+        "Y": 0,
         "Z": 0,
         "EntryPointNumber": 0
       },
       {
         "X": 0,
-        "Y": -25,
-        "Z": -2,
+        "Y": -10,
+        "Z": 0,
         "EntryPointNumber": 1
       }
     ],
-    "Dragonspire Peak": [],
-    "The Pilgrim's Road": [],
+    "The Pilgrim's Road": [
+      {
+        "X": 0,
+        "Y": 0,
+        "Z": 0,
+        "EntryPointNumber": 0
+      }
+    ],
     "Sol Sanctum": [],
     "Gauntlet of Might": [
       {
@@ -351687,6 +351721,13 @@
         "Z": 0,
         "TargetEntryPoint": 5,
         "TargetZone": "Atlaand"
+      },
+      {
+        "X": 18,
+        "Y": 13,
+        "Z": 0,
+        "TargetEntryPoint": 7,
+        "TargetZone": "Drakkarloch"
       }
     ],
     "Royal Chessboard": [
@@ -351923,11 +351964,11 @@
         "TargetZone": "Western Drakkarloch Mines"
       },
       {
-        "X": -12,
-        "Y": -11,
+        "X": -2,
+        "Y": 13,
         "Z": 0,
-        "TargetEntryPoint": 1,
-        "TargetZone": "Western Drakkarloch Mines"
+        "TargetEntryPoint": 0,
+        "TargetZone": "Dragonspire Ascent"
       },
       {
         "X": 6,
@@ -351942,6 +351983,13 @@
         "Z": 0,
         "TargetEntryPoint": 0,
         "TargetZone": "The Pilgrim's Road"
+      },
+      {
+        "X": -4,
+        "Y": 7,
+        "Z": 0,
+        "TargetEntryPoint": 7,
+        "TargetZone": "Atlaand"
       }
     ],
     "Western Drakkarloch Mines": [
@@ -351972,21 +352020,177 @@
     "Dragonspire Ascent": [
       {
         "X": 0,
-        "Y": 4,
-        "Z": 2,
-        "TargetEntryPoint": 0,
-        "TargetZone": "Dragonspire Peak"
-      },
-      {
-        "X": 0,
         "Y": -26,
         "Z": -2,
         "TargetEntryPoint": 4,
         "TargetZone": "Drakkarloch"
+      },
+      {
+        "X": 0,
+        "Y": 4,
+        "Z": 2,
+        "TargetEntryPoint": 0,
+        "TargetZone": "Dragonspire Peak"
       }
     ],
-    "Dragonspire Peak": [],
-    "The Pilgrim's Road": [],
+    "Dragonspire Peak": [
+      {
+        "X": 0,
+        "Y": 14,
+        "Z": -1,
+        "TargetEntryPoint": 2,
+        "TargetZone": "Dragonspire Ascent"
+      },
+      {
+        "X": 0,
+        "Y": 8,
+        "Z": 0,
+        "TargetEntryPoint": 1,
+        "TargetZone": "Dragonspire Peak"
+      },
+      {
+        "X": 0,
+        "Y": 10,
+        "Z": 0,
+        "TargetEntryPoint": 1,
+        "TargetZone": "Dragonspire Peak"
+      },
+      {
+        "X": 1,
+        "Y": 8,
+        "Z": 0,
+        "TargetEntryPoint": 1,
+        "TargetZone": "Dragonspire Peak"
+      },
+      {
+        "X": 1,
+        "Y": 10,
+        "Z": 0,
+        "TargetEntryPoint": 1,
+        "TargetZone": "Dragonspire Peak"
+      },
+      {
+        "X": 2,
+        "Y": 8,
+        "Z": 0,
+        "TargetEntryPoint": 1,
+        "TargetZone": "Dragonspire Peak"
+      },
+      {
+        "X": 3,
+        "Y": 9,
+        "Z": 0,
+        "TargetEntryPoint": 1,
+        "TargetZone": "Dragonspire Peak"
+      },
+      {
+        "X": 1,
+        "Y": 10,
+        "Z": 0,
+        "TargetEntryPoint": 1,
+        "TargetZone": "Dragonspire Peak"
+      },
+      {
+        "X": 3,
+        "Y": 10,
+        "Z": 0,
+        "TargetEntryPoint": 1,
+        "TargetZone": "Dragonspire Peak"
+      },
+      {
+        "X": 2,
+        "Y": 12,
+        "Z": 0,
+        "TargetEntryPoint": 1,
+        "TargetZone": "Dragonspire Peak"
+      },
+      {
+        "X": 3,
+        "Y": 11,
+        "Z": 0,
+        "TargetEntryPoint": 1,
+        "TargetZone": "Dragonspire Peak"
+      },
+      {
+        "X": 1,
+        "Y": 12,
+        "Z": 0,
+        "TargetEntryPoint": 1,
+        "TargetZone": "Dragonspire Peak"
+      },
+      {
+        "X": -1,
+        "Y": 11,
+        "Z": 0,
+        "TargetEntryPoint": 1,
+        "TargetZone": "Dragonspire Peak"
+      },
+      {
+        "X": -1,
+        "Y": 12,
+        "Z": 0,
+        "TargetEntryPoint": 1,
+        "TargetZone": "Dragonspire Peak"
+      },
+      {
+        "X": -1,
+        "Y": 13,
+        "Z": 0,
+        "TargetEntryPoint": 1,
+        "TargetZone": "Dragonspire Peak"
+      },
+      {
+        "X": 1,
+        "Y": 13,
+        "Z": 0,
+        "TargetEntryPoint": 1,
+        "TargetZone": "Dragonspire Peak"
+      },
+      {
+        "X": -1,
+        "Y": 14,
+        "Z": 0,
+        "TargetEntryPoint": 1,
+        "TargetZone": "Dragonspire Peak"
+      },
+      {
+        "X": 1,
+        "Y": 14,
+        "Z": 0,
+        "TargetEntryPoint": 1,
+        "TargetZone": "Dragonspire Peak"
+      },
+      {
+        "X": 0,
+        "Y": 15,
+        "Z": 0,
+        "TargetEntryPoint": 1,
+        "TargetZone": "Dragonspire Peak"
+      },
+      {
+        "X": -6,
+        "Y": 6,
+        "Z": 0,
+        "TargetEntryPoint": 1,
+        "TargetZone": "Dragonspire Peak"
+      },
+      {
+        "X": 0,
+        "Y": 0,
+        "Z": -1,
+        "TargetEntryPoint": 1,
+        "TargetZone": "Dragonspire Ascent"
+      }
+    ],
+    "The Pilgrim's Road": [
+      {
+        "X": -1,
+        "Y": 0,
+        "Z": 0,
+        "TargetEntryPoint": 5,
+        "TargetZone": "Drakkarloch"
+      }
+    ],
     "Sol Sanctum": [],
     "Gauntlet of Might": [],
     "The Gauntlet": [

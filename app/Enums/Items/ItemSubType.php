@@ -43,4 +43,6 @@ enum ItemSubType: string implements HasLabel
     case Poison = 'poison';
     case Scroll = 'scroll';
     case Usable = 'usable';
+
+    case Unknown = 'unknown';
 }

@@ -170,7 +170,8 @@ class ItemSeeder extends Seeder
             }
         }
 
-        throw new \Exception("Could not find item subtype for: {$typesImploded}");
+        echo "Could not find item subtype for: {$typesImploded}";
+        return ItemSubType::Unknown;
     }
 
     /**

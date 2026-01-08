@@ -171,6 +171,7 @@ class ItemSeeder extends Seeder
         }
 
         echo "Could not find item subtype for: {$typesImploded}";
+
         return ItemSubType::Unknown;
     }
 

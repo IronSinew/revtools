@@ -60651,8 +60651,8 @@
     "PoisonEffect": "",
     "ScrollEffect": "",
     "Description": "",
-    "DroppedBy": "Frostwind the Silverspire Dragon¹, Greeanjok Inquisitor Darjuk², Grand Vizier Straveus³, Dark Disgusting Demon⁴, Warboss Jark⁵, Warlord Greeanjok⁶, Cult Leader Tarn⁷, Barakhorn the Hopeslayer⁸, Barakhorn the Hopeslayer⁹, Barakhorn the Hopeslayer 2¹⁰, Barakhorn the Hopeslayer Reflection¹¹, Blackfang¹², Meelium the Druid Sage¹³, Calick'Gon of the Earth¹⁴, Lighthouse Keeper¹⁵, Leader of Skaan¹⁶, Talos the Lost¹⁷, Talos the Lost¹⁸, Guardian of Sorrows¹⁹, Terminax the Destroyer²⁰, Maestro Gormand²¹, Skull Devourer²², The Shadow Keeper²³, Raoras the Deceiver²⁴, A Pirate Captain²⁵, Enchanted Treasure Chest²⁶, Demon Lord Deg²⁷, Rusalki Harridan²⁸, The Oracle at Serpenlux²⁹, Pot Dealer³⁰, Steel Plated Pumpkin³¹, Ancient Veratine Monolith³², Deposit Box³³, Talos the Lost's Reflection³⁴, Drogon the Winged Shadow³⁵, Rhaegal the Green Fury³⁶, Viserion the White Dragon³⁷, The Ghost of Viserion³⁸, The Ghost of Rhaegal³⁹, The Ghost of Drogon⁴⁰, Daenerys Targaryen⁴¹, Jon Snow⁴², The Spirit of Drogon⁴³, Arya Stark⁴⁴, Tyrion Lannister⁴⁵, Night King⁴⁶, Groundskeeper's Skeleton⁴⁷, Enormous Sea Creature⁴⁸, Sidapa⁴⁹, Imperatrix Apis⁵⁰, Santa's Sack⁵¹",
-    "Location": "¹Silverspire Mountains; ²⁵⁶Greeanjok; ⁷Deepest Conosiat Mines; ⁸¹¹¹⁷³⁴Mirror of Serpolis; ⁹¹⁸Ruins of Serpolis; ¹²Eastern Forest; ¹³Druid Grove; ¹⁴Forsaken Wastelands; ¹⁵Lighthouse; ¹⁶Deserted City of Skaan; ¹⁹²⁰²¹²²²³²⁴Halls of Sorrow; ²⁵Royal Ship; ²⁶Catacombs; ²⁷²⁸Underworld; ²⁹Dragonspire Reach; ³²Root To All Evil; ³⁵³⁶³⁷³⁸³⁹⁴⁰⁴¹⁴²⁴³⁴⁴⁴⁵⁴⁶Westeros; ⁴⁷Animated Graveyard; ⁴⁸Vast Ocean; ⁴⁹Undiscovered Landmass; ⁵⁰The Hive",
+    "DroppedBy": "Frostwind the Silverspire Dragon¹, Greeanjok Inquisitor Darjuk², Grand Vizier Straveus³, Dark Disgusting Demon⁴, Warboss Jark⁵, Warlord Greeanjok⁶, Cult Leader Tarn⁷, Barakhorn the Hopeslayer⁸, Barakhorn the Hopeslayer⁹, Barakhorn the Hopeslayer 2¹⁰, Barakhorn the Hopeslayer Reflection¹¹, Blackfang¹², Meelium the Druid Sage¹³, Calick'Gon of the Earth¹⁴, Lighthouse Keeper¹⁵, Leader of Skaan¹⁶, Talos the Lost¹⁷, Talos the Lost¹⁸, Guardian of Sorrows¹⁹, Terminax the Destroyer²⁰, Maestro Gormand²¹, Skull Devourer²², The Shadow Keeper²³, Raoras the Deceiver²⁴, A Pirate Captain²⁵, Enchanted Treasure Chest²⁶, Demon Lord Deg²⁷, Rusalki Harridan²⁸, The Oracle at Serpenlux²⁹, Pot Dealer³⁰, Steel Plated Pumpkin³¹, Ancient Veratine Monolith³², Deposit Box³³, Talos the Lost's Reflection³⁴, Drogon the Winged Shadow³⁵, Rhaegal the Green Fury³⁶, Viserion the White Dragon³⁷, The Ghost of Viserion³⁸, The Ghost of Rhaegal³⁹, The Ghost of Drogon⁴⁰, Daenerys Targaryen⁴¹, Jon Snow⁴², The Spirit of Drogon⁴³, Arya Stark⁴⁴, Tyrion Lannister⁴⁵, Night King⁴⁶, Groundskeeper's Skeleton⁴⁷, Enormous Sea Creature⁴⁸, Sidapa⁴⁹, Imperatrix Apis⁵⁰, Santa's Sack⁵¹, Krasshinick Scalefist⁵²",
+    "Location": "¹Silverspire Mountains; ²⁵⁶Greeanjok; ⁷Deepest Conosiat Mines; ⁸¹¹¹⁷³⁴Mirror of Serpolis; ⁹¹⁸Ruins of Serpolis; ¹²Eastern Forest; ¹³Druid Grove; ¹⁴Forsaken Wastelands; ¹⁵Lighthouse; ¹⁶Deserted City of Skaan; ¹⁹²⁰²¹²²²³²⁴Halls of Sorrow; ²⁵Royal Ship; ²⁶Catacombs; ²⁷²⁸Underworld; ²⁹Dragonspire Reach; ³²Root To All Evil; ³⁵³⁶³⁷³⁸³⁹⁴⁰⁴¹⁴²⁴³⁴⁴⁴⁵⁴⁶Westeros; ⁴⁷Animated Graveyard; ⁴⁸Vast Ocean; ⁴⁹Undiscovered Landmass; ⁵⁰The Hive; ⁵²The Heart of the Mountain",
     "ItemEffects": [],
     "Drops": [],
     "ProcSpellName": "",
@@ -69431,7 +69431,7 @@
     "Location": "The Hive",
     "ItemEffects": [
       "Item Effect: +1 SKILL:Rampage",
-      "Item Effect: +1 SKILL:Enrage",
+      "Item Effect: +1 SKILL:Shapeshift:*Bear",
       "Item Effect: +10 tog",
       "Item Effect: +3 haste"
     ],

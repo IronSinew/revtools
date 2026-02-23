@@ -34,7 +34,10 @@ class ItemController extends Controller
                         });
                 })
                 ->when($request->input('filters.effective_required_level.value'), fn ($query, $filters) => $query
-                    ->whereBetween('effective_required_level', $request->input('filters.effective_required_level.value'))
+                    ->whereBetween('effective_required_level', collect($request->input('filters.effective_required_level.value'))
+                        ->map(fn (string|int $val) => (int) $val)
+                        ->toArray()
+                    )
                 )
                 ->when($request->input('sort'), function (Builder $query) use ($request) {
                     $sortKeys = collect($request->input('sort'))->pluck('field')->filter()->values()->toArray();

@@ -31,7 +31,10 @@ class MobController extends Controller
 //                        });
 //                })
                 ->when($request->input('filters.level.value'), fn ($query, $filters) => $query
-                    ->whereBetween('level', $request->input('filters.level.value'))
+                    ->whereBetween('level', collect($request->input('filters.level.value'))
+                        ->map(fn (string|int $val) => (int) $val)
+                        ->toArray()
+                    )
                 )
                 ->when($request->input('sort'), function (Builder $query) use ($request) {
                     $sortKeys = collect($request->input('sort'))->pluck('field')->filter()->values()->toArray();

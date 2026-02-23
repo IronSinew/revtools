@@ -1,11 +1,11 @@
 <?php
 
-use Database\Seeders\MobSeeder;
+use Database\Seeders\QuestSeeder;
 use Inertia\Testing\AssertableInertia as Assert;
 
 // Sometimes we can get partial steps on the slider, this ensures levels are cast to an int in that scenario
 test('Quest Search by Level with non-int steps functions', function () {
-    $this->seed(MobSeeder::class);
+    $this->seed(QuestSeeder::class);
 
     $response = $this->get(route('quest.index', [
         'filters' => [

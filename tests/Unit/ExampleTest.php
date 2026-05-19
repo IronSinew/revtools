@@ -18,7 +18,7 @@ use Database\Seeders\RoomSeeder;
 test('that a user is creatable and exists', function () {
     $userFactory = User::factory()->create();
 
-    $user = collect(\DB::select('select * from users where id = ?', [$userFactory->id]))->first();
+    $user = collect(DB::select('select * from users where id = ?', [$userFactory->id]))->first();
     expect($user->id === $userFactory->id)->toBeTrue();
 });
 

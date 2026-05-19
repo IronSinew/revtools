@@ -50,7 +50,7 @@ class Room extends BaseModel
         return $this->belongsTo(Region::class);
     }
 
-    public function exitRegion(): belongsTo
+    public function exitRegion(): BelongsTo
     {
         return $this->belongsTo(Region::class, 'exit_region_id');
     }

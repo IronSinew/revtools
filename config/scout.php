@@ -1,5 +1,10 @@
 <?php
 
+use App\Models\Item;
+use App\Models\Mob;
+use App\Models\Quest;
+use App\Models\Region;
+
 return [
 
     /*
@@ -174,7 +179,7 @@ return [
             'retry_interval_seconds' => env('TYPESENSE_RETRY_INTERVAL_SECONDS', 1),
         ],
         'model-settings' => [
-            \App\Models\Item::class => [
+            Item::class => [
                 'collection-schema' => [
                     'fields' => [
                         [
@@ -210,7 +215,7 @@ return [
                     'query_by' => 'name',
                 ],
             ],
-            \App\Models\Quest::class => [
+            Quest::class => [
                 'collection-schema' => [
                     'fields' => [
                         [
@@ -241,7 +246,7 @@ return [
                     'query_by' => 'name',
                 ],
             ],
-            \App\Models\Mob::class => [
+            Mob::class => [
                 'collection-schema' => [
                     'fields' => [
                         [
@@ -272,7 +277,7 @@ return [
                     'query_by' => 'name',
                 ],
             ],
-            \App\Models\Region::class => [
+            Region::class => [
                 'collection-schema' => [
                     'fields' => [
                         [

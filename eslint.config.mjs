@@ -1,27 +1,17 @@
+import { defineConfig } from "eslint/config";
 import vue from "eslint-plugin-vue";
+import vueParser from "vue-eslint-parser";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import prettier from "eslint-plugin-prettier";
 import globals from "globals";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
 import js from "@eslint/js";
-import { FlatCompat } from "@eslint/eslintrc";
 import jsdoc from "eslint-plugin-jsdoc";
+import eslintConfigPrettier from "eslint-config-prettier/flat";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all,
-});
-
-export default [
-    ...compat.extends(
-        "eslint:recommended",
-        "plugin:vue/recommended",
-        "prettier",
-    ),
+export default defineConfig([
+    js.configs.recommended,
+    ...vue.configs['flat/strongly-recommended'],
+    eslintConfigPrettier,
     {
         plugins: {
             vue,
@@ -31,6 +21,7 @@ export default [
         },
 
         languageOptions: {
+            parser: vueParser,
             globals: {
                 ...globals.browser,
                 visit: "readonly",
@@ -114,4 +105,4 @@ export default [
             ],
         },
     },
-];
+]);
